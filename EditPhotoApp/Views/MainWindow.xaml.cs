@@ -1,3 +1,5 @@
+using EditPhotoApp.Views.MainWindowComponents;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -23,14 +25,16 @@ namespace EditPhotoApp
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        AppWindow m_appWindow;
+
         public MainWindow()
         {
             this.InitializeComponent();
+            this.ToolsComponentFrame.Navigate(typeof(ToolsListComponent));
+            this.ToolUseComponentFrame.Navigate(typeof(ToolUseComponent));
+            this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));  
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
-        }
+        
     }
 }

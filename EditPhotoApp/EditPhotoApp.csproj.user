@@ -11,5 +11,14 @@
     <None Update="Readme.md">
       <SubType>Component</SubType>
     </None>
+    <Page Update="Views\MainWindowComponents\ImageEditComponent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindowComponents\ToolUseComponent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindowComponents\ToolsListComponent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

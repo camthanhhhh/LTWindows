@@ -12,6 +12,11 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Views\MainWindowComponents\ImageEditComponent.xaml" />
+    <None Remove="Views\MainWindowComponents\ToolsListComponent.xaml" />
+    <None Remove="Views\MainWindowComponents\ToolUseComponent.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -40,8 +45,22 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="DAO\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MainWindowComponents\ImageEditComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MainWindowComponents\ToolUseComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MainWindowComponents\ToolsListComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

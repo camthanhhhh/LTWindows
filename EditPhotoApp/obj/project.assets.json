@@ -1284,23 +1284,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\win10\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\00HOCHANH\\2024-2025\\Lập trình Windows\\Project\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\Source\\Repos\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
       "projectName": "EditPhotoApp",
-      "projectPath": "D:\\00HOCHANH\\2024-2025\\Lập trình Windows\\Project\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
-      "packagesPath": "C:\\Users\\win10\\.nuget\\packages\\",
-      "outputPath": "D:\\00HOCHANH\\2024-2025\\Lập trình Windows\\Project\\LTWindows\\EditPhotoApp\\obj\\",
+      "projectPath": "C:\\Users\\ADMIN\\Source\\Repos\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ADMIN\\Source\\Repos\\camthanhhhh\\LTWindows\\EditPhotoApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\win10\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1309,7 +1309,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

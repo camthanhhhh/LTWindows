@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="EditPhotoApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +7,86 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid Background="#f5f5dc">
+        <!-- File Bar at the Top -->
+        <Grid Height="40" VerticalAlignment="Top" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side - File and Arrow -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                <TextBlock Text="File" Foreground="White" VerticalAlignment="Center" Padding="10,0"/>
+                <TextBlock Text="&#10226;" FontSize="16" Foreground="White" VerticalAlignment="Center" Padding="10,0"/>
+            </StackPanel>
+
+            <!-- Right Side - Control Buttons -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Button Width="40" Height="30" Content="🌙" Background="Transparent" Foreground="White"/>
+                <Button Width="40" Height="30" Content="👤" Background="Transparent" Foreground="White"/>
+                <Button Width="40" Height="30" Content="❌" Background="Transparent" Foreground="Red"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main Content -->
+        <Grid Margin="10,50,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="150"/>
+                <!-- Điều chỉnh cột chính để chiếm không gian lớn -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side Panel with Image -->
+            <StackPanel Grid.Column="0"  Orientation="Vertical">
+                <!-- New Image Frame -->
+                <StackPanel VerticalAlignment="Top" Height="250" Width="200" Background="White" >
+
+                    <Image Name="extraImage" Width="150" Height="150" Source="/Assets/StoreLogo.png" Stretch="UniformToFill" Margin="25"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Sidebar for Tools -->
+            <StackPanel Grid.Column="1" Margin="10" Orientation="Vertical" Background="Black">
+                <!-- Vertical ToolBar for Editing
+                <StackPanel VerticalAlignment="Top" Width="Auto"  Orientation="Vertical" Margin="10">
+                    <Button Height="40" Content="📐 Crop" Background="Transparent" Foreground="White"/>
+                    <Button Height="40" Content="✂ Resize" Background="Transparent" Foreground="White"/>
+                    <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/>
+                    <Button Height="40" Content="🖌 Brush" Background="Transparent" Foreground="White"/>
+                    <Button Height="40" Content="🧹 Reset" Background="Transparent" Foreground="White"/>
+                </StackPanel> -->
+                <Frame x:Name="ToolsComponentFrame" />
+
+            </StackPanel>
+
+            <!-- Right Side Content (Main Image Display Area) -->
+            <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                <!-- Image Preview -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="220"/>
+                </Grid.RowDefinitions>
+             
+                <!-- Frame for Crop Options -->
+                <!-- Frame for Image Preview - Co giãn theo cả chiều rộng và chiều cao -->
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="2" Margin="10">
+                    <Frame x:Name="ImageEditComponentFrame"></Frame>
+                </Border>
+
+                <!-- Frame for Crop Options -->
+                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="2" Margin="10">
+                    <Frame x:Name="ToolUseComponentFrame" />
+
+                </Border>
+            </Grid>
+
+            <!-- Right Side - Placeholder -->
+            <Grid Grid.Column="3" HorizontalAlignment="Center" Background="Aqua">
+             
+            </Grid>
+        </Grid>
+    </Grid>
 </Window>
