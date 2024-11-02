@@ -133,7 +133,7 @@ namespace EditPhotoApp.ViewModels
             BitmapImage bitmapImage = await ConvertSoftwareBitmapToBitmapImageAsync(softwareBitmap);
 
             // Display in Image control
-            SelectedImage.Source = bitmapImage;
+            //SelectedImage.Source = bitmapImage;
         }
 
         private SoftwareBitmap ConvertToSoftwareBitmap(Bitmap bitmap)
