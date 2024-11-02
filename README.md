@@ -17,7 +17,7 @@ Thông tin nhóm
     + ToolListComponent: danh sách các tool
 ![image](https://github.com/user-attachments/assets/81b6e0aa-f112-48d9-ae26-ff15a2be9362)
 
-    + ToolUseComponent: (đã bỏ, set trực tiếp trong main thay vì tách ra riêng) phần dùng các tool, tui đang định sửa thành frame, nữa khi chọn thì đổi frame từ feature page
+    + ToolUseComponent: (đã bỏ, set trực tiếp trong main thay vì tách ra riêng) 
 - + TopBar: Các thành phần liên quán đến phần topbar
 ![image](https://github.com/user-attachments/assets/b781194f-b5e1-4f8b-85ab-53a552822b90)
 
