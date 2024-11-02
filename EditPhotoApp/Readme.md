@@ -1,8 +1,5 @@
-# LTWindows
-Lập trình Windows - CQ2022/3\
-Thông tin nhóm
-| STT | MSSV     | Họ và tên          |
-|-----|----------|---------------------|
-| 1   | 21120332 | Đào Cẩm Thanh      |
-| 2   | 21120346 | Trương Minh Triết   |
-| 3   | 21120618 | Trần Tấn Sang       |
+﻿# App được build theo mô hình 3 layers
+*Tầng giao diện -> tầng nghiệp vụ -> tầng dữ liệu*\
+Tầng giao diện: Views\
+Tầng nghiệp vụ: Services, Models, ViewModels\
+Tầng dữ liệu: DAO

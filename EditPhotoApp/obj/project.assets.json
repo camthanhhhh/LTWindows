@@ -2,35 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0-windows10.0.19041": {
-      "Microsoft.Graphics.Win2D/1.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.WindowsAppSDK": "1.6.240923002"
-        },
-        "compile": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "build": {
-          "build/net6.0-windows10.0.19041.0/Microsoft.Graphics.Win2D.targets": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll": {
-            "assetType": "native",
-            "rid": "win-arm64"
-          },
-          "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          }
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2651.64": {
         "type": "package",
         "build": {
@@ -48,28 +19,6 @@
           "runtimes/win-x86/native/WebView2Loader.dll": {
             "assetType": "native",
             "rid": "win-x86"
-          }
-        }
-      },
-      "Microsoft.Win32.SystemEvents/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "assetType": "runtime",
-            "rid": "win"
           }
         }
       },
@@ -200,46 +149,9 @@
             "rid": "win-x86"
           }
         }
-      },
-      "System.Drawing.Common/8.0.10": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
       }
     },
     "net8.0-windows10.0.19041/win-arm64": {
-      "Microsoft.Graphics.Win2D/1.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.WindowsAppSDK": "1.6.240923002"
-        },
-        "compile": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "native": {
-          "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll": {}
-        },
-        "build": {
-          "build/net6.0-windows10.0.19041.0/Microsoft.Graphics.Win2D.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2651.64": {
         "type": "package",
         "native": {
@@ -247,22 +159,6 @@
         },
         "build": {
           "build/Microsoft.Web.WebView2.targets": {}
-        }
-      },
-      "Microsoft.Win32.SystemEvents/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Windows.SDK.BuildTools/10.0.22621.756": {
@@ -381,46 +277,9 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
-      },
-      "System.Drawing.Common/8.0.10": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
       }
     },
     "net8.0-windows10.0.19041/win-x64": {
-      "Microsoft.Graphics.Win2D/1.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.WindowsAppSDK": "1.6.240923002"
-        },
-        "compile": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "native": {
-          "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll": {}
-        },
-        "build": {
-          "build/net6.0-windows10.0.19041.0/Microsoft.Graphics.Win2D.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2651.64": {
         "type": "package",
         "native": {
@@ -428,22 +287,6 @@
         },
         "build": {
           "build/Microsoft.Web.WebView2.targets": {}
-        }
-      },
-      "Microsoft.Win32.SystemEvents/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Windows.SDK.BuildTools/10.0.22621.756": {
@@ -562,46 +405,9 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
-      },
-      "System.Drawing.Common/8.0.10": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
       }
     },
     "net8.0-windows10.0.19041/win-x86": {
-      "Microsoft.Graphics.Win2D/1.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.WindowsAppSDK": "1.6.240923002"
-        },
-        "compile": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll": {}
-        },
-        "native": {
-          "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll": {}
-        },
-        "build": {
-          "build/net6.0-windows10.0.19041.0/Microsoft.Graphics.Win2D.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2651.64": {
         "type": "package",
         "native": {
@@ -609,22 +415,6 @@
         },
         "build": {
           "build/Microsoft.Web.WebView2.targets": {}
-        }
-      },
-      "Microsoft.Win32.SystemEvents/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Windows.SDK.BuildTools/10.0.22621.756": {
@@ -743,57 +533,10 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
-      },
-      "System.Drawing.Common/8.0.10": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
       }
     }
   },
   "libraries": {
-    "Microsoft.Graphics.Win2D/1.3.0": {
-      "sha512": "Jj5KSGhGjrzUNOt86CLKTvwI+Ez/OmpiwTn8X1Xf5h5Ek+UWV2PQCvFjmpJegeQi17KNVjCCQITPhuphJH31Hw==",
-      "type": "package",
-      "path": "microsoft.graphics.win2d/1.3.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Win2d.githash.txt",
-        "build/Win2D.common.targets",
-        "build/native/Microsoft.Graphics.Win2D.targets",
-        "build/net45/Microsoft.Graphics.Win2D.targets",
-        "build/net6.0-windows10.0.19041.0/Microsoft.Graphics.Win2D.targets",
-        "build/win10/Microsoft.Graphics.Win2D.targets",
-        "icon.png",
-        "include/Microsoft.Graphics.Canvas.native.h",
-        "include/arm64/Microsoft.Graphics.Canvas.h",
-        "include/x64/Microsoft.Graphics.Canvas.h",
-        "include/x86/Microsoft.Graphics.Canvas.h",
-        "lib/net45/Microsoft.Graphics.Canvas.winmd",
-        "lib/net6.0-windows10.0.19041.0/Microsoft.Graphics.Canvas.Interop.dll",
-        "lib/uap10.0/Microsoft.Graphics.Canvas.winmd",
-        "microsoft.graphics.win2d.1.3.0.nupkg.sha512",
-        "microsoft.graphics.win2d.nuspec",
-        "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll",
-        "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll",
-        "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll"
-      ]
-    },
     "Microsoft.Web.WebView2/1.0.2651.64": {
       "sha512": "f5sc/vcAoTCTEW7Nqzp4galAuTRguZViw8ksn+Nx2uskEBPm0/ubzy6gVjvXS/P96jLS89C8T9I0hPc417xpNg==",
       "type": "package",
@@ -885,41 +628,6 @@
         "tools/wv2winrt/wv2winrt.xml",
         "tools/wv2winrt/zh-Hans/System.CommandLine.resources.dll",
         "tools/wv2winrt/zh-Hant/System.CommandLine.resources.dll"
-      ]
-    },
-    "Microsoft.Win32.SystemEvents/8.0.0": {
-      "sha512": "9opKRyOKMCi2xJ7Bj7kxtZ1r9vbzosMvRrdEhVhDz8j8MoBGgB+WmC94yH839NPH+BclAjtQ/pyagvi/8gDLkw==",
-      "type": "package",
-      "path": "microsoft.win32.systemevents/8.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
-        "lib/net462/Microsoft.Win32.SystemEvents.dll",
-        "lib/net462/Microsoft.Win32.SystemEvents.xml",
-        "lib/net6.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net6.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net7.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net7.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
-        "microsoft.win32.systemevents.8.0.0.nupkg.sha512",
-        "microsoft.win32.systemevents.nuspec",
-        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.xml",
-        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
-        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
-        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Windows.SDK.BuildTools/10.0.22621.756": {
@@ -1567,87 +1275,46 @@
         "tools/x64/GenXbf.dll",
         "tools/x86/GenXbf.dll"
       ]
-    },
-    "System.Drawing.Common/8.0.10": {
-      "sha512": "MdajRp3P+FOlThgY6FBjAqnmLiVl5t2yWEC/2AsDMqx1zYbJG3G5TnscFBQ4obqcaGqvN5UnhQHSFaJFG2HftQ==",
-      "type": "package",
-      "path": "system.drawing.common/8.0.10",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/System.Drawing.Common.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net462/System.Drawing.Common.dll",
-        "lib/net462/System.Drawing.Common.pdb",
-        "lib/net462/System.Drawing.Common.xml",
-        "lib/net6.0/System.Drawing.Common.dll",
-        "lib/net6.0/System.Drawing.Common.pdb",
-        "lib/net6.0/System.Drawing.Common.xml",
-        "lib/net7.0/System.Drawing.Common.dll",
-        "lib/net7.0/System.Drawing.Common.pdb",
-        "lib/net7.0/System.Drawing.Common.xml",
-        "lib/net8.0/System.Drawing.Common.dll",
-        "lib/net8.0/System.Drawing.Common.pdb",
-        "lib/net8.0/System.Drawing.Common.xml",
-        "lib/netstandard2.0/System.Drawing.Common.dll",
-        "lib/netstandard2.0/System.Drawing.Common.pdb",
-        "lib/netstandard2.0/System.Drawing.Common.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "system.drawing.common.8.0.10.nupkg.sha512",
-        "system.drawing.common.nuspec",
-        "useSharedDesignerContext.txt"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.19041": [
-      "Microsoft.Graphics.Win2D >= 1.3.0",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.22621.756",
-      "Microsoft.WindowsAppSDK >= 1.6.240923002",
-      "System.Drawing.Common >= 8.0.10"
+      "Microsoft.WindowsAppSDK >= 1.6.240923002"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Users\\THUY TRANG\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Code Folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+      "projectUniqueName": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj",
       "projectName": "EditPhotoApp",
-      "projectPath": "E:\\Code Folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "E:\\Code Folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\obj\\",
+      "projectPath": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj",
+      "packagesPath": "C:\\Users\\THUY TRANG\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\THUY TRANG\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0-windows10.0.19041.0"
+        "net6.0-windows10.0.19041.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0-windows10.0.19041": {
-          "targetAlias": "net8.0-windows10.0.19041.0",
+          "targetAlias": "net6.0-windows10.0.19041.0",
           "projectReferences": {}
         }
       },
@@ -1664,12 +1331,8 @@
     },
     "frameworks": {
       "net8.0-windows10.0.19041": {
-        "targetAlias": "net8.0-windows10.0.19041.0",
+        "targetAlias": "net6.0-windows10.0.19041.0",
         "dependencies": {
-          "Microsoft.Graphics.Win2D": {
-            "target": "Package",
-            "version": "[1.3.0, )"
-          },
           "Microsoft.Windows.SDK.BuildTools": {
             "target": "Package",
             "version": "[10.0.22621.756, )"
@@ -1677,10 +1340,6 @@
           "Microsoft.WindowsAppSDK": {
             "target": "Package",
             "version": "[1.6.240923002, )"
-          },
-          "System.Drawing.Common": {
-            "target": "Package",
-            "version": "[8.0.10, )"
           }
         },
         "imports": [
@@ -1697,43 +1356,43 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.19041.44, 10.0.19041.44]"
+            "version": "[10.0.19041.38, 10.0.19041.38]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.10, 8.0.10]"
+            "version": "[8.0.8, 8.0.8]"
           }
         ],
         "frameworkReferences": {
@@ -1744,7 +1403,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

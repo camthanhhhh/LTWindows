@@ -11,9 +11,6 @@
     <None Update="Readme.md">
       <SubType>Component</SubType>
     </None>
-    <Page Update="Views\FeaturePage\BrightnessAndContrastPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Views\MainWindowComponents\ImageEditComponent.xaml">
       <SubType>Designer</SubType>
     </Page>

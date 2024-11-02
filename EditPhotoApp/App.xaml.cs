@@ -16,6 +16,9 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
 namespace EditPhotoApp
 {
     /// <summary>
@@ -27,8 +30,6 @@ namespace EditPhotoApp
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public static MainWindow MainWindow { get; private set; }
-
         public App()
         {
             this.InitializeComponent();
@@ -40,8 +41,10 @@ namespace EditPhotoApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            MainWindow = new MainWindow(); // Gán MainWindow cho App.MainWindow
-            MainWindow.Activate();
+            m_window = new MainWindow();
+            m_window.Activate();
         }
+
+        private Window m_window;
     }
 }

@@ -10,13 +10,10 @@
     >
 
         <StackPanel VerticalAlignment="Top" Width="Auto"  Orientation="Vertical" Margin="10">
-        <Button Height="40" Content="☼ Brightness and Contrast" Background="Transparent" Foreground="White"/>
-
-        <Button Height="40" Content="📐 Crop" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="📐 Crop" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="✂ Resize" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🖌 Brush" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🧹 Reset" Background="Transparent" Foreground="White"/>
-        
-    </StackPanel>
+        </StackPanel>
 </Page>
