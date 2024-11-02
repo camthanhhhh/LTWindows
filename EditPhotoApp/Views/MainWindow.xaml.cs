@@ -26,7 +26,7 @@ namespace EditPhotoApp
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        public ToolUseComponent ToolUsePage => ToolUseComponentFrame.Content as ToolUseComponent;
+        //public ToolUseComponent ToolUsePage => ToolUseComponentFrame.Content as ToolUseComponent;
 
         public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
 

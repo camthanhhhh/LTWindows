@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="Views\FeaturePage\BrightnessAndContrastPage.xaml" />
     <None Remove="Views\FeaturePage\ExportOptionsPage.xaml" />
+    <None Remove="Views\FeaturePage\Shapes.xaml" />
     <None Remove="Views\MainWindowComponents\ImageEditComponent.xaml" />
     <None Remove="Views\MainWindowComponents\ToolsListComponent.xaml" />
     <None Remove="Views\MainWindowComponents\TopBarComponent.xaml" />
@@ -49,6 +50,11 @@
   <ItemGroup>
     <Folder Include="DAO\" />
     <Folder Include="Views\TopBar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\FeaturePage\Shapes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\FeaturePage\BrightnessAndContrastPage.xaml">

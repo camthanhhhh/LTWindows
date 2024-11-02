@@ -33,6 +33,35 @@
             <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🖌 Brush" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🧹 Reset" Background="Transparent" Foreground="White"/>
-        
+        <!-- Insert Picture Button -->
+        <Button x:Name="InsertPictureButton" Height="40" Background="Transparent" Foreground="White" Click="InsertPictureButton_Click">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="📷" FontSize="14" VerticalAlignment="Center" Margin="5"/>
+
+                <TextBlock Grid.Column="1" Text="Insert Picture" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+            </Grid>
+        </Button>
+
+        <!-- Insert Shapes Button -->
+        <Button x:Name="InsertShapesButton" Height="40" Background="Transparent" Foreground="White" Click="InsertShapesButton_Click">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="🔺" FontSize="14" VerticalAlignment="Center" Margin="5"/>
+
+                <TextBlock Grid.Column="1" Text="Insert Shapes" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+            </Grid>
+        </Button>
+        <Canvas x:Name="DrawingCanvas" Background="Transparent" Width="400" Height="400">
+            <!-- Các hình và ảnh sẽ được thêm vào đây -->
+        </Canvas>
     </StackPanel>
 </Page>

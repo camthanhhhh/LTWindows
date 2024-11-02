@@ -11,6 +11,9 @@
     <None Update="Readme.md">
       <SubType>Component</SubType>
     </None>
+    <Page Update="Views\FeaturePage\Shapes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\FeaturePage\BrightnessAndContrastPage.xaml">
       <SubType>Designer</SubType>
     </Page>

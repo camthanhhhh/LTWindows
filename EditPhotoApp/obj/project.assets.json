@@ -1624,11 +1624,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\TestFolder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\New folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
       "projectName": "EditPhotoApp",
-      "projectPath": "E:\\TestFolder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Desktop\\New folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "E:\\TestFolder\\camthanhhhh\\LTWindows\\EditPhotoApp\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Desktop\\New folder\\camthanhhhh\\LTWindows\\EditPhotoApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
