@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EditPhotoApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d014cd914dbc400ccc0903a7bd4ae9e3fe65b19")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb3ef32e4aca2ae9ad90d83ebd1ed31ee7a4b60f")]
 [assembly: System.Reflection.AssemblyProductAttribute("EditPhotoApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EditPhotoApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
