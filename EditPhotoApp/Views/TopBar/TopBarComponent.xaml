@@ -22,14 +22,13 @@
                     Click="FileButton_Click">
                 <Button.Flyout>
                     <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Text="Import"/> 
+                        <MenuFlyoutItem Text="Import" Click="ImportImage_Click"/> 
                         <MenuFlyoutSubItem Text="Export" >
                             <MenuFlyoutItem Text="JPG" Click="ExportButton_Click"/>
                             <MenuFlyoutItem Text="PNG" Click="ExportButton_Click"/>
                             <MenuFlyoutItem Text="BMP" Click="ExportButton_Click"/>
                             <MenuFlyoutItem Text="GIF" Click="ExportButton_Click"/>
                             <MenuFlyoutItem Text="TIFF" Click="ExportButton_Click"/>
-
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </Button.Flyout>
