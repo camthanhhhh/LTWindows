@@ -9,5 +9,5 @@
     mc:Ignorable="d"
     >
 
-        <Image Source="/Assets/cat.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Uniform"/>
+        <Image x:Name="ImageEdit" Source="/Assets/cat.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Uniform"/>
 </Page>

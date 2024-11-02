@@ -13,9 +13,11 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\FeatureWindow\ExportOptionsPage.xaml" />
     <None Remove="Views\MainWindowComponents\ImageEditComponent.xaml" />
     <None Remove="Views\MainWindowComponents\ToolsListComponent.xaml" />
     <None Remove="Views\MainWindowComponents\ToolUseComponent.xaml" />
+    <None Remove="Views\MainWindowComponents\TopBarComponent.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +48,17 @@
     <Folder Include="Models\" />
     <Folder Include="DAO\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\TopBar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\FeatureWindow\ExportOptionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MainWindowComponents\TopBarComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\MainWindowComponents\ImageEditComponent.xaml">

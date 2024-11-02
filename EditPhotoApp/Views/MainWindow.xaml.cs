@@ -26,10 +26,12 @@ namespace EditPhotoApp
     public sealed partial class MainWindow : Window
     {
         AppWindow m_appWindow;
+        public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
 
         public MainWindow()
         {
             this.InitializeComponent();
+            this.TopBarComponentFrame.Navigate(typeof(TopBarComponent));
             this.ToolsComponentFrame.Navigate(typeof(ToolsListComponent));
             this.ToolUseComponentFrame.Navigate(typeof(ToolUseComponent));
             this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));  

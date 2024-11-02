@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +23,8 @@ namespace EditPhotoApp.Views.MainWindowComponents
     /// </summary>
     public sealed partial class ImageEditComponent : Page
     {
+        public Image saveImage => ImageEdit; // 'imageElement' là tên của Image trong XAML.
+
         public ImageEditComponent()
         {
             this.InitializeComponent();
