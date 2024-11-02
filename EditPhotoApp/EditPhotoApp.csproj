@@ -17,7 +17,6 @@
     <None Remove="Views\FeaturePage\ExportOptionsPage.xaml" />
     <None Remove="Views\MainWindowComponents\ImageEditComponent.xaml" />
     <None Remove="Views\MainWindowComponents\ToolsListComponent.xaml" />
-    <None Remove="Views\MainWindowComponents\ToolUseComponent.xaml" />
     <None Remove="Views\MainWindowComponents\TopBarComponent.xaml" />
   </ItemGroup>
 
@@ -68,11 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\MainWindowComponents\ImageEditComponent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\MainWindowComponents\ToolUseComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

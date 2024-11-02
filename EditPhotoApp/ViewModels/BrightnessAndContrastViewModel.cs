@@ -115,6 +115,7 @@ namespace EditPhotoApp.ViewModels
         private Bitmap originalImage;
         public async void UpdateImage(float brightness,  float contrast)
         {
+            
             if (originalImage == null)
             {
                 // Log or handle the error if needed
@@ -133,6 +134,8 @@ namespace EditPhotoApp.ViewModels
             BitmapImage bitmapImage = await ConvertSoftwareBitmapToBitmapImageAsync(softwareBitmap);
 
             // Display in Image control
+            var mainWindow = App.MainWindow;
+            mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
             //SelectedImage.Source = bitmapImage;
         }
 

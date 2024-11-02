@@ -23,7 +23,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
     /// </summary>
     public sealed partial class ImageEditComponent : Page
     {
-        public Image saveImage => ImageEdit; // 'imageElement' là tên của Image trong XAML.
+        public Image saveImage => mainImage; // 'imageElement' là tên của Image trong XAML.
 
         public ImageEditComponent()
         {

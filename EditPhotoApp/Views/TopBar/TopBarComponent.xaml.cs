@@ -37,6 +37,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
         public TopBarComponent()
         {
             this.InitializeComponent();
+            _imageEditComponent = new ImageEditComponent();
         }
         private void FileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -49,7 +50,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
             String rootName = "";
             if (sender is MenuFlyoutItem menuFlyoutItem)
             {
-                rootName = menuFlyoutItem.Name;
+                rootName = menuFlyoutItem.Text;
             }
             exportOptionsViewModel.export(xamlRoot, rootName);
 
@@ -59,6 +60,8 @@ namespace EditPhotoApp.Views.MainWindowComponents
 
         private async void ImportImage_Click(object sender, RoutedEventArgs e)
         {
+            var mainWindow = App.MainWindow;
+
             var picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
@@ -78,11 +81,14 @@ namespace EditPhotoApp.Views.MainWindowComponents
                 {
                     bitmapImage.SetSource(stream);
                 }
+         
+                //if (_imageEditComponent.FindName("mainImage") is Image mainImage)
+                //{
+                //    mainImage.Source = bitmapImage;
+                //}
 
-                if (_imageEditComponent.FindName("mainImage") is Image mainImage)
-                {
-                    mainImage.Source = bitmapImage;
-                }
+                  mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
+          
             }
         }
 

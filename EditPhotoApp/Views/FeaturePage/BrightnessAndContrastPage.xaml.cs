@@ -40,7 +40,7 @@ namespace EditPhotoApp.Views.FeaturePage
         private void OnSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             BrightnessAndContrastViewModel viewModel = new BrightnessAndContrastViewModel();
-             float brightness = (float)BrightnessSlider.Value;
+            float brightness = (float)BrightnessSlider.Value;
             float contrast = (float)ContrastSlider.Value;
             viewModel.UpdateImage(brightness, contrast);
         }

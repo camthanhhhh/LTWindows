@@ -1,3 +1,4 @@
+using EditPhotoApp.Views.FeaturePage;
 using EditPhotoApp.Views.MainWindowComponents;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -25,18 +26,34 @@ namespace EditPhotoApp
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        AppWindow m_appWindow;
+        public ToolUseComponent ToolUsePage => ToolUseComponentFrame.Content as ToolUseComponent;
+
         public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
 
         public MainWindow()
         {
             this.InitializeComponent();
+            var toolsList = new ToolsListComponent();
+            toolsList.ToolSelected += OnToolSelected; // Subscribe to the event here
+
             this.TopBarComponentFrame.Navigate(typeof(TopBarComponent));
-            this.ToolsComponentFrame.Navigate(typeof(ToolsListComponent));
-            this.ToolUseComponentFrame.Navigate(typeof(ToolUseComponent));
-            this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));  
+            this.ToolsComponentFrame.Content = toolsList; // Set content directly
+            //this.ToolUseComponentFrame.Navigate(typeof(ToolUseComponent));
+            this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));
         }
 
-        
+        private void OnToolSelected(string tool)
+        {
+            // Navigate to the appropriate tool page based on the selected tool
+            switch (tool)
+            {
+                case "BrightnessContrast":
+                    ToolUseComponentFrame.Navigate(typeof(BrightnessAndContrastPage));
+                    break;
+                // Add cases for other tools here
+                default:
+                    break;
+            }
+        }
     }
 }

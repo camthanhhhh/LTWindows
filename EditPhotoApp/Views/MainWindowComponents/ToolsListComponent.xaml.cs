@@ -12,6 +12,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using EditPhotoApp.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,9 +24,19 @@ namespace EditPhotoApp.Views.MainWindowComponents
     /// </summary>
     public sealed partial class ToolsListComponent : Page
     {
+        public event Action<string> ToolSelected;
+
         public ToolsListComponent()
         {
             this.InitializeComponent();
+        }
+
+        private void BrightnessContrastButton_Click(object sender, RoutedEventArgs e)
+        {
+            //toolUseComponent._frame = "
+            ToolSelected?.Invoke("BrightnessContrast");
+
+
         }
     }
 }
