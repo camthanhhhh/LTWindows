@@ -32,18 +32,33 @@
                 IsHitTestVisible="False"
  />
         <StackPanel Orientation="Vertical"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Margin="10">
+             HorizontalAlignment="Right"
+             VerticalAlignment="Top"
+             Margin="10">
             <Button Content="Rotate 90°"
-                    Click="RotateButton_Click"
-                    Margin="5" />
+             Click="RotateButton_Click"
+             Margin="5" />
             <Button Content="Flip Horizontal"
-                    Click="FlipHorizontalButton_Click"
-                    Margin="5" />
+             Click="FlipHorizontalButton_Click"
+             Margin="5" />
             <Button Content="Flip Vertical"
-                    Click="FlipVerticalButton_Click"
-                    Margin="5"/>
+             Click="FlipVerticalButton_Click"
+             Margin="5" />
+            <Button Content="Crop 16:9"
+             Click="Crop16x9Button_Click"
+             Margin="5" />
+            <Button Content="Crop 4:3"
+             Click="Crop4x3Button_Click"
+             Margin="5" />
+            <Button Content="Crop 3:4"
+             Click="Crop3x4Button_Click"
+             Margin="5" />
+            <Button Content="Crop 1:1"
+             Click="Crop1x1Button_Click"
+             Margin="5" />
+            <Button Content="Reload Image"
+             Click="ReloadButton_Click"
+             Margin="5" />
         </StackPanel>
     </Grid>
 </Page>

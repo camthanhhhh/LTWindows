@@ -37,6 +37,8 @@ namespace EditPhotoApp.Views.MainWindowComponents
         private Bitmap _originalImage;
         private ExportOptionsViewModel exportOptionsViewModel;
         private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
+        public static string ImageFilePath { get; private set; }
+
         public TopBarComponent(BrightnessAndContrastViewModel brightnessAndContrastViewModel)
         {
             _imageEditComponent = new ImageEditComponent();
@@ -129,7 +131,8 @@ namespace EditPhotoApp.Views.MainWindowComponents
 
 
                 mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
-          
+                ImageFilePath = file.Path;
+
             }
         }
 
