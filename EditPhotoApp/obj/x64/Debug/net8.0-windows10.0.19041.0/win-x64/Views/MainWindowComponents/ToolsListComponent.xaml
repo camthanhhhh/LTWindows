@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EditPhotoApp.Views.MainWindowComponents.ToolsListComponent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EditPhotoApp.Views.MainWindowComponents"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+        <StackPanel VerticalAlignment="Top" Width="Auto"  Orientation="Vertical" Margin="10">
+            <Button Height="40" Content="📐 Crop" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="✂ Resize" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="🖌 Brush" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="🧹 Reset" Background="Transparent" Foreground="White"/>
+        </StackPanel>
+</Page>
+

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EditPhotoApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EditPhotoApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

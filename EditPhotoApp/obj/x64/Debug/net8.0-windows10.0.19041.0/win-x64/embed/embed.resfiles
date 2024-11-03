@@ -1,0 +1,5 @@
+App.xbf
+Views\MainWindow.xbf
+Views\MainWindowComponents\ImageEditComponent.xbf
+Views\MainWindowComponents\ToolsListComponent.xbf
+Views\MainWindowComponents\ToolUseComponent.xbf
