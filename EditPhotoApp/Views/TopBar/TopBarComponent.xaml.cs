@@ -22,6 +22,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using WinRT.Interop;
 using EditPhotoApp.ViewModels;
+using System.Drawing;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -33,11 +34,17 @@ namespace EditPhotoApp.Views.MainWindowComponents
     public sealed partial class TopBarComponent : Page
     {
         private ImageEditComponent _imageEditComponent;
-
-        public TopBarComponent()
+        private Bitmap _originalImage;
+        private ExportOptionsViewModel exportOptionsViewModel;
+        private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
+        public TopBarComponent(BrightnessAndContrastViewModel brightnessAndContrastViewModel)
         {
-            this.InitializeComponent();
             _imageEditComponent = new ImageEditComponent();
+            exportOptionsViewModel = new ExportOptionsViewModel();
+            this.brightnessAndContrastViewModel = brightnessAndContrastViewModel;
+            this.InitializeComponent();
+           
+
         }
         private void FileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -45,7 +52,6 @@ namespace EditPhotoApp.Views.MainWindowComponents
         }
         private async void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-            ExportOptionsViewModel exportOptionsViewModel = new ExportOptionsViewModel();
             XamlRoot xamlRoot = this.Content.XamlRoot;
             String rootName = "";
             if (sender is MenuFlyoutItem menuFlyoutItem)
@@ -80,14 +86,17 @@ namespace EditPhotoApp.Views.MainWindowComponents
                 using (var stream = await file.OpenAsync(FileAccessMode.Read))
                 {
                     bitmapImage.SetSource(stream);
-                }
-         
-                //if (_imageEditComponent.FindName("mainImage") is Image mainImage)
-                //{
-                //    mainImage.Source = bitmapImage;
-                //}
+                    var decoder = await Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(stream);
+                    var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
 
-                  mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
+                    _originalImage = brightnessAndContrastViewModel.SoftwareBitmapToBitmap(softwareBitmap);
+                    brightnessAndContrastViewModel.SetOriginalImage(_originalImage);
+
+                }
+
+
+
+                mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
           
             }
         }

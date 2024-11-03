@@ -1,3 +1,4 @@
+﻿using EditPhotoApp.ViewModels;
 using EditPhotoApp.Views.FeaturePage;
 using EditPhotoApp.Views.MainWindowComponents;
 using Microsoft.UI.Windowing;
@@ -27,18 +28,25 @@ namespace EditPhotoApp
     public sealed partial class MainWindow : Window
     {
         //public ToolUseComponent ToolUsePage => ToolUseComponentFrame.Content as ToolUseComponent;
-
+        private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
+        BrightnessAndContrastPage brightnessAndContrastPage;
+        TopBarComponent topBarComponent;
+        ToolsListComponent toolsListComponent;
+        Shapes shapesPage;
         public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
 
         public MainWindow()
         {
             this.InitializeComponent();
-            var toolsList = new ToolsListComponent();
-            toolsList.ToolSelected += OnToolSelected; // Subscribe to the event here
-
-            this.TopBarComponentFrame.Navigate(typeof(TopBarComponent));
-            this.ToolsComponentFrame.Content = toolsList; // Set content directly
-            //this.ToolUseComponentFrame.Navigate(typeof(ToolUseComponent));
+            toolsListComponent = new ToolsListComponent();
+            toolsListComponent.ToolSelected += OnToolSelected; // Đăng ký sự kiện ở đây
+            brightnessAndContrastViewModel = new BrightnessAndContrastViewModel();  
+            topBarComponent = new TopBarComponent(brightnessAndContrastViewModel);
+            brightnessAndContrastPage = new BrightnessAndContrastPage(brightnessAndContrastViewModel);
+            shapesPage = new Shapes();
+            // Đảm bảo rằng các Frame đã được khởi tạo trước khi gọi Navigate
+            this.TopBarComponentFrame.Content = topBarComponent;
+            this.ToolsComponentFrame.Content = toolsListComponent; // Thiết lập nội dung trực tiếp
             this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));
         }
 
@@ -48,12 +56,16 @@ namespace EditPhotoApp
             switch (tool)
             {
                 case "BrightnessContrast":
-                    ToolUseComponentFrame.Navigate(typeof(BrightnessAndContrastPage));
+                    // Chuyển tham số đã khởi tạo
+                    ToolUseComponentFrame.Content = brightnessAndContrastPage;
                     break;
                 // Add cases for other tools here
                 default:
+
+                    ToolUseComponentFrame.Content = shapesPage;
                     break;
             }
         }
+
     }
 }

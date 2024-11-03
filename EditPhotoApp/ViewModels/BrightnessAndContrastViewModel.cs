@@ -9,12 +9,17 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace EditPhotoApp.ViewModels
 {
     public class BrightnessAndContrastViewModel : INotifyPropertyChanged
     {
         private BrightnessAndContrast _brightnessAndContrast;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private SoftwareBitmap originalBitmap;
+        private Bitmap originalImage;
+
 
         public BrightnessAndContrastViewModel()
         {
@@ -47,32 +52,33 @@ namespace EditPhotoApp.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private SoftwareBitmap originalBitmap;
-
-
+        public void SetOriginalImage(Bitmap image)
+        {
+            originalImage = image;
+        }
 
         public static Bitmap AdjustBrightnessContrast(Bitmap image, float brightnessValue, float contrastValue)
         {
-            float brightness = (brightnessValue / 100.0f);
-            float contrast = contrastValue / 100.0f;
+            float brightness = brightnessValue / 100.0f; // Đoạn này giữ nguyên
+            float contrast = contrastValue / 100.0f; // Đoạn này giữ nguyên
             var bitmap = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);
 
             using (var g = Graphics.FromImage(bitmap))
             using (var attributes = new ImageAttributes())
             {
+                // Tạo ma trận để điều chỉnh độ tương phản
                 float[][] matrix = {
             new float[] { contrast, 0, 0, 0, 0},
             new float[] {0, contrast, 0, 0, 0},
             new float[] {0, 0, contrast, 0, 0},
             new float[] {0, 0, 0, 1, 0},
-            new float[] {brightness, brightness, brightness, 1, 1}
+            new float[] {brightness, brightness, brightness, 1, 1} // Điều chỉnh độ sáng
         };
 
                 ColorMatrix colorMatrix = new ColorMatrix(matrix);
@@ -83,7 +89,8 @@ namespace EditPhotoApp.ViewModels
             }
         }
 
-        private Bitmap SoftwareBitmapToBitmap(Windows.Graphics.Imaging.SoftwareBitmap softwareBitmap)
+
+        public Bitmap SoftwareBitmapToBitmap(Windows.Graphics.Imaging.SoftwareBitmap softwareBitmap)
         {
             // Convert SoftwareBitmap to Bitmap
             using (var memoryStream = new InMemoryRandomAccessStream())
@@ -112,10 +119,36 @@ namespace EditPhotoApp.ViewModels
             }
         }
 
-        private Bitmap originalImage;
-        public async void UpdateImage(float brightness,  float contrast)
+        private async Task<Bitmap> ConvertImageToBitmapAsync(Microsoft.UI.Xaml.Controls.Image image)
         {
-            
+            // Tạo RenderTargetBitmap và render Image
+            var renderTargetBitmap = new RenderTargetBitmap();
+            await renderTargetBitmap.RenderAsync(image);
+
+            // Lấy dữ liệu pixel từ RenderTargetBitmap
+            var pixels = await renderTargetBitmap.GetPixelsAsync();
+            var width = renderTargetBitmap.PixelWidth;
+            var height = renderTargetBitmap.PixelHeight;
+
+            // Chuyển đổi dữ liệu pixel sang Bitmap
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)width, (uint)height, 96, 96, pixels.ToArray());
+                await encoder.FlushAsync();
+
+                // Đọc dữ liệu từ stream và chuyển đổi sang Bitmap
+                using (var memoryStream = new MemoryStream())
+                {
+                    await RandomAccessStream.CopyAsync(stream, (IOutputStream)memoryStream.AsInputStream());
+                    return new Bitmap(memoryStream);
+                }
+            }
+        }
+        public async void UpdateImage( float brightness,  float contrast)
+        {
+            var mainWindow = App.MainWindow;
+
             if (originalImage == null)
             {
                 // Log or handle the error if needed
@@ -134,7 +167,6 @@ namespace EditPhotoApp.ViewModels
             BitmapImage bitmapImage = await ConvertSoftwareBitmapToBitmapImageAsync(softwareBitmap);
 
             // Display in Image control
-            var mainWindow = App.MainWindow;
             mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
             //SelectedImage.Source = bitmapImage;
         }

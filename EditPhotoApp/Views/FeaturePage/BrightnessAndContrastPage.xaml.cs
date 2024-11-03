@@ -1,4 +1,4 @@
-using EditPhotoApp.ViewModels;
+﻿using EditPhotoApp.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -30,19 +30,38 @@ namespace EditPhotoApp.Views.FeaturePage
     /// </summary>
     public sealed partial class BrightnessAndContrastPage : Page
     {
-        public BrightnessAndContrastPage()
-        {
-            this.InitializeComponent();
-        }
-        
+        private BrightnessAndContrastViewModel viewModel;
 
+        public BrightnessAndContrastPage(BrightnessAndContrastViewModel viewModel)
+        {
+            this.viewModel = viewModel; // Sử dụng instance được truyền vào
+
+            this.InitializeComponent();
+            BrightnessSlider.Value= viewModel.Brightness;
+            ContrastSlider.Value= viewModel.Contrast;
+
+        }
 
         private void OnSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            BrightnessAndContrastViewModel viewModel = new BrightnessAndContrastViewModel();
             float brightness = (float)BrightnessSlider.Value;
             float contrast = (float)ContrastSlider.Value;
-            viewModel.UpdateImage(brightness, contrast);
+            viewModel.Brightness = brightness;
+            viewModel.Contrast = contrast;
+            viewModel.UpdateImage(brightness, contrast); // Sử dụng instance chia sẻ
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is BrightnessAndContrastViewModel vm)
+            {
+                viewModel = vm; // Gán viewModel đã nhận vào biến instance
+            }
+            else
+            {
+                // Xử lý khi không nhận được viewModel (có thể ném ngoại lệ hoặc log lỗi)
+                throw new InvalidOperationException("ViewModel không được truyền vào");
+            }
+        }
+
     }
 }

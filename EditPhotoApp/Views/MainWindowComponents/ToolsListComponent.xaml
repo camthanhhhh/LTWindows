@@ -28,7 +28,7 @@
                 </Grid>
             </Button>
 
-            <Button Height="40" Content="📐 Crop" Background="Transparent" Foreground="White"/>
+            <Button Height="40" Content="📐 Crop"  Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="✂ Resize" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/>
             <Button Height="40" Content="🖌 Brush" Background="Transparent" Foreground="White"/>

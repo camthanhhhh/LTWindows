@@ -42,6 +42,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
 
 
         }
+
         private void InsertShapesButton_Click(object sender, RoutedEventArgs e)
         {
             //toolUseComponent._frame = "
