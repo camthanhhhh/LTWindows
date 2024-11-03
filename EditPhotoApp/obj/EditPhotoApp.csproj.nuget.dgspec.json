@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj": {}
+    "C:\\Users\\THUY TRANG\\Downloads\\Code chính\\EditPhotoApp\\EditPhotoApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj": {
+    "C:\\Users\\THUY TRANG\\Downloads\\Code chính\\EditPhotoApp\\EditPhotoApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj",
+        "projectUniqueName": "C:\\Users\\THUY TRANG\\Downloads\\Code chính\\EditPhotoApp\\EditPhotoApp.csproj",
         "projectName": "EditPhotoApp",
-        "projectPath": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\EditPhotoApp.csproj",
+        "projectPath": "C:\\Users\\THUY TRANG\\Downloads\\Code chính\\EditPhotoApp\\EditPhotoApp.csproj",
         "packagesPath": "C:\\Users\\THUY TRANG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\obj\\",
+        "outputPath": "C:\\Users\\THUY TRANG\\Downloads\\Code chính\\EditPhotoApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net8.0-windows10.0.19041": {
           "targetAlias": "net6.0-windows10.0.19041.0",
           "dependencies": {
+            "Microsoft.Graphics.Win2D": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            },
             "Microsoft.Windows.SDK.BuildTools": {
               "target": "Package",
               "version": "[10.0.22621.756, )"
@@ -57,6 +61,10 @@
             "Microsoft.WindowsAppSDK": {
               "target": "Package",
               "version": "[1.6.240923002, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             }
           },
           "imports": [

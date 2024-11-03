@@ -9,76 +9,61 @@
 
     <Grid Background="#f5f5dc">
         <!-- File Bar at the Top -->
-        <Grid Height="40" VerticalAlignment="Top" Background="Black">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <Frame x:Name="TopBarComponentFrame" />
 
-            <!-- Left Side - File and Arrow -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
-                <TextBlock Text="File" Foreground="White" VerticalAlignment="Center" Padding="10,0" PointerPressed="FileTextBlock_PointerPressed"/>
-                <TextBlock Text="&#10226;" FontSize="16" Foreground="White" VerticalAlignment="Center" Padding="10,0"/>
-            </StackPanel>
-
-            <!-- Right Side - Control Buttons -->
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-                <Button Width="40" Height="30" Content="🌙" Background="Transparent" Foreground="White"/>
-                <Button Width="40" Height="30" Content="👤" Background="Transparent" Foreground="White"/>
-                <Button Width="40" Height="30" Content="❌" Background="Transparent" Foreground="Red"/>
-            </StackPanel>
-        </Grid>
 
         <!-- Main Content -->
-        <Grid Margin="10,100,10,10">
+        <Grid Margin="10,50,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="150"/>
+                <!-- Điều chỉnh cột chính để chiếm không gian lớn -->
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
 
             <!-- Left Side Panel with Image -->
             <StackPanel Grid.Column="0"  Orientation="Vertical">
-                <StackPanel VerticalAlignment="Top" Height="250" Width="200" Background="White">
+                <!-- New Image Frame -->
+                <StackPanel VerticalAlignment="Top" Height="250" Width="200" Background="White" >
+
                     <Image Name="extraImage" Width="150" Height="150" Source="/Assets/StoreLogo.png" Stretch="UniformToFill" Margin="25"/>
                 </StackPanel>
             </StackPanel>
 
             <!-- Sidebar for Tools -->
             <StackPanel Grid.Column="1" Margin="10" Orientation="Vertical" Background="Black">
+                <!-- Vertical ToolBar for Editing-->
+              
                 <Frame x:Name="ToolsComponentFrame" />
+
             </StackPanel>
 
             <!-- Right Side Content (Main Image Display Area) -->
             <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                <!-- Image Preview -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="220"/>
                 </Grid.RowDefinitions>
-
+             
+                <!-- Frame for Crop Options -->
+                <!-- Frame for Image Preview - Co giãn theo cả chiều rộng và chiều cao -->
                 <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="2" Margin="10">
                     <Frame x:Name="ImageEditComponentFrame"></Frame>
                 </Border>
 
+                <!-- Frame for Crop Options -->
                 <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="2" Margin="10">
                     <Frame x:Name="ToolUseComponentFrame" />
+
                 </Border>
             </Grid>
 
+            <!-- Right Side - Placeholder -->
             <Grid Grid.Column="3" HorizontalAlignment="Center" Background="Aqua">
+             
             </Grid>
         </Grid>
-
-        <!-- Popup for File options -->
-        <Popup x:Name="FilePopup" VerticalOffset="40">
-            <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="5">
-                <StackPanel>
-                    <TextBlock Text="Open" PointerPressed="OpenPopupItem_Click" Margin="0,5"/>
-                    <TextBlock Text="Save" PointerPressed="SavePopupItem_Click" Margin="0,5"/>
-                    <TextBlock Text="Exit" PointerPressed="ExitPopupItem_Click" Margin="0,5"/>
-                </StackPanel>
-            </Border>
-        </Popup>
     </Grid>
 </Window>

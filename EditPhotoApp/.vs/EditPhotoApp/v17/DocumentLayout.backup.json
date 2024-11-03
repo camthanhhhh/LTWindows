@@ -1,14 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\",
+  "WorkspaceRootPath": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\new folder (2)\\ltwindows-main\\editphotoapp\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\code ch\u00EDnh\\editphotoapp\\views\\mainwindowcomponents\\imageeditcomponent.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\mainwindowcomponents\\imageeditcomponent.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\new folder (2)\\ltwindows-main\\editphotoapp\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\code ch\u00EDnh\\editphotoapp\\viewmodels\\exportoptionsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:viewmodels\\exportoptionsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\code ch\u00EDnh\\editphotoapp\\views\\mainwindowcomponents\\imageeditcomponent.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\mainwindowcomponents\\imageeditcomponent.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\code ch\u00EDnh\\editphotoapp\\views\\topbar\\topbarcomponent.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\topbar\\topbarcomponent.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|c:\\users\\thuy trang\\downloads\\code ch\u00EDnh\\editphotoapp\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D269354-7BDC-47A4-B4CC-497FA870DD1A}|EditPhotoApp.csproj|solutionrelative:views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +30,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\Views\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\Views\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Views\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ExportOptionsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\ViewModels\\ExportOptionsViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ExportOptionsViewModel.cs",
+              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\ViewModels\\ExportOptionsViewModel.cs",
+              "RelativeToolTip": "ViewModels\\ExportOptionsViewModel.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwBoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T06:10:48.086Z",
+              "WhenOpened": "2024-11-03T14:06:01.255Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\Views\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\New folder (2)\\LTWindows-main\\EditPhotoApp\\Views\\MainWindow.xaml",
-              "RelativeToolTip": "Views\\MainWindow.xaml",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAAwEsAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Views\\MainWindow.xaml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAnwB8AAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T15:18:54.053Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TopBarComponent.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\TopBar\\TopBarComponent.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\TopBar\\TopBarComponent.xaml.cs",
+              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\TopBar\\TopBarComponent.xaml.cs",
+              "RelativeToolTip": "Views\\TopBar\\TopBarComponent.xaml.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAYwFQAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T14:32:52.355Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ImageEditComponent.xaml",
+              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindowComponents\\ImageEditComponent.xaml",
+              "RelativeDocumentMoniker": "Views\\MainWindowComponents\\ImageEditComponent.xaml",
+              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindowComponents\\ImageEditComponent.xaml",
+              "RelativeToolTip": "Views\\MainWindowComponents\\ImageEditComponent.xaml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAApwA8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-01T21:18:13.313Z",
+              "WhenOpened": "2024-11-03T14:42:32.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ImageEditComponent.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindowComponents\\ImageEditComponent.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainWindowComponents\\ImageEditComponent.xaml.cs",
+              "ToolTip": "C:\\Users\\THUY TRANG\\Downloads\\Code ch\u00EDnh\\EditPhotoApp\\Views\\MainWindowComponents\\ImageEditComponent.xaml.cs",
+              "RelativeToolTip": "Views\\MainWindowComponents\\ImageEditComponent.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJwAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-02T18:50:24.613Z",
               "EditorCaption": ""
             }
           ]

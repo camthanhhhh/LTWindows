@@ -1,5 +1,8 @@
 App.xbf
+Views\FeaturePage\BrightnessAndContrastPage.xbf
+Views\FeaturePage\ExportOptionsPage.xbf
+Views\FeaturePage\Shapes.xbf
 Views\MainWindow.xbf
 Views\MainWindowComponents\ImageEditComponent.xbf
 Views\MainWindowComponents\ToolsListComponent.xbf
-Views\MainWindowComponents\ToolUseComponent.xbf
+Views\TopBar\TopBarComponent.xbf

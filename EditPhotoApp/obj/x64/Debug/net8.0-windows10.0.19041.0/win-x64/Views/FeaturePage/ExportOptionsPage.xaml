@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EditPhotoApp.Views.FeatureWindow.ExportOptionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EditPhotoApp.Views.FeatureWindow"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+        <StackPanel Margin="20">
+            <TextBlock Text="Select Export Type" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <DropDownButton Content="Email">
+            <DropDownButton.Flyout>
+                <MenuFlyout Placement="Bottom">
+                    <MenuFlyoutItem x:ConnectionId='3' Text="Send"                             />
+                    <MenuFlyoutItem x:ConnectionId='4' Text="Reply"                             />
+                    <MenuFlyoutItem x:ConnectionId='5' Text="Reply All"                             />
+                </MenuFlyout>
+            </DropDownButton.Flyout>
+        </DropDownButton>
+
+        <Button x:ConnectionId='2' Content="Export"                           Margin="0,20,0,0"/>
+        </StackPanel>
+   
+
+</Page>
+
