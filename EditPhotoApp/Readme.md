@@ -38,11 +38,11 @@ Mục tiêu của dự án là phát triển một ứng dụng mạnh mẽ và 
 ## Tiêu Chí Đánh Giá
 Dự án này sẽ được đánh giá theo các tiêu chí sau:
 
-|UI/UX (20%):               | Giao diện có gọn gàng, hợp lý. Kiểm tra các lỗi cơ bản liên quan đến dữ liệu.|
+|UI/UX (20%):               | Giao diện có gọn gàng, hợp lý. Kiểm tra các lỗi cơ bản liên quan đến dữ liệu.                                                            |
 |Kiến Trúc Phần Mềm (20%):  | Kiến trúc phần mềm hợp lý, thích hợp cho mở rộng và bảo trì. Mã nguồn có tài liệu ghi chú giải thích công dụng đầy đủ cho các lớp và hàm.|
-|Chủ Đề Nâng Cao (30%):     | Liệt kê các xử lý hoặc thiết kế mà nhóm tự tìm hiểu và thực hiện.|
-|Làm Việc Nhóm (10%):       | Minh chứng quá trình làm việc nhóm, biên bản họp nhóm, và quá trình commit trên git.|
-|Đảm Bảo Chất Lượng (20%):  | Minh chứng quá trình đảm bảo chất lượng như unit test, UI test, và quy trình mã nguồn được duyệt.|
+|Chủ Đề Nâng Cao (30%):     | Liệt kê các xử lý hoặc thiết kế mà nhóm tự tìm hiểu và thực hiện.                                                                        |
+|Làm Việc Nhóm (10%):       | Minh chứng quá trình làm việc nhóm, biên bản họp nhóm, và quá trình commit trên git.                                                     |
+|Đảm Bảo Chất Lượng (20%):  | Minh chứng quá trình đảm bảo chất lượng như unit test, UI test, và quy trình mã nguồn được duyệt.                                        |
 
 ## Thông tin nhóm
 | STT | MSSV     | Họ và tên          |
