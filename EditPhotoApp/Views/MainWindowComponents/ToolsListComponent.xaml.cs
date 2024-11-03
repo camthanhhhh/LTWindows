@@ -42,7 +42,13 @@ namespace EditPhotoApp.Views.MainWindowComponents
 
 
         }
+        private void DrawingButton_Click(object sender, RoutedEventArgs e)
+        {
+            //toolUseComponent._frame = "
+            ToolSelected?.Invoke("Drawing");
 
+
+        }
         private void InsertShapesButton_Click(object sender, RoutedEventArgs e)
         {
             //toolUseComponent._frame = "

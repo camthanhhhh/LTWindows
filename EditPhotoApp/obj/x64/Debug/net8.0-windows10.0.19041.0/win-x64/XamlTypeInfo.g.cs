@@ -226,7 +226,7 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[22];
+            _typeNameTable = new string[24];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -234,23 +234,25 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
             _typeNameTable[4] = "EditPhotoApp.Views.FeaturePage.BrightnessAndContrastPage";
             _typeNameTable[5] = "Microsoft.UI.Xaml.Controls.Page";
             _typeNameTable[6] = "Microsoft.UI.Xaml.Controls.UserControl";
-            _typeNameTable[7] = "Microsoft.UI.Xaml.Controls.DropDownButton";
-            _typeNameTable[8] = "Microsoft.UI.Xaml.Controls.Button";
-            _typeNameTable[9] = "Microsoft.UI.Xaml.Controls.ContentControl";
-            _typeNameTable[10] = "EditPhotoApp.Views.FeatureWindow.ExportOptionsPage";
-            _typeNameTable[11] = "EditPhotoApp.Views.FeaturePage.Shapes";
-            _typeNameTable[12] = "EditPhotoApp.MainWindow";
-            _typeNameTable[13] = "Microsoft.UI.Xaml.Window";
-            _typeNameTable[14] = "EditPhotoApp.Views.MainWindowComponents.ImageEditComponent";
-            _typeNameTable[15] = "Microsoft.UI.Xaml.Controls.Image";
-            _typeNameTable[16] = "EditPhotoApp.Views.MainWindowComponents.ToolsListComponent";
-            _typeNameTable[17] = "EditPhotoApp.Views.MainWindowComponents.TopBarComponent";
-            _typeNameTable[18] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[19] = "Microsoft.UI.Xaml.DependencyObject";
-            _typeNameTable[20] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
-            _typeNameTable[21] = "Int32";
+            _typeNameTable[7] = "EditPhotoApp.Views.FeaturePage.DrawingToolPage";
+            _typeNameTable[8] = "Microsoft.UI.Xaml.Controls.DropDownButton";
+            _typeNameTable[9] = "Microsoft.UI.Xaml.Controls.Button";
+            _typeNameTable[10] = "Microsoft.UI.Xaml.Controls.ContentControl";
+            _typeNameTable[11] = "EditPhotoApp.Views.FeatureWindow.ExportOptionsPage";
+            _typeNameTable[12] = "EditPhotoApp.Views.FeaturePage.Shapes";
+            _typeNameTable[13] = "EditPhotoApp.MainWindow";
+            _typeNameTable[14] = "Microsoft.UI.Xaml.Window";
+            _typeNameTable[15] = "EditPhotoApp.Views.MainWindowComponents.ImageEditComponent";
+            _typeNameTable[16] = "Microsoft.UI.Xaml.Controls.Image";
+            _typeNameTable[17] = "Microsoft.UI.Xaml.Controls.Canvas";
+            _typeNameTable[18] = "EditPhotoApp.Views.MainWindowComponents.ToolsListComponent";
+            _typeNameTable[19] = "EditPhotoApp.Views.MainWindowComponents.TopBarComponent";
+            _typeNameTable[20] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[21] = "Microsoft.UI.Xaml.DependencyObject";
+            _typeNameTable[22] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[23] = "Int32";
 
-            _typeTable = new global::System.Type[22];
+            _typeTable = new global::System.Type[24];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -258,21 +260,23 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
             _typeTable[4] = typeof(global::EditPhotoApp.Views.FeaturePage.BrightnessAndContrastPage);
             _typeTable[5] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
             _typeTable[6] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
-            _typeTable[7] = typeof(global::Microsoft.UI.Xaml.Controls.DropDownButton);
-            _typeTable[8] = typeof(global::Microsoft.UI.Xaml.Controls.Button);
-            _typeTable[9] = typeof(global::Microsoft.UI.Xaml.Controls.ContentControl);
-            _typeTable[10] = typeof(global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage);
-            _typeTable[11] = typeof(global::EditPhotoApp.Views.FeaturePage.Shapes);
-            _typeTable[12] = typeof(global::EditPhotoApp.MainWindow);
-            _typeTable[13] = typeof(global::Microsoft.UI.Xaml.Window);
-            _typeTable[14] = typeof(global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent);
-            _typeTable[15] = typeof(global::Microsoft.UI.Xaml.Controls.Image);
-            _typeTable[16] = typeof(global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent);
-            _typeTable[17] = typeof(global::EditPhotoApp.Views.MainWindowComponents.TopBarComponent);
-            _typeTable[18] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[19] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
-            _typeTable[20] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
-            _typeTable[21] = typeof(global::System.Int32);
+            _typeTable[7] = typeof(global::EditPhotoApp.Views.FeaturePage.DrawingToolPage);
+            _typeTable[8] = typeof(global::Microsoft.UI.Xaml.Controls.DropDownButton);
+            _typeTable[9] = typeof(global::Microsoft.UI.Xaml.Controls.Button);
+            _typeTable[10] = typeof(global::Microsoft.UI.Xaml.Controls.ContentControl);
+            _typeTable[11] = typeof(global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage);
+            _typeTable[12] = typeof(global::EditPhotoApp.Views.FeaturePage.Shapes);
+            _typeTable[13] = typeof(global::EditPhotoApp.MainWindow);
+            _typeTable[14] = typeof(global::Microsoft.UI.Xaml.Window);
+            _typeTable[15] = typeof(global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent);
+            _typeTable[16] = typeof(global::Microsoft.UI.Xaml.Controls.Image);
+            _typeTable[17] = typeof(global::Microsoft.UI.Xaml.Controls.Canvas);
+            _typeTable[18] = typeof(global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent);
+            _typeTable[19] = typeof(global::EditPhotoApp.Views.MainWindowComponents.TopBarComponent);
+            _typeTable[20] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[21] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
+            _typeTable[22] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[23] = typeof(global::System.Int32);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -308,24 +312,25 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
         }
 
         private object Activate_0_XamlControlsResources() { return new global::Microsoft.UI.Xaml.Controls.XamlControlsResources(); }
-        private object Activate_7_DropDownButton() { return new global::Microsoft.UI.Xaml.Controls.DropDownButton(); }
-        private object Activate_10_ExportOptionsPage() { return new global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage(); }
-        private object Activate_11_Shapes() { return new global::EditPhotoApp.Views.FeaturePage.Shapes(); }
-        private object Activate_12_MainWindow() { return new global::EditPhotoApp.MainWindow(); }
-        private object Activate_14_ImageEditComponent() { return new global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent(); }
-        private object Activate_16_ToolsListComponent() { return new global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent(); }
-        private object Activate_18_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_8_DropDownButton() { return new global::Microsoft.UI.Xaml.Controls.DropDownButton(); }
+        private object Activate_11_ExportOptionsPage() { return new global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage(); }
+        private object Activate_12_Shapes() { return new global::EditPhotoApp.Views.FeaturePage.Shapes(); }
+        private object Activate_13_MainWindow() { return new global::EditPhotoApp.MainWindow(); }
+        private object Activate_15_ImageEditComponent() { return new global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent(); }
+        private object Activate_18_ToolsListComponent() { return new global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent(); }
+        private object Activate_20_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_BrightnessAndContrastPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeaturePage.BrightnessAndContrastPage).TypeHandle);
-        private void StaticInitializer_7_DropDownButton() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.DropDownButton).TypeHandle);
-        private void StaticInitializer_10_ExportOptionsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage).TypeHandle);
-        private void StaticInitializer_11_Shapes() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeaturePage.Shapes).TypeHandle);
-        private void StaticInitializer_12_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.MainWindow).TypeHandle);
-        private void StaticInitializer_14_ImageEditComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent).TypeHandle);
-        private void StaticInitializer_16_ToolsListComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent).TypeHandle);
-        private void StaticInitializer_17_TopBarComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.TopBarComponent).TypeHandle);
-        private void StaticInitializer_18_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_20_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_7_DrawingToolPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeaturePage.DrawingToolPage).TypeHandle);
+        private void StaticInitializer_8_DropDownButton() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.DropDownButton).TypeHandle);
+        private void StaticInitializer_11_ExportOptionsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeatureWindow.ExportOptionsPage).TypeHandle);
+        private void StaticInitializer_12_Shapes() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.FeaturePage.Shapes).TypeHandle);
+        private void StaticInitializer_13_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.MainWindow).TypeHandle);
+        private void StaticInitializer_15_ImageEditComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent).TypeHandle);
+        private void StaticInitializer_18_ToolsListComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.ToolsListComponent).TypeHandle);
+        private void StaticInitializer_19_TopBarComponent() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::EditPhotoApp.Views.MainWindowComponents.TopBarComponent).TypeHandle);
+        private void StaticInitializer_20_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_22_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -333,7 +338,7 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
             var newItem = (global::System.Object)item;
             collection.Add(newKey, newItem);
         }
-        private void VectorAdd_20_IList(object instance, object item)
+        private void VectorAdd_22_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -386,82 +391,94 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 7:   //  Microsoft.UI.Xaml.Controls.DropDownButton
+            case 7:   //  EditPhotoApp.Views.FeaturePage.DrawingToolPage
+                userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.StaticInitializer = StaticInitializer_7_DrawingToolPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 8:   //  Microsoft.UI.Xaml.Controls.DropDownButton
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Button"));
-                userType.Activator = Activate_7_DropDownButton;
-                userType.StaticInitializer = StaticInitializer_7_DropDownButton;
+                userType.Activator = Activate_8_DropDownButton;
+                userType.StaticInitializer = StaticInitializer_8_DropDownButton;
                 xamlType = userType;
                 break;
 
-            case 8:   //  Microsoft.UI.Xaml.Controls.Button
+            case 9:   //  Microsoft.UI.Xaml.Controls.Button
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 9:   //  Microsoft.UI.Xaml.Controls.ContentControl
+            case 10:   //  Microsoft.UI.Xaml.Controls.ContentControl
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 10:   //  EditPhotoApp.Views.FeatureWindow.ExportOptionsPage
+            case 11:   //  EditPhotoApp.Views.FeatureWindow.ExportOptionsPage
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_10_ExportOptionsPage;
-                userType.StaticInitializer = StaticInitializer_10_ExportOptionsPage;
+                userType.Activator = Activate_11_ExportOptionsPage;
+                userType.StaticInitializer = StaticInitializer_11_ExportOptionsPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 11:   //  EditPhotoApp.Views.FeaturePage.Shapes
+            case 12:   //  EditPhotoApp.Views.FeaturePage.Shapes
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_11_Shapes;
-                userType.StaticInitializer = StaticInitializer_11_Shapes;
+                userType.Activator = Activate_12_Shapes;
+                userType.StaticInitializer = StaticInitializer_12_Shapes;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 12:   //  EditPhotoApp.MainWindow
+            case 13:   //  EditPhotoApp.MainWindow
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Window"));
-                userType.Activator = Activate_12_MainWindow;
-                userType.StaticInitializer = StaticInitializer_12_MainWindow;
+                userType.Activator = Activate_13_MainWindow;
+                userType.StaticInitializer = StaticInitializer_13_MainWindow;
                 userType.AddMemberName("ImageEditPage");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 13:   //  Microsoft.UI.Xaml.Window
+            case 14:   //  Microsoft.UI.Xaml.Window
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 14:   //  EditPhotoApp.Views.MainWindowComponents.ImageEditComponent
+            case 15:   //  EditPhotoApp.Views.MainWindowComponents.ImageEditComponent
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_14_ImageEditComponent;
-                userType.StaticInitializer = StaticInitializer_14_ImageEditComponent;
+                userType.Activator = Activate_15_ImageEditComponent;
+                userType.StaticInitializer = StaticInitializer_15_ImageEditComponent;
                 userType.AddMemberName("saveImage");
+                userType.AddMemberName("drawingCanvas");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 15:   //  Microsoft.UI.Xaml.Controls.Image
+            case 16:   //  Microsoft.UI.Xaml.Controls.Image
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 16:   //  EditPhotoApp.Views.MainWindowComponents.ToolsListComponent
+            case 17:   //  Microsoft.UI.Xaml.Controls.Canvas
+                xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 18:   //  EditPhotoApp.Views.MainWindowComponents.ToolsListComponent
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_16_ToolsListComponent;
-                userType.StaticInitializer = StaticInitializer_16_ToolsListComponent;
+                userType.Activator = Activate_18_ToolsListComponent;
+                userType.StaticInitializer = StaticInitializer_18_ToolsListComponent;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 17:   //  EditPhotoApp.Views.MainWindowComponents.TopBarComponent
+            case 19:   //  EditPhotoApp.Views.MainWindowComponents.TopBarComponent
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.StaticInitializer = StaticInitializer_17_TopBarComponent;
+                userType.StaticInitializer = StaticInitializer_19_TopBarComponent;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 18:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 20:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_18_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_18_TreeViewNode;
+                userType.Activator = Activate_20_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_20_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -473,19 +490,19 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 19:   //  Microsoft.UI.Xaml.DependencyObject
+            case 21:   //  Microsoft.UI.Xaml.DependencyObject
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 20:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 22:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_20_IList;
-                userType.CollectionAdd = VectorAdd_20_IList;
+                userType.StaticInitializer = StaticInitializer_22_IList;
+                userType.CollectionAdd = VectorAdd_22_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 21:   //  Int32
+            case 23:   //  Int32
                 xamlType = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -567,52 +584,57 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
             var that = (global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent)instance;
             return that.saveImage;
         }
-        private object get_3_TreeViewNode_Children(object instance)
+        private object get_3_ImageEditComponent_drawingCanvas(object instance)
+        {
+            var that = (global::EditPhotoApp.Views.MainWindowComponents.ImageEditComponent)instance;
+            return that.drawingCanvas;
+        }
+        private object get_4_TreeViewNode_Children(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Children;
         }
-        private object get_4_TreeViewNode_Content(object instance)
+        private object get_5_TreeViewNode_Content(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Content;
         }
-        private void set_4_TreeViewNode_Content(object instance, object Value)
+        private void set_5_TreeViewNode_Content(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.Content = (global::System.Object)Value;
         }
-        private object get_5_TreeViewNode_Depth(object instance)
+        private object get_6_TreeViewNode_Depth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Depth;
         }
-        private object get_6_TreeViewNode_HasChildren(object instance)
+        private object get_7_TreeViewNode_HasChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasChildren;
         }
-        private object get_7_TreeViewNode_HasUnrealizedChildren(object instance)
+        private object get_8_TreeViewNode_HasUnrealizedChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasUnrealizedChildren;
         }
-        private void set_7_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
+        private void set_8_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.HasUnrealizedChildren = (global::System.Boolean)Value;
         }
-        private object get_8_TreeViewNode_IsExpanded(object instance)
+        private object get_9_TreeViewNode_IsExpanded(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.IsExpanded;
         }
-        private void set_8_TreeViewNode_IsExpanded(object instance, object Value)
+        private void set_9_TreeViewNode_IsExpanded(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.IsExpanded = (global::System.Boolean)Value;
         }
-        private object get_9_TreeViewNode_Parent(object instance)
+        private object get_10_TreeViewNode_Parent(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Parent;
@@ -644,50 +666,56 @@ namespace EditPhotoApp.EditPhotoApp_XamlTypeInfo
                 xamlMember.Getter = get_2_ImageEditComponent_saveImage;
                 xamlMember.SetIsReadOnly();
                 break;
+            case "EditPhotoApp.Views.MainWindowComponents.ImageEditComponent.drawingCanvas":
+                userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("EditPhotoApp.Views.MainWindowComponents.ImageEditComponent");
+                xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "drawingCanvas", "Microsoft.UI.Xaml.Controls.Canvas");
+                xamlMember.Getter = get_3_ImageEditComponent_drawingCanvas;
+                xamlMember.SetIsReadOnly();
+                break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Children":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
-                xamlMember.Getter = get_3_TreeViewNode_Children;
+                xamlMember.Getter = get_4_TreeViewNode_Children;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Content":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "Content", "Object");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_4_TreeViewNode_Content;
-                xamlMember.Setter = set_4_TreeViewNode_Content;
+                xamlMember.Getter = get_5_TreeViewNode_Content;
+                xamlMember.Setter = set_5_TreeViewNode_Content;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Depth":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_5_TreeViewNode_Depth;
+                xamlMember.Getter = get_6_TreeViewNode_Depth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasChildren":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_6_TreeViewNode_HasChildren;
+                xamlMember.Getter = get_7_TreeViewNode_HasChildren;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasUnrealizedChildren":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
-                xamlMember.Getter = get_7_TreeViewNode_HasUnrealizedChildren;
-                xamlMember.Setter = set_7_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Getter = get_8_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Setter = set_8_TreeViewNode_HasUnrealizedChildren;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.IsExpanded":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_8_TreeViewNode_IsExpanded;
-                xamlMember.Setter = set_8_TreeViewNode_IsExpanded;
+                xamlMember.Getter = get_9_TreeViewNode_IsExpanded;
+                xamlMember.Setter = set_9_TreeViewNode_IsExpanded;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Parent":
                 userType = (global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::EditPhotoApp.EditPhotoApp_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember.Getter = get_9_TreeViewNode_Parent;
+                xamlMember.Getter = get_10_TreeViewNode_Parent;
                 xamlMember.SetIsReadOnly();
                 break;
             }

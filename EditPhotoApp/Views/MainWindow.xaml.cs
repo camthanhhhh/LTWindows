@@ -33,17 +33,23 @@ namespace EditPhotoApp
         TopBarComponent topBarComponent;
         ToolsListComponent toolsListComponent;
         Shapes shapesPage;
+        DrawingToolViewModel drawingToolViewModel;
+        DrawingToolPage drawingToolPage;
         public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
 
         public MainWindow()
         {
             this.InitializeComponent();
+
             toolsListComponent = new ToolsListComponent();
             toolsListComponent.ToolSelected += OnToolSelected; // Đăng ký sự kiện ở đây
-            brightnessAndContrastViewModel = new BrightnessAndContrastViewModel();  
+            brightnessAndContrastViewModel = new BrightnessAndContrastViewModel();
             topBarComponent = new TopBarComponent(brightnessAndContrastViewModel);
             brightnessAndContrastPage = new BrightnessAndContrastPage(brightnessAndContrastViewModel);
             shapesPage = new Shapes();
+
+            
+
             // Đảm bảo rằng các Frame đã được khởi tạo trước khi gọi Navigate
             this.TopBarComponentFrame.Content = topBarComponent;
             this.ToolsComponentFrame.Content = toolsListComponent; // Thiết lập nội dung trực tiếp
@@ -60,6 +66,12 @@ namespace EditPhotoApp
                     ToolUseComponentFrame.Content = brightnessAndContrastPage;
                     break;
                 // Add cases for other tools here
+                case "Drawing":
+                    drawingToolViewModel = new DrawingToolViewModel(this);
+                    drawingToolPage = new DrawingToolPage(drawingToolViewModel);
+                    ToolUseComponentFrame.Content = drawingToolPage;
+
+                    break;
                 default:
 
                     ToolUseComponentFrame.Content = shapesPage;
