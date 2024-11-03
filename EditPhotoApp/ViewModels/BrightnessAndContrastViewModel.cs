@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Storage;
 
 namespace EditPhotoApp.ViewModels
 {
@@ -24,6 +25,32 @@ namespace EditPhotoApp.ViewModels
         public BrightnessAndContrastViewModel()
         {
             _brightnessAndContrast = new BrightnessAndContrast { brightness = 0, contrast = 100 };
+            LoadImageAsync();
+        }
+
+        private async void LoadImageAsync()
+        {
+            try
+            {
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/cat.jpg"));
+                if (file != null)
+                {
+                    var bitmapImage = new BitmapImage();
+                    using (var stream = await file.OpenAsync(FileAccessMode.Read))
+                    {
+                        bitmapImage.SetSource(stream);
+                        var decoder = await BitmapDecoder.CreateAsync(stream);
+                        var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+
+                        originalImage = SoftwareBitmapToBitmap(softwareBitmap);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur during loading the image
+                System.Diagnostics.Debug.WriteLine($"Error loading image: {ex.Message}");
+            }
         }
 
         public float Brightness
