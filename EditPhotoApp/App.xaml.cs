@@ -40,6 +40,7 @@ namespace EditPhotoApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+
             MainWindow = new MainWindow(); // Gán MainWindow cho App.MainWindow
             MainWindow.Activate();
         }

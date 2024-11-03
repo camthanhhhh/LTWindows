@@ -29,23 +29,34 @@ namespace EditPhotoApp.Views.MainWindowComponents
     public sealed partial class ToolsListComponent : Page
     {
         public event Action<string> ToolSelected;
+        private Canvas imageCanvas;
 
         public ToolsListComponent()
         {
+           
             this.InitializeComponent();
+            
         }
 
         private void BrightnessContrastButton_Click(object sender, RoutedEventArgs e)
         {
             //toolUseComponent._frame = "
             ToolSelected?.Invoke("BrightnessContrast");
+            if (imageCanvas != null)
+            {
+                imageCanvas.IsHitTestVisible = false;
+
+            }
 
 
         }
         private void DrawingButton_Click(object sender, RoutedEventArgs e)
         {
+            var mainWindow = App.MainWindow;
+            imageCanvas = mainWindow.ImageEditPage.drawingCanvas;
             //toolUseComponent._frame = "
             ToolSelected?.Invoke("Drawing");
+            imageCanvas.IsHitTestVisible = true;
 
 
         }
@@ -53,7 +64,11 @@ namespace EditPhotoApp.Views.MainWindowComponents
         {
             //toolUseComponent._frame = "
             ToolSelected?.Invoke("Shapes");
+            if (imageCanvas != null)
+            {
+                imageCanvas.IsHitTestVisible = false;
 
+            }
 
         }
         private async void InsertPictureButton_Click(object sender, RoutedEventArgs e)

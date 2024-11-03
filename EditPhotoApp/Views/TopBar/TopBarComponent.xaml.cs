@@ -63,7 +63,39 @@ namespace EditPhotoApp.Views.MainWindowComponents
       
         }
 
+        // Chuyển đổi giữa Dark và Light
+        private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if we need to run on the UI thread
+            if (DispatcherQueue.TryEnqueue(() =>
+            {
+                var currentTheme = Application.Current.RequestedTheme;
 
+                if (currentTheme == ApplicationTheme.Light)
+                {
+                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                    ThemeToggleButton.Content = "☀️"; // Update icon to sun for dark mode
+                    App.MainWindow.SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.Black));
+                }
+                else
+                {
+                    Application.Current.RequestedTheme = ApplicationTheme.Light;
+                    ThemeToggleButton.Content = "🌙"; // Update icon to moon for light mode
+                    App.MainWindow.SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.White));
+                }
+
+                // Save theme state in LocalSettings
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings.Values["AppTheme"] = Application.Current.RequestedTheme == ApplicationTheme.Dark ? "Dark" : "Light";
+            }))
+            {
+                // The action was successfully enqueued
+            }
+            else
+            {
+                // Handle the error if needed (e.g., log the error)
+            }
+        }
         private async void ImportImage_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = App.MainWindow;

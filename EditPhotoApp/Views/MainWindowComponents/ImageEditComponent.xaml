@@ -8,19 +8,42 @@
     mc:Ignorable="d">
 
     <Grid>
-        <!-- Đặt Image ở dưới Canvas -->
-        <Image x:Name="mainImage" 
-               Source="/Assets/cat.jpg" 
-               HorizontalAlignment="Stretch" 
-               VerticalAlignment="Stretch" 
-               Stretch="Uniform" />
+        <ScrollViewer x:Name="scrollImageTarget"
+                      PointerWheelChanged="scrollImageTarget_PointerWheelChanged"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      ZoomMode="Disabled">
+            <!-- Đặt Image ở dưới Canvas -->
+            <Image x:Name="mainImage" 
+                   Source="/Assets/cat.jpg" 
+                   HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch" 
+                   Stretch="Uniform" />
 
+
+        </ScrollViewer>
         <!-- Canvas nằm trên để vẽ lên hình ảnh -->
-        <Canvas x:Name="DrawingCanvas"
-                
-                Background="Transparent" 
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch" 
-         />
+
+        <Canvas x:Name="DrawingCanvas" 
+    
+        Background="Transparent" 
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"  
+                IsHitTestVisible="False"
+ />
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Margin="10">
+            <Button Content="Rotate 90°"
+                    Click="RotateButton_Click"
+                    Margin="5" />
+            <Button Content="Flip Horizontal"
+                    Click="FlipHorizontalButton_Click"
+                    Margin="5" />
+            <Button Content="Flip Vertical"
+                    Click="FlipVerticalButton_Click"
+                    Margin="5"/>
+        </StackPanel>
     </Grid>
 </Page>

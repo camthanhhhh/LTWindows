@@ -55,7 +55,31 @@ namespace EditPhotoApp
             this.ToolsComponentFrame.Content = toolsListComponent; // Thiết lập nội dung trực tiếp
             this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));
         }
+        //private void LoadThemeSettings()
+        //{
+        //    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+        //    if (localSettings.Values.ContainsKey("AppTheme"))
+        //    {
+        //        string appTheme = localSettings.Values["AppTheme"] as string;
+        //        if (appTheme == "Dark")
+        //        {
+        //            Application.Current.RequestedTheme = ApplicationTheme.Dark;
+        //            SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.Black)); // Sửa lại ở đây
+        //            topBarComponent.ThemeToggleButton.Content = "☀️"; // Cập nhật icon
+        //        }
+        //        else
+        //        {
+        //            Application.Current.RequestedTheme = ApplicationTheme.Light;
+        //            SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.White)); // Sửa lại ở đây
+        //            topBarComponent.ThemeToggleButton.Content = "🌙"; // Cập nhật icon
+        //        }
+        //    }
+        //}
 
+        public void SetMainGridBackground(SolidColorBrush color)
+        {
+            MainGrid.Background = color;
+        }
         private void OnToolSelected(string tool)
         {
             // Navigate to the appropriate tool page based on the selected tool
@@ -74,7 +98,7 @@ namespace EditPhotoApp
                     break;
                 default:
 
-                    ToolUseComponentFrame.Content = shapesPage;
+                    ToolUseComponentFrame.Content = null;
                     break;
             }
         }

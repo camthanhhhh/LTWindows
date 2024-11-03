@@ -39,7 +39,9 @@
 
         <!-- Right Side - Control Buttons -->
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-            <Button Width="40" Height="30" Content="🌙" Background="Transparent" Foreground="White"/>
+            <Button x:Name="ThemeToggleButton" Width="50" Height="30" Content="🌙"
+                Background="Transparent" Foreground="White"
+                Click="ThemeToggleButton_Click"/>
             <Button Width="40" Height="30" Content="👤" Background="Transparent" Foreground="White"/>
             <Button Width="40" Height="30" Content="❌" Background="Transparent" Foreground="Red"/>
         </StackPanel>
