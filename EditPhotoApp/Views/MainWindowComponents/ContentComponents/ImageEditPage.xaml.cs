@@ -11,17 +11,17 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using System;
 
-namespace EditPhotoApp.Views.MainWindowComponents
+namespace EditPhotoApp.Views.MainWindowComponents.ContentComponents
 {
-    public sealed partial class ImageEditComponent : Page
+    public sealed partial class ImageEditPage: Page
     {
-        public Image saveImage => mainImage; // 'mainImage' là tên của Image trong XAML.
-        public Canvas drawingCanvas => DrawingCanvas; // 'DrawingCanvas' là tên của Canvas trong XAML.
+        public Image saveImage => mainImage; 
+        public Canvas drawingCanvas => DrawingCanvas; 
 
         private WriteableBitmap originalImage;
         private WriteableBitmap currentImage;
         string filePath = @"/Assets/cat.jpg";
-        public ImageEditComponent()
+        public ImageEditPage()
         {
             this.InitializeComponent();
             LoadOriginalImage();
@@ -132,12 +132,12 @@ namespace EditPhotoApp.Views.MainWindowComponents
 
         private async void Crop16x9Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(TopBarComponent.ImageFilePath))
+            if (!string.IsNullOrEmpty(TopBarPage.ImageFilePath))
             {
                 var bitmapImage = new BitmapImage();
 
                 // Gán UriSource cho BitmapImage
-                bitmapImage.UriSource = new Uri(TopBarComponent.ImageFilePath);
+                bitmapImage.UriSource = new Uri(TopBarPage.ImageFilePath);
 
                 // Gán BitmapImage cho saveImage.Source
                 saveImage.Source = bitmapImage;

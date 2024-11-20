@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="EditPhotoApp.Views.MainWindowComponents.ToolsListComponent"
+    x:Class="EditPhotoApp.Views.MainWindowComponents.ContentComponents.ToolsListPage"
         NavigationCacheMode="Enabled"
 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

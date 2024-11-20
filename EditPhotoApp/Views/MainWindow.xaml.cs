@@ -1,6 +1,10 @@
-﻿using EditPhotoApp.ViewModels;
+﻿using EditPhotoApp.ViewModels.MainWindowComponents.ContentComponents.ToolFeatureViewModel;
 using EditPhotoApp.Views.FeaturePage;
+using EditPhotoApp.Views.FeaturePage.ContentComponents;
+using EditPhotoApp.Views.FeaturePage.ContentComponents.FeaturePage;
 using EditPhotoApp.Views.MainWindowComponents;
+using EditPhotoApp.Views.MainWindowComponents.ContentComponents;
+using EditPhotoApp.Views.MainWindowComponents.ContentComponents.FeaturePage;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -30,30 +34,27 @@ namespace EditPhotoApp
         //public ToolUseComponent ToolUsePage => ToolUseComponentFrame.Content as ToolUseComponent;
         private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
         BrightnessAndContrastPage brightnessAndContrastPage;
-        TopBarComponent topBarComponent;
-        ToolsListComponent toolsListComponent;
-        Shapes shapesPage;
+        TopBarPage topBarComponent;
+        ToolsListPage toolsListPage;
+        ShapesPage shapesPage;
         DrawingToolViewModel drawingToolViewModel;
         DrawingToolPage drawingToolPage;
-        public ImageEditComponent ImageEditPage => ImageEditComponentFrame.Content as ImageEditComponent;
+        public ImageEditPage ImageEditPage => ImageEditComponentFrame.Content as ImageEditPage;
 
         public MainWindow()
         {
             this.InitializeComponent();
-
-            toolsListComponent = new ToolsListComponent();
-            toolsListComponent.ToolSelected += OnToolSelected; // Đăng ký sự kiện ở đây
+            toolsListPage = new ToolsListPage();
+            toolsListPage.ToolSelected += OnToolSelected; // Đăng ký sự kiện ở đây
             brightnessAndContrastViewModel = new BrightnessAndContrastViewModel();
-            topBarComponent = new TopBarComponent(brightnessAndContrastViewModel);
+            topBarComponent = new TopBarPage(brightnessAndContrastViewModel);
             brightnessAndContrastPage = new BrightnessAndContrastPage(brightnessAndContrastViewModel);
-            shapesPage = new Shapes();
+            shapesPage = new ShapesPage();
 
             
-
-            // Đảm bảo rằng các Frame đã được khởi tạo trước khi gọi Navigate
             this.TopBarComponentFrame.Content = topBarComponent;
-            this.ToolsComponentFrame.Content = toolsListComponent; // Thiết lập nội dung trực tiếp
-            this.ImageEditComponentFrame.Navigate(typeof(ImageEditComponent));
+            this.ToolsComponentFrame.Content = toolsListPage; // Thiết lập nội dung trực tiếp
+            this.ImageEditComponentFrame.Navigate(typeof(ImageEditPage));
         }
         //private void LoadThemeSettings()
         //{

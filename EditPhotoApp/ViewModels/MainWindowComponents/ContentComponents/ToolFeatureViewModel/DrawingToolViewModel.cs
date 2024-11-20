@@ -12,7 +12,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
 
-namespace EditPhotoApp.ViewModels
+namespace EditPhotoApp.ViewModels.MainWindowComponents.ContentComponents.ToolFeatureViewModel
 {
     public class DrawingToolViewModel : INotifyPropertyChanged
     {

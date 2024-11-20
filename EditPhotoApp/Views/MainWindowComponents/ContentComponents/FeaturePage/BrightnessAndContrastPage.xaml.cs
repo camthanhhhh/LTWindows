@@ -1,4 +1,4 @@
-﻿using EditPhotoApp.ViewModels;
+﻿using EditPhotoApp.ViewModels.MainWindowComponents.ContentComponents.ToolFeatureViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -23,7 +23,7 @@ using Windows.Storage.Streams;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace EditPhotoApp.Views.FeaturePage
+namespace EditPhotoApp.Views.FeaturePage.ContentComponents
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -48,7 +48,7 @@ namespace EditPhotoApp.Views.FeaturePage
             float contrast = (float)ContrastSlider.Value;
             viewModel.Brightness = brightness;
             viewModel.Contrast = contrast;
-            viewModel.UpdateImage(brightness, contrast); // Sử dụng instance chia sẻ
+            viewModel.UpdateImage(brightness, contrast); 
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -58,7 +58,6 @@ namespace EditPhotoApp.Views.FeaturePage
             }
             else
             {
-                // Xử lý khi không nhận được viewModel (có thể ném ngoại lệ hoặc log lỗi)
                 throw new InvalidOperationException("ViewModel không được truyền vào");
             }
         }

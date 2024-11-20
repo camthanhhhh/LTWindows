@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jDncBf2/zhw=",
+  "dgSpecHash": "hFL3HhNIn/o=",
   "success": true,
-  "projectFilePath": "D:\\DaiHoc\\HK7\\Window\\EditImageProject\\camthanhhhh\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
+  "projectFilePath": "D:\\DaiHoc\\HK7\\Window\\Milestone2\\LTWindows\\EditPhotoApp\\EditPhotoApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.graphics.win2d\\1.3.0\\microsoft.graphics.win2d.1.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.web.webview2\\1.0.2651.64\\microsoft.web.webview2.1.0.2651.64.nupkg.sha512",

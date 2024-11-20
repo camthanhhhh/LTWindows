@@ -21,17 +21,17 @@ using WinRT.Interop;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace EditPhotoApp.Views.MainWindowComponents
+namespace EditPhotoApp.Views.MainWindowComponents.ContentComponents
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ToolsListComponent : Page
+    public sealed partial class ToolsListPage : Page
     {
         public event Action<string> ToolSelected;
         private Canvas imageCanvas;
 
-        public ToolsListComponent()
+        public ToolsListPage()
         {
            
             this.InitializeComponent();
@@ -47,8 +47,6 @@ namespace EditPhotoApp.Views.MainWindowComponents
                 imageCanvas.IsHitTestVisible = false;
 
             }
-
-
         }
         private void DrawingButton_Click(object sender, RoutedEventArgs e)
         {
@@ -57,7 +55,6 @@ namespace EditPhotoApp.Views.MainWindowComponents
             //toolUseComponent._frame = "
             ToolSelected?.Invoke("Drawing");
             imageCanvas.IsHitTestVisible = true;
-
 
         }
         private void InsertShapesButton_Click(object sender, RoutedEventArgs e)

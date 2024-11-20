@@ -12,7 +12,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using EditPhotoApp.Views.FeatureWindow;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using WinRT.Interop;
@@ -21,8 +20,10 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using WinRT.Interop;
-using EditPhotoApp.ViewModels;
 using System.Drawing;
+using EditPhotoApp.ViewModels.MainWindowComponents.ContentComponents.ToolFeatureViewModel;
+using EditPhotoApp.Views.MainWindowComponents.ContentComponents;
+using EditPhotoApp.ViewModels.MainWindowComponents.TopBarViewModel;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -31,18 +32,16 @@ namespace EditPhotoApp.Views.MainWindowComponents
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TopBarComponent : Page
+    public sealed partial class TopBarPage : Page
     {
-        private ImageEditComponent _imageEditComponent;
         private Bitmap _originalImage;
-        private ExportOptionsViewModel exportOptionsViewModel;
+        private ImportExportImageViewModel importExportViewModel;
         private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
         public static string ImageFilePath { get; private set; }
 
-        public TopBarComponent(BrightnessAndContrastViewModel brightnessAndContrastViewModel)
+        public TopBarPage(BrightnessAndContrastViewModel brightnessAndContrastViewModel)
         {
-            _imageEditComponent = new ImageEditComponent();
-            exportOptionsViewModel = new ExportOptionsViewModel();
+            importExportViewModel = new ImportExportImageViewModel();
             this.brightnessAndContrastViewModel = brightnessAndContrastViewModel;
             this.InitializeComponent();
            
@@ -60,7 +59,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
             {
                 rootName = menuFlyoutItem.Text;
             }
-            exportOptionsViewModel.export(xamlRoot, rootName);
+            importExportViewModel.export(xamlRoot, rootName);
 
       
         }
@@ -98,44 +97,68 @@ namespace EditPhotoApp.Views.MainWindowComponents
                 // Handle the error if needed (e.g., log the error)
             }
         }
+
+        //private async void ImportImage_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var mainWindow = App.MainWindow;
+
+        //    var picker = new FileOpenPicker();
+        //    picker.ViewMode = PickerViewMode.Thumbnail;
+        //    picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+        //    picker.FileTypeFilter.Add(".png");
+        //    picker.FileTypeFilter.Add(".jpg");
+        //    picker.FileTypeFilter.Add(".jpeg");
+
+        //    var hwnd = WindowNative.GetWindowHandle(App.MainWindow);
+
+        //    InitializeWithWindow.Initialize(picker, hwnd);
+
+        //    var file = await picker.PickSingleFileAsync();
+        //    if (file != null)
+        //    {
+        //        var bitmapImage = new BitmapImage();
+        //        using (var stream = await file.OpenAsync(FileAccessMode.Read))
+        //        {
+        //            bitmapImage.SetSource(stream);
+        //            var decoder = await Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(stream);
+        //            var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+
+        //            _originalImage = brightnessAndContrastViewModel.SoftwareBitmapToBitmap(softwareBitmap);
+        //            brightnessAndContrastViewModel.SetOriginalImage(_originalImage);
+
+        //        }
+        //        mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
+        //        ImageFilePath = file.Path;
+
+        //    }
+        //}
+
         private async void ImportImage_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = App.MainWindow;
-
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".png");
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".jpeg");
-
-            var hwnd = WindowNative.GetWindowHandle(App.MainWindow);
-
-            InitializeWithWindow.Initialize(picker, hwnd);
-
-            var file = await picker.PickSingleFileAsync();
-            if (file != null)
+            // Lấy XamlRoot từ Content
+            XamlRoot xamlRoot = (sender as FrameworkElement)?.XamlRoot;
+            if (xamlRoot == null)
             {
-                var bitmapImage = new BitmapImage();
-                using (var stream = await file.OpenAsync(FileAccessMode.Read))
+                return; // Nếu không lấy được XamlRoot, không thực hiện tiếp
+            }
+
+            string response = await importExportViewModel.import(xamlRoot,brightnessAndContrastViewModel);
+            if (!string.IsNullOrEmpty(response))
+            {
+                ImageFilePath = response;
+            }
+            else
+            {
+                var dialog = new ContentDialog
                 {
-                    bitmapImage.SetSource(stream);
-                    var decoder = await Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(stream);
-                    var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-
-                    _originalImage = brightnessAndContrastViewModel.SoftwareBitmapToBitmap(softwareBitmap);
-                    brightnessAndContrastViewModel.SetOriginalImage(_originalImage);
-
-                }
-
-
-
-                mainWindow.ImageEditPage.saveImage.Source = bitmapImage;
-                ImageFilePath = file.Path;
-
+                    Title = "Import thất bại",
+                    Content = "Không thể import hình ảnh. Vui lòng thử lại.",
+                    CloseButtonText = "OK",
+                    XamlRoot = xamlRoot
+                };
+                await dialog.ShowAsync();
             }
         }
-
 
     }
 }

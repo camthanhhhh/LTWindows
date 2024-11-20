@@ -12,7 +12,7 @@ using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage;
 
-namespace EditPhotoApp.ViewModels
+namespace EditPhotoApp.ViewModels.MainWindowComponents.ContentComponents.ToolFeatureViewModel
 {
     public class BrightnessAndContrastViewModel : INotifyPropertyChanged
     {
@@ -117,14 +117,14 @@ namespace EditPhotoApp.ViewModels
         }
 
 
-        public Bitmap SoftwareBitmapToBitmap(Windows.Graphics.Imaging.SoftwareBitmap softwareBitmap)
+        public Bitmap SoftwareBitmapToBitmap(SoftwareBitmap softwareBitmap)
         {
             // Convert SoftwareBitmap to Bitmap
             using (var memoryStream = new InMemoryRandomAccessStream())
             {
                 // Encode the SoftwareBitmap into a stream (for example, as a PNG image)
-                var bitmapEncoder = Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(
-                    Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId, memoryStream).AsTask().Result;
+                var bitmapEncoder = BitmapEncoder.CreateAsync(
+                    BitmapEncoder.PngEncoderId, memoryStream).AsTask().Result;
 
                 bitmapEncoder.SetSoftwareBitmap(softwareBitmap);
                 bitmapEncoder.FlushAsync().AsTask().Wait();
@@ -172,7 +172,7 @@ namespace EditPhotoApp.ViewModels
                 }
             }
         }
-        public async void UpdateImage( float brightness,  float contrast)
+        public async void UpdateImage(float brightness, float contrast)
         {
             var mainWindow = App.MainWindow;
 
@@ -182,7 +182,7 @@ namespace EditPhotoApp.ViewModels
                 return;
             }
             // Get current slider values
-           
+
 
             // Adjust brightness and contrast
             Bitmap adjustedImage = AdjustBrightnessContrast(originalImage, brightness, contrast);
