@@ -34,6 +34,7 @@ namespace EditPhotoApp.Views.MainWindowComponents
     /// </summary>
     public sealed partial class TopBarPage : Page
     {
+        public event EventHandler ThemeChanged;  // Khai báo sự kiện ThemeChanged
         private Bitmap _originalImage;
         private ImportExportImageViewModel importExportViewModel;
         private BrightnessAndContrastViewModel brightnessAndContrastViewModel;
@@ -65,36 +66,20 @@ namespace EditPhotoApp.Views.MainWindowComponents
         }
 
         // Chuyển đổi giữa Dark và Light
+        
         private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            // Check if we need to run on the UI thread
-            if (DispatcherQueue.TryEnqueue(() =>
-            {
-                var currentTheme = Application.Current.RequestedTheme;
+            // Tạo sự kiện ThemeChanged khi nút được nhấn
+            ThemeChanged?.Invoke(this, EventArgs.Empty);
 
-                if (currentTheme == ApplicationTheme.Light)
-                {
-                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
-                    ThemeToggleButton.Content = "☀️"; // Update icon to sun for dark mode
-                    App.MainWindow.SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.Black));
-                }
-                else
-                {
-                    Application.Current.RequestedTheme = ApplicationTheme.Light;
-                    ThemeToggleButton.Content = "🌙"; // Update icon to moon for light mode
-                    App.MainWindow.SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.White));
-                }
-
-                // Save theme state in LocalSettings
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                localSettings.Values["AppTheme"] = Application.Current.RequestedTheme == ApplicationTheme.Dark ? "Dark" : "Light";
-            }))
+            // Thay đổi nội dung của nút từ 🌙 (mặt trăng) thành ☀️ (mặt trời) và ngược lại
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                // The action was successfully enqueued
+                ThemeToggleButton.Content = "☀️"; // Mặt trời khi ở chế độ tối
             }
             else
             {
-                // Handle the error if needed (e.g., log the error)
+                ThemeToggleButton.Content = "🌙"; // Mặt trăng khi ở chế độ sáng
             }
         }
 

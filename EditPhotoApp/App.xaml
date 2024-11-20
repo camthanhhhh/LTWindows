@@ -4,13 +4,24 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EditPhotoApp">
+
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Merged resource dictionaries -->
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <!-- Other merged dictionaries here -->
+                <!-- Bạn có thể thêm các tài nguyên khác từ đây -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+
+            <!-- Tài nguyên cho chế độ sáng -->
+            <SolidColorBrush x:Key="LightBackgroundColor" Color="White"/>
+            <SolidColorBrush x:Key="LightTopBarColor" Color="LightGray"/>
+
+            <!-- Tài nguyên cho chế độ tối -->
+            <SolidColorBrush x:Key="DarkBackgroundColor" Color="Black"/>
+            <SolidColorBrush x:Key="DarkTopBarColor" Color="DarkGray"/>
+
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

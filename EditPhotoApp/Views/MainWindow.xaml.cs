@@ -56,27 +56,7 @@ namespace EditPhotoApp
             this.ToolsComponentFrame.Content = toolsListPage; // Thiết lập nội dung trực tiếp
             this.ImageEditComponentFrame.Navigate(typeof(ImageEditPage));
         }
-        //private void LoadThemeSettings()
-        //{
-        //    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-        //    if (localSettings.Values.ContainsKey("AppTheme"))
-        //    {
-        //        string appTheme = localSettings.Values["AppTheme"] as string;
-        //        if (appTheme == "Dark")
-        //        {
-        //            Application.Current.RequestedTheme = ApplicationTheme.Dark;
-        //            SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.Black)); // Sửa lại ở đây
-        //            topBarComponent.ThemeToggleButton.Content = "☀️"; // Cập nhật icon
-        //        }
-        //        else
-        //        {
-        //            Application.Current.RequestedTheme = ApplicationTheme.Light;
-        //            SetMainGridBackground(new SolidColorBrush(Microsoft.UI.Colors.White)); // Sửa lại ở đây
-        //            topBarComponent.ThemeToggleButton.Content = "🌙"; // Cập nhật icon
-        //        }
-        //    }
-        //}
-
+        
         public void SetMainGridBackground(SolidColorBrush color)
         {
             MainGrid.Background = color;
@@ -102,6 +82,39 @@ namespace EditPhotoApp
                     ToolUseComponentFrame.Content = null;
                     break;
             }
+        }
+        private void OnThemeChanged(object sender, EventArgs e)
+        {
+            // Lấy tài nguyên từ App.xaml
+            var app = (App)Application.Current;
+            var resources = app.Resources;
+
+            // Kiểm tra chế độ hiện tại và chuyển sang chế độ khác
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                // Chuyển sang chế độ sáng
+                Application.Current.RequestedTheme = ApplicationTheme.Light;
+                UpdateTheme(
+                    (Brush)resources["LightBackgroundColor"],
+                    (Brush)resources["LightTopBarColor"]
+                );
+            }
+            else
+            {
+                // Chuyển sang chế độ tối
+                Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                UpdateTheme(
+                    (Brush)resources["DarkBackgroundColor"],
+                    (Brush)resources["DarkTopBarColor"]
+                );
+            }
+        }
+
+        private void UpdateTheme(Brush backgroundBrush, Brush topBarBrush)
+        {
+            // Cập nhật màu nền và TopBar cho MainWindow
+            MainGrid.Background = backgroundBrush;
+            TopBarComponentFrame.Background = topBarBrush;
         }
 
     }

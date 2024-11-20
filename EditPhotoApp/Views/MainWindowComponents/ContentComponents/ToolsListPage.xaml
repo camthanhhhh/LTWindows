@@ -12,7 +12,7 @@
     >
 
         <StackPanel VerticalAlignment="Top" Width="Auto"  Orientation="Vertical" Margin="10">
-        <Button x:Name="BrightnessContrastButton" Height="60" Background="Transparent" Foreground="White" Click="BrightnessContrastButton_Click">
+        <Button x:Name="BrightnessContrastButton" Height="60" Click="BrightnessContrastButton_Click">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -28,14 +28,14 @@
                 </Grid>
             </Button>
 
-            <Button Height="40" Content="📐 Crop"  Background="Transparent" Foreground="White"/>
-            <!--<Button Height="40" Content="✂ Resize" Background="Transparent" Foreground="White"/>
-            <Button Height="40" Content="🔍 Zoom" Background="Transparent" Foreground="White"/> 
-            <Button Height="40" Content="🧹 Reset" Background="Transparent" Foreground="White"/>-->
-            <Button Height="40" Content="🖌 Drawing" Background="Transparent" Foreground="White" Click="DrawingButton_Click"/>
+            <Button Height="40" Content="📐 Crop"/>
+            <Button Height="40" Content="✂ Resize"/>
+            <Button Height="40" Content="🔍 Zoom"/>
+            <Button Height="40" Content="🧹 Reset" />
+            <Button Height="40" Content="🖌 Drawing" Click="DrawingButton_Click"/>
             
         <!-- Insert Picture Button -->
-        <Button x:Name="InsertPictureButton" Height="40" Background="Transparent" Foreground="White" Click="InsertPictureButton_Click">
+        <Button x:Name="InsertPictureButton" Click="InsertPictureButton_Click">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -49,7 +49,7 @@
         </Button>
 
         <!-- Insert Shapes Button -->
-        <Button x:Name="InsertShapesButton" Height="40" Background="Transparent" Foreground="White" Click="InsertShapesButton_Click">
+        <Button x:Name="InsertShapesButton" Click="InsertShapesButton_Click">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
    
-    <Grid Height="40" VerticalAlignment="Top" Background="Black">
+    <Grid Height="40" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="Auto"/>
@@ -18,7 +18,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
 
             <!-- Replace DropDownButton with Button and use MenuFlyout -->
-            <Button Content="File" Background="Black" Foreground="White" 
+            <Button Content="File"
                     Click="FileButton_Click">
                 <Button.Flyout>
                     <MenuFlyout Placement="Bottom">
@@ -34,14 +34,13 @@
                 </Button.Flyout>
             </Button>
 
-            <TextBlock Text="&#10226;" FontSize="16" Foreground="White" VerticalAlignment="Center" Padding="10,0"/>
+            <Button Content="Undo"  VerticalAlignment="Center" Margin="5"/>
+            <Button Content="Redo"  VerticalAlignment="Center" Margin="5"/>
         </StackPanel>
 
         <!-- Right Side - Control Buttons -->
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-            <Button x:Name="ThemeToggleButton" Width="50" Height="30" Content="🌙"
-                Background="Transparent" Foreground="White"
-                Click="ThemeToggleButton_Click"/>
+            <Button x:Name="ThemeToggleButton" Width="50" Height="30" Content="🌙" Click="ThemeToggleButton_Click"/>
             <Button Width="40" Height="30" Content="👤" Background="Transparent" Foreground="White"/>
             <Button Width="40" Height="30" Content="❌" Background="Transparent" Foreground="Red"/>
         </StackPanel>
