@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="Photo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:Photo"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:Photo.Views"
+        xmlns:converters="using:Photo.Converters"
+        mc:Ignorable="d">
+
+    <Grid x:Name="RootPanel">
+        <Grid.Resources>
+            <converters:MatToBitmapSourceConverter x:Key="MatToBitmapSourceConverter" />
+            <converters:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="LightGray">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Import"
+            Command="{Binding ImportImageCommand}" />
+                <Button Content="Export"
+            Command="{Binding ExportImageCommand}" />
+            </StackPanel>
+        </Grid>
+        
+        
+        <Grid Grid.Column="0"
+              Grid.Row="1"
+              Grid.RowSpan="2"
+              BorderBrush="Gray"
+              BorderThickness="1">
+            
+        </Grid>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              Grid.RowSpan="2"
+              BorderBrush="Gray"
+              BorderThickness="0 1 1 1">
+            <StackPanel Visibility="{Binding OperationVisibility}">
+                <Button Content="Crop"
+                        Command="{Binding CropCommand}" />
+                <Button Content="Rotate"
+                        Command="{Binding RotateCommand}" />
+                <Button Content="Flip"
+                        Command="{Binding FlipCommand}" />
+                <Button Content="Picture Style"
+                        Command="{Binding PictureStyleCommand}" />
+                <Button Content="Brightness and Contrast"
+                        Command="{Binding BrightnessContrastCommand}" />
+                <Button Content="Reload Image"
+                        Command="{Binding ReloadCommand}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="2"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="scrollImageTarget"
+                          PointerWheelChanged="scrollImageTarget_PointerWheelChanged"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto"
+                          ZoomMode="Disabled"
+                          Grid.Row="0"
+                          BorderBrush="Gray"
+                          BorderThickness="0 1 1 1">
+                <Image x:Name="mainImage"
+                       Source="{Binding Image, Converter={StaticResource MatToBitmapSourceConverter}}"
+                       Margin="5"
+                       PointerMoved="mainImage_PointerMoved" />
+            </ScrollViewer>
+            
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        BorderBrush="Gray"
+                        BorderThickness="0 0 1 1">
+                <TextBlock x:Name="XPo" />
+                <TextBlock x:Name="YPo" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="2"
+              Grid.Row="2"
+              BorderBrush="Gray"
+              BorderThickness="0 0 1 1">
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding CropVisibility}">
+                <Button Content="16:9"
+                        Command="{Binding CropLevel1Command}" />
+                <Button Content="4:3"
+                        Command="{Binding CropLevel2Command}" />
+                <Button Content="3:4"
+                        Command="{Binding CropLevel3Command}" />
+                <Button Content="1:1"
+                        Command="{Binding CropLevel4Command}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding RotateVisibility}">
+                <Button Content="Rotate Clockwise 90°"
+                        Command="{Binding RotateLevel1Command}" />
+                <Button Content="Rotate Counter Clockwise 90°"
+                        Command="{Binding RotateLevel2Command}" />
+            </StackPanel>
+            <StackPanel  Visibility="{Binding BrightnessContrastVisibility}">
+                <TextBlock Text="Brightness" Margin="0,10,0,0"/>
+                <Slider x:Name="BrightnessSlider" Minimum="-100" Maximum="100" 
+                                    Value="{Binding SelectedBrightnessContrast.Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+                        />
+
+                <!-- Thanh trượt điều chỉnh tương phản -->
+                <TextBlock Text="Contrast" Margin="0,10,0,0"/>
+                <Slider x:Name="ContrastSlider" Minimum="-100" Maximum="200" 
+            Value="{Binding SelectedBrightnessContrast.Contrast, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+         />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding FlipVisibility}">
+                <Button Content="Flip Horizontal"
+                        Command="{Binding FlipLevel1Command}" />
+                <Button Content="Flip Vertical"
+                        Command="{Binding FlipLevel2Command}" />
+                <Button Content="Flip Horizontal Vertical"
+                        Command="{Binding FlipLevel3Command}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding PictureStyleVisibility}">
+                <Button Content="Style1"
+                        Command="{Binding StyleLevel1Command}" />
+                <Button Content="Style2"
+                        Command="{Binding StyleLevel2Command}" />
+                <Button Content="Style3"
+                        Command="{Binding StyleLevel3Command}" />
+                <Button Content="Style4"
+                        Command="{Binding StyleLevel4Command}" />
+                <Button Content="Style5"
+                        Command="{Binding StyleLevel5Command}" />
+                <Button Content="Style6"
+                        Command="{Binding StyleLevel6Command}" />
+                <Button Content="Style7"
+                        Command="{Binding StyleLevel7Command}" />
+                <Button Content="Style8"
+                        Command="{Binding StyleLevel8Command}" />
+                <Button Content="Style9"
+                        Command="{Binding StyleLevel9Command}" />
+                <Button Content="Style10"
+                        Command="{Binding StyleLevel10Command}" />
+                <Border BorderBrush="Gray"
+                        BorderThickness="1" />
+                <Grid Width="500">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Enter color:"
+                               VerticalAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                    <ComboBox Grid.Column="0"
+                              Grid.Row="1"
+                              Height="40"
+                              ItemsSource="{Binding ColorCode}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="0"
+                               Text="Enter Border Thickness:"
+                               VerticalAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="1"
+                             Text="{Binding BorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Height="40" />
+                    <Button Grid.Column="2"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Content="Set"
+                            Command="{Binding SetBorderCommand}"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center" />
+                </Grid>
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+</Window>
