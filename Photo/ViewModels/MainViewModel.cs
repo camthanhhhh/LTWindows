@@ -1,7 +1,11 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using ABI.Microsoft.UI.Xaml;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Shapes;
 using OpenCvSharp;
 using Photo.Models;
 using System;
@@ -9,7 +13,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -87,6 +90,16 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(BrightnessContrastVisibility));
             }
         }
+
+        public Visibility DrawingToolVisibility
+        {
+            get => drawingToolVisibility;
+            set
+            {
+                drawingToolVisibility = value;
+                OnPropertyChanged(nameof(DrawingToolVisibility));
+            }
+        }
         public ObservableCollection<ColorItem> ColorCode
         {
             get => colorCode;
@@ -96,8 +109,15 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(ColorCode));
             }
         }
+        public Canvas DrawingCanvas {
+            get => drawingCanvas;
+            set
+            {
+                drawingCanvas = value;
+                OnPropertyChanged(nameof(DrawingCanvas));
+            }
+        }
 
-        
         public int BorderThickness
         {
             get => borderThickness;
@@ -124,6 +144,16 @@ namespace Photo.ViewModels
             {
                 brightnessContrast = value;
                 OnPropertyChanged(nameof(SelectedBrightnessContrast));
+            }
+        }
+
+        public Drawing DrawingStatus
+        {
+            get => drawingStatus;
+            set
+            {
+                drawingStatus = value;
+                OnPropertyChanged(nameof(DrawingStatus));
             }
         }
         #endregion
@@ -278,7 +308,9 @@ namespace Photo.ViewModels
                 new ColorItem { Name = "Yellow", Value = Scalar.Yellow },
                 new ColorItem { Name = "YellowGreen", Value = Scalar.YellowGreen }
             };
-            SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0 , Contrast = 100};
+            SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0, Contrast = 100 };
+            DrawingCanvas = new Canvas();
+            DrawingStatus = new Drawing() { IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 };
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
             OperationVisibility = Visibility.Collapsed;
             CropVisibility = Visibility.Collapsed;
@@ -286,6 +318,7 @@ namespace Photo.ViewModels
             FlipVisibility = Visibility.Collapsed;
             PictureStyleVisibility = Visibility.Collapsed;
             BrightnessContrastVisibility = Visibility.Collapsed;
+            DrawingToolVisibility = Visibility.Collapsed;
             #endregion
 
             #region CommonCommand(s)
@@ -307,6 +340,8 @@ namespace Photo.ViewModels
                 FlipVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
+
                 #endregion
             });
             RotateCommand = new RelayCommand(() =>
@@ -320,6 +355,7 @@ namespace Photo.ViewModels
                 FlipVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
             });
@@ -334,6 +370,7 @@ namespace Photo.ViewModels
                 RotateVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
             });
@@ -348,6 +385,7 @@ namespace Photo.ViewModels
                 CropVisibility = Visibility.Collapsed;
                 RotateVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
             });
@@ -363,6 +401,23 @@ namespace Photo.ViewModels
                 CropVisibility = Visibility.Collapsed;
                 RotateVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
+
+                #endregion
+            });
+            DrawingToolCommand = new RelayCommand(() =>
+            {
+                #region Visible
+                DrawingToolVisibility = Visibility.Visible;
+
+                #endregion
+
+                #region Collapsed
+                FlipVisibility = Visibility.Collapsed;
+                CropVisibility = Visibility.Collapsed;
+                RotateVisibility = Visibility.Collapsed;
+                PictureStyleVisibility = Visibility.Collapsed;
+                BrightnessContrastVisibility = Visibility.Collapsed;
 
                 #endregion
             });
@@ -397,6 +452,12 @@ namespace Photo.ViewModels
             StyleLevel10Command = new RelayCommand(PictureStyleLevel10);
 
             SetBorderCommand = new RelayCommand(SetBorder);
+            #endregion
+
+            #region DrawingToolCommand(d)
+            PencilCommand = new RelayCommand(SelectPencilTool);
+            BrushCommand = new RelayCommand(SelectBrushTool);
+            EraserCommand = new RelayCommand(SelectEraserTool);
             #endregion
             #endregion
         }
@@ -437,6 +498,10 @@ namespace Photo.ViewModels
 
         public ICommand SetBorderCommand { get; }
 
+        public ICommand PencilCommand { get; }
+        public ICommand BrushCommand { get; }
+        public ICommand EraserCommand { get; }
+        public ICommand DrawingToolCommand { get; }
         #endregion
 
         #region Method(s)
@@ -465,8 +530,8 @@ namespace Photo.ViewModels
                         Directory.CreateDirectory(assetsPath);
                     }
 
-                    string fileName = $"imported_{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(file.Path)}";
-                    string destinationPath = Path.Combine(assetsPath, fileName);
+                    string fileName = $"imported_{DateTime.Now:yyyyMMddHHmmss}{System.IO.Path.GetExtension(file.Path)}";
+                    string destinationPath = System.IO.Path.Combine(assetsPath, fileName);
 
                     using (var sourceStream = await file.OpenStreamForReadAsync())
                     using (var destinationStream = new FileStream(destinationPath, FileMode.Create))
@@ -734,39 +799,141 @@ namespace Photo.ViewModels
         {
             float brightness = SelectedBrightnessContrast.Brightness;
             float contrast = SelectedBrightnessContrast.Contrast;
-            Debug.WriteLine("Đang tải ảnh...");
-
 
             // Adjust brightness and contrast
             Mat adjustedImage = AdjustBrightnessContrast(originalImage, brightness, contrast);
-
-            // Convert Bitmap to SoftwareBitmap
-            //SoftwareBitmap softwareBitmap = ConvertToSoftwareBitmap(adjustedImage);
-
-            // Convert SoftwareBitmap to BitmapImage
-            //BitmapImage bitmapImage = await ConvertSoftwareBitmapToBitmapImageAsync(softwareBitmap);
-
             // Display in Image control
             Image = adjustedImage;
-            //SelectedImage.Source = bitmapImage;
         }
+        #region DrawingTools
+        
+        
+
+       
+        public void SelectPencilTool()
+        {
+            DrawingStatus.IsEraser = false; // Không phải Tẩy
+            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+            StrokeThickness = 2; // Nét mỏng
+        }
+
+        public void SelectBrushTool()
+        {
+            DrawingStatus.IsEraser = false; // Không phải Tẩy
+            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+            StrokeThickness = 5; // Nét dày
+        }
+
+        public void SelectEraserTool()
+        {
+            DrawingStatus.IsEraser = true; // Là Tẩy
+            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.White); // Màu trắng để xóa
+            StrokeThickness = 10; // Nét to
+        }
+        private void DrawLineOnMat(Point start, Point end)
+        {
+            // Đảm bảo Mat đã được tạo và có kích thước hợp lý
+
+            Mat newImage = Image.Clone();
+            // Vẽ đường thẳng lên Mat
+            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0); // Màu đen cho bút và trắng cho tẩy
+            var thickness = (int)StrokeThickness; // Độ dày đường vẽ
+            
+            Cv2.Line(newImage,new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
+            Image = newImage;
+            // Cập nhật lại Image từ Mat
+            SaveAndClearDrawing();
+        }
+        public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
+
+        private Brush _currentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
+        public Brush CurrentBrush
+        {
+            get => _currentBrush;
+            set
+            {
+                _currentBrush = value;
+                OnPropertyChanged(nameof(CurrentBrush));
+            }
+        }
+
+        public double StrokeThickness { get; set; } = 2.0;
+
+        public void StartDrawing(double x, double y)
+        {
+            DrawingStatus.IsDrawing = true;
+            DrawingStatus.LastX = x;
+            DrawingStatus.LastY = y;
+        }
+
+        public void ContinueDrawing(double x, double y)
+        {
+            if (DrawingStatus.IsDrawing)
+            {
+                // Lưu lại tọa độ ban đầu trước khi cập nhật
+                var startPoint = new Point(DrawingStatus.LastX, DrawingStatus.LastY);
+                var endPoint = new Point(x, y);
+
+                // Tạo đường thẳng từ điểm cuối cùng đến điểm hiện tại
+                var line = new Line
+                {
+                    X1 = startPoint.X,
+                    Y1 = startPoint.Y,
+                    X2 = endPoint.X,
+                    Y2 = endPoint.Y,
+                    Stroke = DrawingStatus.IsEraser ? new SolidColorBrush(Microsoft.UI.Colors.White) : CurrentBrush,
+                    StrokeThickness = StrokeThickness
+                };
+
+                DrawingElements.Add(line); // Thêm đường vẽ vào UI
+
+                // Vẽ lên Mat (OpenCV)
+                DrawLineOnMat(startPoint, endPoint); // Cập nhật lên Mat
+
+                // Cập nhật tọa độ cuối
+                DrawingStatus.LastX = x;
+                DrawingStatus.LastY = y;
+            }
+        }
+
+
+        public void StopDrawing()
+        {
+            DrawingStatus.IsDrawing = false;
+        }
+
+
+        private void SaveAndClearDrawing()
+        {
+
+            // Xóa các đối tượng vẽ trên canvas
+            DrawingElements.Clear();
+        }
+        #endregion
+
+
+
+
         #endregion
 
         #region Private(s)
         private Mat image;
         private Mat originalImage;
+        private Canvas drawingCanvas;
         private Visibility brightnessContrastVisibility;
         private Visibility cropVisibility;
         private Visibility operationVisibility;
         private Visibility rotateVisibility;
         private Visibility flipVisibility;
         private Visibility pictureStyleVisibility;
+        private Visibility drawingToolVisibility;
         private ObservableCollection<ColorItem> colorCode;
         private ColorItem selectedColor;
         private int borderThickness; 
         private Mat matTemp;
         private bool flag = false;
         private BrightnessContrast brightnessContrast;
+        private Drawing drawingStatus;
         #endregion
     }
 }

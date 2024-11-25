@@ -59,6 +59,8 @@
                         Command="{Binding PictureStyleCommand}" />
                 <Button Content="Brightness and Contrast"
                         Command="{Binding BrightnessContrastCommand}" />
+                <Button Content="Drawing"
+                        Command="{Binding DrawingToolCommand}" />
                 <Button Content="Reload Image"
                         Command="{Binding ReloadCommand}" />
             </StackPanel>
@@ -78,10 +80,35 @@
                           Grid.Row="0"
                           BorderBrush="Gray"
                           BorderThickness="0 1 1 1">
-                <Image x:Name="mainImage"
+                <Grid x:Name="DrawingArea" RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1" />
+                    </Grid.RenderTransform>
+                    <Image x:Name="mainImage"
                        Source="{Binding Image, Converter={StaticResource MatToBitmapSourceConverter}}"
                        Margin="5"
                        PointerMoved="mainImage_PointerMoved" />
+                    <Canvas x:Name="DrawingCanvas"
+                        Background="Transparent"
+                        PointerPressed="Canvas_PointerPressed"
+                        PointerMoved="Canvas_PointerMoved"
+                        PointerReleased="Canvas_PointerReleased"
+>
+                        <ItemsControl ItemsSource="{Binding DrawingElements}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentPresenter Content="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+
+                </Grid>
             </ScrollViewer>
             
             <StackPanel Grid.Row="1"
@@ -118,16 +145,10 @@
             <StackPanel  Visibility="{Binding BrightnessContrastVisibility}">
                 <TextBlock Text="Brightness" Margin="0,10,0,0"/>
                 <Slider x:Name="BrightnessSlider" Minimum="-100" Maximum="100" 
-                                    Value="{Binding SelectedBrightnessContrast.Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-
-                        />
-
-                <!-- Thanh trượt điều chỉnh tương phản -->
+                        Value="{Binding SelectedBrightnessContrast.Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Contrast" Margin="0,10,0,0"/>
                 <Slider x:Name="ContrastSlider" Minimum="-100" Maximum="200" 
-            Value="{Binding SelectedBrightnessContrast.Contrast, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-
-         />
+                        Value="{Binding SelectedBrightnessContrast.Contrast, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding FlipVisibility}">
@@ -137,6 +158,31 @@
                         Command="{Binding FlipLevel2Command}" />
                 <Button Content="Flip Horizontal Vertical"
                         Command="{Binding FlipLevel3Command}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        Visibility="{Binding DrawingToolVisibility}">
+                <Button  Width="120" Height="40" Command="{Binding PencilCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="✏️" FontSize="16" Margin="0,0,5,0"/>
+                        <TextBlock Text="Bút Chì" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="120" Height="40" Command="{Binding BrushCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🖌️" FontSize="16" Margin="0,0,5,0"/>
+                        <TextBlock Text="Cọ Vẽ" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="120" Height="40" Command="{Binding EraserCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🧽" FontSize="16" Margin="0,0,5,0"/>
+                        <TextBlock Text="Tẩy" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding PictureStyleVisibility}">
