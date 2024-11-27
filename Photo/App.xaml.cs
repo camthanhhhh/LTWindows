@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using Photo.HostBuilders;
+using Microsoft.Windows.ApplicationModel.Resources;
 
 namespace Photo
 {
@@ -25,7 +26,10 @@ namespace Photo
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Activate();
         }
-
+        public void SetLanguage(string language)
+        {
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = language;
+        }
         public static MainWindow MainWindow { get; private set; }
     }
 }

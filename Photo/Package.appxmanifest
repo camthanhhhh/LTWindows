@@ -26,8 +26,9 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate"/>
-  </Resources>
+    <Resource Language="en-US"/>
+    <Resource Language="vi-VN"/>
+</Resources>
 
   <Applications>
     <Application Id="App"

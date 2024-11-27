@@ -27,10 +27,23 @@
 
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="LightGray">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Import"
+
+                <Button x:Uid="ImportButton"
             Command="{Binding ImportImageCommand}" />
-                <Button Content="Export"
-            Command="{Binding ExportImageCommand}" />
+                <Button x:Uid="ExportButton"
+            Command="{Binding ExportImageCommand}"/>
+                <DropDownButton x:Uid="LanguageButton">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem x:Uid="EnglishItem"
+                                            Command="{Binding ChangeLanguageCommand}"
+                                            CommandParameter="en-US"/>
+                            <MenuFlyoutItem x:Uid="VietnameseItem"
+                                            Command="{Binding ChangeLanguageCommand}"
+                                            CommandParameter="vi-VN"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
             </StackPanel>
         </Grid>
         
@@ -49,19 +62,21 @@
               BorderBrush="Gray"
               BorderThickness="0 1 1 1">
             <StackPanel Visibility="{Binding OperationVisibility}">
-                <Button Content="Crop"
+                <Button x:Uid="CropButton"
                         Command="{Binding CropCommand}" />
-                <Button Content="Rotate"
+                <Button x:Uid="RotateButton"
                         Command="{Binding RotateCommand}" />
-                <Button Content="Flip"
+                <Button x:Uid="FlipButton"
                         Command="{Binding FlipCommand}" />
-                <Button Content="Picture Style"
+                <Button x:Uid="PictureStyleButton"
                         Command="{Binding PictureStyleCommand}" />
-                <Button Content="Brightness and Contrast"
+                <Button x:Uid="BrightnessAndContrastButton"
                         Command="{Binding BrightnessContrastCommand}" />
-                <Button Content="Drawing"
+                <Button 
+                        x:Uid="DrawingToolsButton"
                         Command="{Binding DrawingToolCommand}" />
-                <Button Content="Reload Image"
+                <Button
+                        x:Uid="ReloadImageButton"
                         Command="{Binding ReloadCommand}" />
             </StackPanel>
         </Grid>
@@ -126,37 +141,37 @@
               BorderThickness="0 0 1 1">
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding CropVisibility}">
-                <Button Content="16:9"
+                <Button x:Uid="16_9Button"
                         Command="{Binding CropLevel1Command}" />
-                <Button Content="4:3"
+                <Button x:Uid="4_3Button"
                         Command="{Binding CropLevel2Command}" />
-                <Button Content="3:4"
+                <Button x:Uid="3_4Button"
                         Command="{Binding CropLevel3Command}" />
-                <Button Content="1:1"
+                <Button x:Uid="1_1Button"
                         Command="{Binding CropLevel4Command}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding RotateVisibility}">
-                <Button Content="Rotate Clockwise 90°"
+                <Button x:Uid="RotateClockwise90Button"
                         Command="{Binding RotateLevel1Command}" />
-                <Button Content="Rotate Counter Clockwise 90°"
+                <Button x:Uid="RotateCounterClockwise90Button"
                         Command="{Binding RotateLevel2Command}" />
             </StackPanel>
             <StackPanel  Visibility="{Binding BrightnessContrastVisibility}">
-                <TextBlock Text="Brightness" Margin="0,10,0,0"/>
+                <TextBlock x:Uid="BrightnessText" Margin="0,10,0,0"/>
                 <Slider x:Name="BrightnessSlider" Minimum="-100" Maximum="100" 
                         Value="{Binding SelectedBrightnessContrast.Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Contrast" Margin="0,10,0,0"/>
+                <TextBlock x:Uid="ContrastText" Margin="0,10,0,0"/>
                 <Slider x:Name="ContrastSlider" Minimum="-100" Maximum="200" 
                         Value="{Binding SelectedBrightnessContrast.Contrast, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding FlipVisibility}">
-                <Button Content="Flip Horizontal"
+                <Button x:Uid="FlipHorizontalButton"
                         Command="{Binding FlipLevel1Command}" />
-                <Button Content="Flip Vertical"
+                <Button x:Uid="FlipVerticalButton"
                         Command="{Binding FlipLevel2Command}" />
-                <Button Content="Flip Horizontal Vertical"
+                <Button x:Uid="FlipHorizontalVerticalButton"
                         Command="{Binding FlipLevel3Command}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" 
@@ -165,21 +180,21 @@
                 <Button  Width="120" Height="40" Command="{Binding PencilCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="✏️" FontSize="16" Margin="0,0,5,0"/>
-                        <TextBlock Text="Bút Chì" FontSize="16"/>
+                        <TextBlock x:Uid="PencilText" FontSize="16"/>
                     </StackPanel>
                 </Button>
 
                 <Button Width="120" Height="40" Command="{Binding BrushCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🖌️" FontSize="16" Margin="0,0,5,0"/>
-                        <TextBlock Text="Cọ Vẽ" FontSize="16"/>
+                        <TextBlock  x:Uid="BrushText" FontSize="16"/>
                     </StackPanel>
                 </Button>
 
                 <Button Width="120" Height="40" Command="{Binding EraserCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🧽" FontSize="16" Margin="0,0,5,0"/>
-                        <TextBlock Text="Tẩy" FontSize="16"/>
+                        <TextBlock  x:Uid="ErasorText" FontSize="16"/>
                     </StackPanel>
                 </Button>
 

@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.ApplicationModel.Resources;
 using OpenCvSharp;
 using Photo.Models;
 using System;
@@ -13,9 +14,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
@@ -324,6 +327,7 @@ namespace Photo.ViewModels
             #region CommonCommand(s)
             ImportImageCommand = new AsyncRelayCommand(ImportImageAsync);
             ExportImageCommand = new AsyncRelayCommand(SaveImageAsync);
+            ChangeLanguageCommand = new RelayCommand<string>(SetAppLanguage);
             ReloadCommand = new RelayCommand(() =>
             {
                 Image = new Mat(ImagePath);
@@ -458,6 +462,7 @@ namespace Photo.ViewModels
             PencilCommand = new RelayCommand(SelectPencilTool);
             BrushCommand = new RelayCommand(SelectBrushTool);
             EraserCommand = new RelayCommand(SelectEraserTool);
+
             #endregion
             #endregion
         }
@@ -502,6 +507,8 @@ namespace Photo.ViewModels
         public ICommand BrushCommand { get; }
         public ICommand EraserCommand { get; }
         public ICommand DrawingToolCommand { get; }
+        public ICommand ChangeLanguageCommand { get; }
+
         #endregion
 
         #region Method(s)
@@ -832,16 +839,12 @@ namespace Photo.ViewModels
         }
         private void DrawLineOnMat(Point start, Point end)
         {
-            // Đảm bảo Mat đã được tạo và có kích thước hợp lý
 
             Mat newImage = Image.Clone();
-            // Vẽ đường thẳng lên Mat
-            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0); // Màu đen cho bút và trắng cho tẩy
-            var thickness = (int)StrokeThickness; // Độ dày đường vẽ
-            
+            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0);
+            var thickness = (int)StrokeThickness; 
             Cv2.Line(newImage,new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
             Image = newImage;
-            // Cập nhật lại Image từ Mat
             SaveAndClearDrawing();
         }
         public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
@@ -911,7 +914,46 @@ namespace Photo.ViewModels
         }
         #endregion
 
+        #region Language
+        private async void SetAppLanguage(string language)
+        {
 
+            try
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse().GetString("ChangeLanguageConfirmDialog_Title"),
+                  
+                    Content = resourceLoader.GetString("ChangeLanguageConfirmDialog_Content"),
+                    PrimaryButtonText = resourceLoader.GetString("ChangeLanguageConfirmDialog_Agree"),
+                    CloseButtonText = resourceLoader.GetString("ChangeLanguageConfirmDialog_Close"),
+                    DefaultButton = ContentDialogButton.Primary,
+                    XamlRoot = App.MainWindow.Content.XamlRoot 
+                };
+
+                var result = await dialog.ShowAsync();
+                if   ( result == ContentDialogResult.Primary)
+                {// Thay đổi ngôn ngữ
+                    Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = language;
+
+                    // Reset ResourceLoader và context tài nguyên
+                    Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse().Reset();
+                    Windows.ApplicationModel.Resources.Core.ResourceManager.Current.DefaultContext.Reset();
+
+                    // Khởi động lại ứng dụng để áp dụng ngôn ngữ mới
+                    Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
+                }
+
+
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to change language: {ex.Message}");
+            }
+        }
+     
+        #endregion
 
 
         #endregion
@@ -934,6 +976,7 @@ namespace Photo.ViewModels
         private bool flag = false;
         private BrightnessContrast brightnessContrast;
         private Drawing drawingStatus;
+        private static Microsoft.Windows.ApplicationModel.Resources.ResourceLoader resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
         #endregion
     }
 }
