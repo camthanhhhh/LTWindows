@@ -213,4 +213,7 @@
   <data name="ChangeLanguageConfirmDialog_Close" xml:space="preserve">
     <value>Đóng</value>
   </data>
+  <data name="ToggleTheme.Content" xml:space="preserve">
+    <value>Chuyển đổi chủ đề</value>
+  </data>
 </root>

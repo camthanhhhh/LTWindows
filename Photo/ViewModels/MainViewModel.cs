@@ -159,6 +159,22 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(DrawingStatus));
             }
         }
+
+        private bool _isDarkMode;
+
+        public bool IsDarkMode
+        {
+            get => _isDarkMode;
+            set
+            {
+                if (_isDarkMode != value)
+                {
+                    _isDarkMode = value;
+                    OnPropertyChanged(nameof(IsDarkMode));
+                    ChangeStyle();  // Gọi hàm thay đổi style khi trạng thái thay đổi
+                }
+            }
+        }
         #endregion
 
         #region Constructor(s)
@@ -464,6 +480,13 @@ namespace Photo.ViewModels
             EraserCommand = new RelayCommand(SelectEraserTool);
 
             #endregion
+
+            // Khởi tạo command
+            ChangeStyleCommand = new RelayCommand(ChangeStyle);
+
+            // Kiểm tra trạng thái theme hiện tại (Dark hay Light)
+            IsDarkMode = Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark;
+
             #endregion
         }
         #endregion
@@ -508,6 +531,8 @@ namespace Photo.ViewModels
         public ICommand EraserCommand { get; }
         public ICommand DrawingToolCommand { get; }
         public ICommand ChangeLanguageCommand { get; }
+        
+        public ICommand ChangeStyleCommand { get; }
 
         #endregion
 
@@ -952,10 +977,24 @@ namespace Photo.ViewModels
                 Console.WriteLine($"Failed to change language: {ex.Message}");
             }
         }
-     
+
         #endregion
 
-
+        // Method áp dụng style khi thay đổi
+        private void ChangeStyle()
+        {
+            IsDarkMode = !IsDarkMode;
+            if (IsDarkMode)
+            {
+                // Nếu là chế độ tối, thay đổi theme thành Dark
+                Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
+            }
+            else
+            {
+                // Nếu là chế độ sáng, thay đổi theme thành Light
+                Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Light;
+            }
+        }        
         #endregion
 
         #region Private(s)

@@ -6,7 +6,8 @@
              xmlns:viewmodels="using:Photo.ViewModels"
              xmlns:views="using:Photo.Views">
     <Application.Resources>
-        <ResourceDictionary>
+        
+        <ResourceDictionary x:Key="ResourceDictionary">
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>

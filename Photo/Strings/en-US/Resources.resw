@@ -213,4 +213,7 @@
   <data name="ChangeLanguageConfirmDialog_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="ToggleTheme.Content" xml:space="preserve">
+    <value>Toggle Theme</value>
+  </data>
 </root>

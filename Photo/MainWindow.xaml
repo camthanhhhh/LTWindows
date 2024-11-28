@@ -25,7 +25,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="LightGray">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TabViewButtonBackground}">
             <StackPanel Orientation="Horizontal">
 
                 <Button x:Uid="ImportButton"
@@ -44,6 +44,9 @@
                         </MenuFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
+                <Button x:Uid="ToggleTheme"
+            Command="{Binding ChangeStyleCommand}" />
+               
             </StackPanel>
         </Grid>
         

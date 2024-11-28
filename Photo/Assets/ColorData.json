@@ -1,0 +1,14 @@
+{
+  "Id": "D:\\ColorData.json",
+  "Name": "ColorData",
+  "LightRegionColor": "#FFFFFFFF",
+  "DarkRegionColor": "#FF000000",
+  "LightBaseColor": "#FFCCCCCC",
+  "DarkBaseColor": "#FF333333",
+  "LightPrimaryColor": "#FF0073CF",
+  "DarkPrimaryColor": "#FF0073CF",
+  "LightBaseOverrides": [],
+  "DarkBaseOverrides": [],
+  "LightPrimaryOverrides": [],
+  "DarkPrimaryOverrides": []
+}

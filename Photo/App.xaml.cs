@@ -3,11 +3,32 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using Photo.HostBuilders;
 using Microsoft.Windows.ApplicationModel.Resources;
+using Photo.Models;
 
 namespace Photo
 {
     public partial class App : Application
     {
+        public static void ApplyTheme(ColorData colorData, bool isDarkMode)
+        {
+            // Truy cập tài nguyên của ứng dụng
+            var resources = Application.Current.Resources;
+
+            // Áp dụng màu theo chế độ sáng/tối
+            if (isDarkMode)
+            {
+                resources["RegionColor"] = colorData.DarkRegionColor;
+                resources["BaseColor"] = colorData.DarkBaseColor;
+                resources["PrimaryColor"] = colorData.DarkPrimaryColor;
+            }
+            else
+            {
+                resources["RegionColor"] = colorData.LightRegionColor;
+                resources["BaseColor"] = colorData.LightBaseColor;
+                resources["PrimaryColor"] = colorData.LightPrimaryColor;
+            }
+        }
+
         private readonly IHost _host;
         public static IHostBuilder CreateHostBuilder(string[] args = null)
         {
