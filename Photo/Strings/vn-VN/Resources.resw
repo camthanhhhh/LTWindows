@@ -136,7 +136,7 @@
     <value>Kiểu hình ảnh</value>
   </data>
   <data name="BrightnessAndContrastButton.Content" xml:space="preserve">
-    <value>Độ sáng và tương phản</value>
+    <value>Độ sáng/Tương phản</value>
   </data>
   <data name="DrawingToolsButton.Content" xml:space="preserve">
     <value>Công cụ vẽ</value>

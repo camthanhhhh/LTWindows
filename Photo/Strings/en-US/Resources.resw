@@ -136,7 +136,7 @@
     <value>Export</value>
   </data>
   <data name="BrightnessAndContrastButton.Content" xml:space="preserve">
-    <value>Brightness And Contrast</value>
+    <value>Brightness/Contrast</value>
   </data>
   <data name="DrawingToolsButton.Content" xml:space="preserve">
     <value>Drawing Tools</value>
