@@ -9,7 +9,7 @@
         xmlns:converters="using:Photo.Converters"
         mc:Ignorable="d">
 
-    <Grid x:Name="RootPanel">
+    <Grid x:Name="RootPanel"  Background="{ThemeResource CustomBackground}">
         <Grid.Resources>
             <converters:MatToBitmapSourceConverter x:Key="MatToBitmapSourceConverter" />
             <converters:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter" />

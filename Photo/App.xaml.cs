@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Photo.HostBuilders;
 using Microsoft.Windows.ApplicationModel.Resources;
 using Photo.Models;
+using Windows.Storage;
 
 namespace Photo
 {
@@ -13,7 +14,7 @@ namespace Photo
         {
             // Truy cập tài nguyên của ứng dụng
             var resources = Application.Current.Resources;
-
+            
             // Áp dụng màu theo chế độ sáng/tối
             if (isDarkMode)
             {
@@ -44,8 +45,18 @@ namespace Photo
 
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Activate();
+            object themeSetting = ApplicationData.Current.LocalSettings.Values["AppTheme"];
+
+            // Nếu có giá trị, áp dụng theme đã lưu
+            if (themeSetting != null && MainWindow.Content is FrameworkElement rootElement)
+            {
+                rootElement.RequestedTheme = (int)themeSetting == 0
+                    ? ElementTheme.Dark
+                    : ElementTheme.Light;
+            }
         }
         public void SetLanguage(string language)
         {

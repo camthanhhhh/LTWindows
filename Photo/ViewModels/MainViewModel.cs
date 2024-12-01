@@ -1,5 +1,6 @@
 ﻿using ABI.Microsoft.UI.Xaml;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 
@@ -160,7 +162,6 @@ namespace Photo.ViewModels
             }
         }
 
-        private bool _isDarkMode;
 
         public bool IsDarkMode
         {
@@ -171,7 +172,6 @@ namespace Photo.ViewModels
                 {
                     _isDarkMode = value;
                     OnPropertyChanged(nameof(IsDarkMode));
-                    ChangeStyle();  // Gọi hàm thay đổi style khi trạng thái thay đổi
                 }
             }
         }
@@ -182,6 +182,8 @@ namespace Photo.ViewModels
         {
             #region Initialize
             BorderThickness = 1;
+            IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
+            //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
             SelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             ColorCode = new ObservableCollection<ColorItem>
             {
@@ -851,14 +853,14 @@ namespace Photo.ViewModels
 
         public void SelectBrushTool()
         {
-            DrawingStatus.IsEraser = false; // Không phải Tẩy
+            DrawingStatus.IsEraser = false; 
             CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
             StrokeThickness = 5; // Nét dày
         }
 
         public void SelectEraserTool()
         {
-            DrawingStatus.IsEraser = true; // Là Tẩy
+            DrawingStatus.IsEraser = true; 
             CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.White); // Màu trắng để xóa
             StrokeThickness = 10; // Nét to
         }
@@ -983,17 +985,23 @@ namespace Photo.ViewModels
         // Method áp dụng style khi thay đổi
         private void ChangeStyle()
         {
-            IsDarkMode = !IsDarkMode;
-            if (IsDarkMode)
-            {
-                // Nếu là chế độ tối, thay đổi theme thành Dark
-                Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
-            }
-            else
-            {
-                // Nếu là chế độ sáng, thay đổi theme thành Light
-                Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Light;
-            }
+            
+        
+                if(App.MainWindow.Content is Microsoft.UI.Xaml.FrameworkElement rootElement)
+{                   if (rootElement.RequestedTheme == ElementTheme.Dark)
+                    {
+                    rootElement.RequestedTheme = ElementTheme.Light;
+
+                    }
+                    else
+                    {
+                        rootElement.RequestedTheme = ElementTheme.Dark;
+
+                    }
+                }
+
+
+           
         }        
         #endregion
 
@@ -1016,6 +1024,8 @@ namespace Photo.ViewModels
         private BrightnessContrast brightnessContrast;
         private Drawing drawingStatus;
         private static Microsoft.Windows.ApplicationModel.Resources.ResourceLoader resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
+        private bool _isDarkMode ;
+
         #endregion
     }
 }
