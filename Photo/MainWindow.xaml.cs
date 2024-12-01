@@ -67,24 +67,26 @@ namespace Photo
         private void Canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             var vm = (MainViewModel)RootPanel.DataContext;
+           
 
-            var point = e.GetCurrentPoint(DrawingCanvas).Position;
+                var point = e.GetCurrentPoint(DrawingCanvas).Position;
 
-            double scaledX = point.X / scaleTransform.ScaleX;
-            double scaledY = point.Y / scaleTransform.ScaleY;
-
-            vm.StartDrawing(scaledX, scaledY); 
+                double scaledX = point.X / scaleTransform.ScaleX;
+                double scaledY = point.Y / scaleTransform.ScaleY;
+                vm.StartDrawing(scaledX, scaledY);
+            
         }
 
         private void Canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
             var vm = (MainViewModel)RootPanel.DataContext;
+           
+                var point = e.GetCurrentPoint(DrawingCanvas).Position;
 
-            var point = e.GetCurrentPoint(DrawingCanvas).Position;
-
-            double scaledX = point.X / scaleTransform.ScaleX;
-            double scaledY = point.Y / scaleTransform.ScaleY;
-            vm.ContinueDrawing(scaledX, scaledY); // Sử dụng tọa độ đã hiệu chỉnh
+                double scaledX = point.X / scaleTransform.ScaleX;
+                double scaledY = point.Y / scaleTransform.ScaleY;
+                vm.ContinueDrawing(scaledX, scaledY); // Sử dụng tọa độ đã hiệu chỉnh
+            
         }
 
         private void Canvas_PointerReleased(object sender, PointerRoutedEventArgs e)

@@ -46,9 +46,19 @@ namespace Photo.Models
                 OnPropertyChanged(nameof(LastY));
             }
         }
+        public bool Status
+        {
+            get => status;
+            set
+            {
+                status= value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
         private bool isDrawing;
         private bool isEraser;
         private double lastX;
         private double lastY;
+        private bool status;
     }
 }

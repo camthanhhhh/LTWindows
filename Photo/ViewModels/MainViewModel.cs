@@ -331,7 +331,7 @@ namespace Photo.ViewModels
             };
             SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0, Contrast = 100 };
             DrawingCanvas = new Canvas();
-            DrawingStatus = new Drawing() { IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 };
+            DrawingStatus = new Drawing() { Status = false,IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 }; 
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
             OperationVisibility = Visibility.Collapsed;
             CropVisibility = Visibility.Collapsed;
@@ -350,6 +350,8 @@ namespace Photo.ViewModels
             {
                 Image = new Mat(ImagePath);
                 flag = false;
+                UpdateDrawingStatus(null);
+
             });
             CropCommand = new RelayCommand(() =>
             {
@@ -365,6 +367,7 @@ namespace Photo.ViewModels
                 DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(null);
             });
             RotateCommand = new RelayCommand(() =>
             {
@@ -380,6 +383,8 @@ namespace Photo.ViewModels
                 DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(null);
+
             });
             FlipCommand = new RelayCommand(() =>
             {
@@ -395,6 +400,8 @@ namespace Photo.ViewModels
                 DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(null);
+
             });
             PictureStyleCommand = new RelayCommand(() =>
             {
@@ -410,6 +417,8 @@ namespace Photo.ViewModels
                 DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(null);
+
             });
             BrightnessContrastCommand = new RelayCommand(() =>
             {
@@ -426,6 +435,8 @@ namespace Photo.ViewModels
                 DrawingToolVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(null);
+
             });
             DrawingToolCommand = new RelayCommand(() =>
             {
@@ -442,6 +453,8 @@ namespace Photo.ViewModels
                 BrightnessContrastVisibility = Visibility.Collapsed;
 
                 #endregion
+                UpdateDrawingStatus(DrawingToolCommand);
+
             });
             #region CropLevelCommand(s)
             CropLevel1Command = new RelayCommand(CropImageLevel1);
@@ -599,6 +612,7 @@ namespace Photo.ViewModels
                 await dialog.ShowAsync();
             }
         }
+
         public async Task SaveImageAsync()
         {
             try
@@ -938,6 +952,21 @@ namespace Photo.ViewModels
 
             // Xóa các đối tượng vẽ trên canvas
             DrawingElements.Clear();
+        }
+
+        private void UpdateDrawingStatus(ICommand command)
+        {
+            if (command == DrawingToolCommand)
+            {
+                DrawingStatus.Status = true;
+
+            }
+            else
+            {
+                DrawingStatus.Status = false;
+            }
+
+
         }
         #endregion
 

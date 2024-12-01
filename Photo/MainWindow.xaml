@@ -60,29 +60,35 @@
         </Grid>
 
         <Grid Grid.Column="1"
-              Grid.Row="1"
-              Grid.RowSpan="2"
-              BorderBrush="Gray"
-              BorderThickness="0 1 1 1">
-            <StackPanel Visibility="{Binding OperationVisibility}">
-                <Button x:Uid="CropButton"
-                        Command="{Binding CropCommand}" />
-                <Button x:Uid="RotateButton"
-                        Command="{Binding RotateCommand}" />
-                <Button x:Uid="FlipButton"
-                        Command="{Binding FlipCommand}" />
-                <Button x:Uid="PictureStyleButton"
-                        Command="{Binding PictureStyleCommand}" />
-                <Button x:Uid="BrightnessAndContrastButton"
-                        Command="{Binding BrightnessContrastCommand}" />
-                <Button 
-                        x:Uid="DrawingToolsButton"
-                        Command="{Binding DrawingToolCommand}" />
-                <Button
-                        x:Uid="ReloadImageButton"
-                        Command="{Binding ReloadCommand}" />
-            </StackPanel>
-        </Grid>
+      Grid.Row="1"
+      Grid.RowSpan="2"
+      BorderBrush="Gray"
+      BorderThickness="0 1 1 1">
+    <StackPanel Visibility="{Binding OperationVisibility}">
+        <Button x:Uid="CropButton"
+                Command="{Binding CropCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="RotateButton"
+                Command="{Binding RotateCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="FlipButton"
+                Command="{Binding FlipCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="PictureStyleButton"
+                Command="{Binding PictureStyleCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="BrightnessAndContrastButton"
+                Command="{Binding BrightnessContrastCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="DrawingToolsButton"
+                Command="{Binding DrawingToolCommand}"
+                HorizontalAlignment="Stretch" />
+        <Button x:Uid="ReloadImageButton"
+                Command="{Binding ReloadCommand}"
+                HorizontalAlignment="Stretch" />
+    </StackPanel>
+</Grid>
+
 
         <Grid Grid.Column="2"
               Grid.Row="1">
@@ -111,6 +117,7 @@
                         PointerPressed="Canvas_PointerPressed"
                         PointerMoved="Canvas_PointerMoved"
                         PointerReleased="Canvas_PointerReleased"
+                        IsHitTestVisible="{Binding DrawingStatus.Status}"
 >
                         <ItemsControl ItemsSource="{Binding DrawingElements}">
                             <ItemsControl.ItemsPanel>
