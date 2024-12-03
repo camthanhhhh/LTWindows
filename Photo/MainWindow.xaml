@@ -13,11 +13,15 @@
         <Grid.Resources>
             <converters:MatToBitmapSourceConverter x:Key="MatToBitmapSourceConverter" />
             <converters:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter" />
+            <converters:ScalarToBrushConverter x:Key="ScalarToBrushConverter" />
+
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="1.5*" />
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -97,13 +101,12 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <ScrollViewer x:Name="scrollImageTarget"
-                          PointerWheelChanged="scrollImageTarget_PointerWheelChanged"
-                          HorizontalScrollBarVisibility="Auto"
-                          VerticalScrollBarVisibility="Auto"
-                          ZoomMode="Disabled"
-                          Grid.Row="0"
-                          BorderBrush="Gray"
-                          BorderThickness="0 1 1 1">
+              HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Auto"
+              ZoomMode="Enabled"
+              MaxZoomFactor="5"
+              MinZoomFactor="1"
+              PointerWheelChanged="scrollImageTarget_PointerWheelChanged">
                 <Grid x:Name="DrawingArea" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1" />
@@ -111,7 +114,11 @@
                     <Image x:Name="mainImage"
                        Source="{Binding Image, Converter={StaticResource MatToBitmapSourceConverter}}"
                        Margin="5"
-                       PointerMoved="mainImage_PointerMoved" />
+                        >
+                        <Image.RenderTransform>
+                            <ScaleTransform x:Name="imageScaleTransform" ScaleX="1" ScaleY="1" />
+                        </Image.RenderTransform>
+                    </Image>
                     <Canvas x:Name="DrawingCanvas"
                         Background="Transparent"
                         PointerPressed="Canvas_PointerPressed"
@@ -211,33 +218,42 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding PictureStyleVisibility}">
-                <Button Content="Style1"
-                        Command="{Binding StyleLevel1Command}" />
-                <Button Content="Style2"
-                        Command="{Binding StyleLevel2Command}" />
-                <Button Content="Style3"
-                        Command="{Binding StyleLevel3Command}" />
-                <Button Content="Style4"
-                        Command="{Binding StyleLevel4Command}" />
-                <Button Content="Style5"
-                        Command="{Binding StyleLevel5Command}" />
-                <Button Content="Style6"
-                        Command="{Binding StyleLevel6Command}" />
-                <Button Content="Style7"
-                        Command="{Binding StyleLevel7Command}" />
-                <Button Content="Style8"
-                        Command="{Binding StyleLevel8Command}" />
-                <Button Content="Style9"
-                        Command="{Binding StyleLevel9Command}" />
-                <Button Content="Style10"
-                        Command="{Binding StyleLevel10Command}" />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Style1"
+          Command="{Binding StyleLevel1Command}" />
+                        <Button Content="Style2"
+          Command="{Binding StyleLevel2Command}" />
+                        <Button Content="Style3"
+          Command="{Binding StyleLevel3Command}" />
+                        <Button Content="Style4"
+          Command="{Binding StyleLevel4Command}" />
+                        <Button Content="Style5"
+          Command="{Binding StyleLevel5Command}" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Style6"
+Command="{Binding StyleLevel6Command}" />
+                        <Button Content="Style7"
+Command="{Binding StyleLevel7Command}" />
+                        <Button Content="Style8"
+Command="{Binding StyleLevel8Command}" />
+                        <Button Content="Style9"
+Command="{Binding StyleLevel9Command}" />
+                        <Button Content="Style10"
+Command="{Binding StyleLevel10Command}" />
+                    </StackPanel>
+                </StackPanel>
+                
+              
                 <Border BorderBrush="Gray"
                         BorderThickness="1" />
-                <Grid Width="500">
+                <Grid Width="600">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -255,7 +271,7 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               DisplayMemberPath="Name"
-                              SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                              SelectedItem="{Binding FrameSelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="0"
                                Text="Enter Border Thickness:"
@@ -274,7 +290,63 @@
                             HorizontalContentAlignment="Center" />
                 </Grid>
             </StackPanel>
-            
+           
+        </Grid>
+        <Grid Grid.Column="3"
+            Grid.Row="1"
+            BorderBrush="Gray"
+            BorderThickness="0 1 0 0"
+            VerticalAlignment="Top"     
+              >
+            <StackPanel Orientation="Vertical">
+              
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Color:  </TextBlock>
+                    <Ellipse 
+                        Width="16" 
+                        Height="16" 
+                        Fill="{Binding SelectedColor.Value, Converter={StaticResource ScalarToBrushConverter}}" 
+                        VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                    <ComboBox Grid.Column="0"
+                        Grid.Row="1"
+                        Height="40" 
+                        Width="110"
+                        ItemsSource="{Binding ColorCode}"
+                        HorizontalAlignment="Center"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+
+                    <ComboBox 
+                        Grid.Column="0" 
+                        Grid.Row="1" 
+                        Height="40" 
+                        Width="110" 
+                        ItemsSource="{Binding ColorCode}" 
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Center">
+<!--
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <Ellipse Fill="{Binding Value, Converter={StaticResource ScalarToBrushConverter}}" />
+                                    <TextBlock Text="{Binding Name}" />
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate> -->
+                    </ComboBox>
+
+
+                </StackPanel>
+                <Button Click="OnShowColorPickerClicked">Color Picker</Button>
+            </StackPanel>
+               
         </Grid>
     </Grid>
 </Window>

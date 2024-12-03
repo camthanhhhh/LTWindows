@@ -17,12 +17,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI;
 using WinRT.Interop;
 
 namespace Photo.ViewModels
@@ -132,6 +134,15 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(BorderThickness));
             }
         }
+        public ColorItem FrameSelectedColor
+        {
+            get => frameSelectedColor;
+            set
+            {
+                frameSelectedColor = value;
+                OnPropertyChanged(nameof(FrameSelectedColor));
+            }
+        }
         public ColorItem SelectedColor
         {
             get => selectedColor;
@@ -139,9 +150,9 @@ namespace Photo.ViewModels
             {
                 selectedColor = value;
                 OnPropertyChanged(nameof(SelectedColor));
+                OnSelectedColorChanged();
             }
         }
-
         public BrightnessContrast SelectedBrightnessContrast
         {
             get => brightnessContrast;
@@ -184,6 +195,7 @@ namespace Photo.ViewModels
             BorderThickness = 1;
             IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
             //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
+            FrameSelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             SelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             ColorCode = new ObservableCollection<ColorItem>
             {
@@ -330,6 +342,8 @@ namespace Photo.ViewModels
                 new ColorItem { Name = "YellowGreen", Value = Scalar.YellowGreen }
             };
             SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0, Contrast = 100 };
+            //SelectedColor = ColorCode.FirstOrDefault();
+
             DrawingCanvas = new Canvas();
             DrawingStatus = new Drawing() { Status = false,IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 }; 
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
@@ -552,6 +566,13 @@ namespace Photo.ViewModels
         #endregion
 
         #region Method(s)
+        private void OnSelectedColorChanged()
+        {
+            
+                CurrentColor = SelectedColor.Value;
+            //CurrentBrush = SelectedColor.Value;
+             
+        }
         public async Task ImportImageAsync()
         {
             try
@@ -815,7 +836,7 @@ namespace Photo.ViewModels
             {
                 Mat imageWithBorder = new Mat();
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
-                    BorderThickness, BorderThickness, BorderTypes.Constant, SelectedColor.Value);
+                    BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
                 return;
             } else
@@ -823,7 +844,7 @@ namespace Photo.ViewModels
                 matTemp = Image;
                 Mat imageWithBorder = new Mat();
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
-                    BorderThickness, BorderThickness, BorderTypes.Constant, SelectedColor.Value);
+                    BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
                 flag = true;
             }
@@ -854,40 +875,85 @@ namespace Photo.ViewModels
             Image = adjustedImage;
         }
         #region DrawingTools
-        
-        
 
-       
+
+
+        private Scalar _currentColor = new Scalar(0, 0, 0); // Màu đen mặc định
+        public Scalar CurrentColor
+        {
+            get => _currentColor;
+            set
+            {
+                _currentColor = value;
+                OnPropertyChanged(nameof(CurrentColor));
+            }
+        }
+
+        //public void SelectPencilTool()
+        //{
+        //    DrawingStatus.IsEraser = false; // Không phải Tẩy
+        //    //CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+        //    CurrentBrush = new SolidColorBrush(SelectedColor.Value); //SelectedColor có Name: string và Value: Scalar
+        //    StrokeThickness = 2; // Nét mỏng
+        //}
+
+        //public void SelectBrushTool()
+        //{
+        //    DrawingStatus.IsEraser = false; 
+        //    CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+        //    StrokeThickness = 5; // Nét dày
+        //}
+
+        //public void SelectEraserTool()
+        //{
+        //    DrawingStatus.IsEraser = true; 
+        //    CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.White); // Màu trắng để xóa
+        //    StrokeThickness = 10; // Nét to
+        //}
+        //private void DrawLineOnMat(Point start, Point end)
+        //{
+
+        //    Mat newImage = Image.Clone();
+        //    var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0);
+        //    var thickness = (int)StrokeThickness; 
+        //    Cv2.Line(newImage,new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
+        //    Image = newImage;
+        //    SaveAndClearDrawing();
+        //}
         public void SelectPencilTool()
         {
-            DrawingStatus.IsEraser = false; // Không phải Tẩy
-            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+            DrawingStatus.IsEraser = false;
+            CurrentColor =SelectedColor.Value; 
             StrokeThickness = 2; // Nét mỏng
+            
+
         }
 
         public void SelectBrushTool()
         {
-            DrawingStatus.IsEraser = false; 
-            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
+            DrawingStatus.IsEraser = false;
+            CurrentColor = SelectedColor.Value; // Màu đen
             StrokeThickness = 5; // Nét dày
+
         }
 
         public void SelectEraserTool()
         {
-            DrawingStatus.IsEraser = true; 
-            CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.White); // Màu trắng để xóa
+            DrawingStatus.IsEraser = true;
+            CurrentColor = new Scalar(255, 255, 255); // Màu trắng
             StrokeThickness = 10; // Nét to
         }
+
         private void DrawLineOnMat(Point start, Point end)
         {
-
             Mat newImage = Image.Clone();
-            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0);
-            var thickness = (int)StrokeThickness; 
-            Cv2.Line(newImage,new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
+            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : CurrentColor;
+            var thickness = (int)StrokeThickness;
+            Cv2.Line(newImage, new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
             Image = newImage;
             SaveAndClearDrawing();
         }
+
         public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
 
         private Brush _currentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
@@ -1030,8 +1096,17 @@ namespace Photo.ViewModels
                 }
 
 
-           
-        }        
+
+        }
+        public void SaveColor(Windows.UI.Color pickedColor)
+        {
+            // Convert Windows.UI.Color (ARGB) to OpenCV Scalar (BGR)
+            SelectedColor.Value = new Scalar(pickedColor.B, pickedColor.G, pickedColor.R); // BGR format
+            SelectedColor.Name = $"RGB({pickedColor.R},{pickedColor.G},{pickedColor.B})"; // Display RGB format for readability
+                                                                                          // CurrentColor = SelectedColor.Value; // Uncomment if you want to store the selected color in a variable
+            OnSelectedColorChanged();
+        }
+
         #endregion
 
         #region Private(s)
@@ -1046,6 +1121,7 @@ namespace Photo.ViewModels
         private Visibility pictureStyleVisibility;
         private Visibility drawingToolVisibility;
         private ObservableCollection<ColorItem> colorCode;
+        private ColorItem frameSelectedColor;
         private ColorItem selectedColor;
         private int borderThickness; 
         private Mat matTemp;
