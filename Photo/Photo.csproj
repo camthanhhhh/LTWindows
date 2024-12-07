@@ -18,6 +18,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Assets\cat.jpg" />
+	  <None Remove="Views\ColorChoose.xaml" />
 	  <None Remove="Views\HomeView.xaml" />
 	</ItemGroup>
   <ItemGroup>
@@ -54,6 +55,11 @@
     <Content Update="Assets\ColorData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ColorChoose.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\HomeView.xaml">
