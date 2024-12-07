@@ -1,8 +1,10 @@
 ﻿using ABI.Microsoft.UI.Xaml;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI;
 using Microsoft.UI.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -107,6 +109,16 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(DrawingToolVisibility));
             }
         }
+
+        public Visibility AddTextVisibility
+        {
+            get => addTextVisibility;
+            set
+            {
+                addTextVisibility = value;
+                OnPropertyChanged(nameof(AddTextVisibility));
+            }
+        }
         public ObservableCollection<ColorItem> ColorCode
         {
             get => colorCode;
@@ -173,7 +185,15 @@ namespace Photo.ViewModels
             }
         }
 
-
+        public bool CanvasHitTestVisible
+        {
+            get => canvasHitTestVisible;
+            set
+            {
+                canvasHitTestVisible = value;
+                OnPropertyChanged(nameof(CanvasHitTestVisible));
+            }
+        }
         public bool IsDarkMode
         {
             get => _isDarkMode;
@@ -186,6 +206,25 @@ namespace Photo.ViewModels
                 }
             }
         }
+        public  bool IsDragging{
+            get => isDragging;
+            set
+            {
+                isDragging = value;
+                OnPropertyChanged(nameof(IsDragging));
+         }
+        }
+
+        public AddText AddTextStatus
+        {
+            get => addTextStatus;
+            set
+            {
+                addTextStatus = value;
+                OnPropertyChanged(nameof(AddTextStatus));
+            }
+        }
+
         #endregion
 
         #region Constructor(s)
@@ -197,6 +236,8 @@ namespace Photo.ViewModels
             //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
             FrameSelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             SelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
+            IsDragging = true;
+            
             ColorCode = new ObservableCollection<ColorItem>
             {
                 new ColorItem { Name = "AliceBlue", Value = Scalar.AliceBlue },
@@ -346,6 +387,7 @@ namespace Photo.ViewModels
 
             DrawingCanvas = new Canvas();
             DrawingStatus = new Drawing() { Status = false,IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 }; 
+            AddTextStatus = new AddText() { IsAddText = false, IsDragging = false };
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
             OperationVisibility = Visibility.Collapsed;
             CropVisibility = Visibility.Collapsed;
@@ -354,6 +396,8 @@ namespace Photo.ViewModels
             PictureStyleVisibility = Visibility.Collapsed;
             BrightnessContrastVisibility = Visibility.Collapsed;
             DrawingToolVisibility = Visibility.Collapsed;
+            AddTextVisibility = Visibility.Collapsed;
+
             #endregion
 
             #region CommonCommand(s)
@@ -365,6 +409,8 @@ namespace Photo.ViewModels
                 Image = new Mat(ImagePath);
                 flag = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
+
 
             });
             CropCommand = new RelayCommand(() =>
@@ -379,9 +425,13 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
 
                 #endregion
+                CanvasHitTestVisible = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
+
             });
             RotateCommand = new RelayCommand(() =>
             {
@@ -395,9 +445,13 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
 
                 #endregion
+                CanvasHitTestVisible = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
+
 
             });
             FlipCommand = new RelayCommand(() =>
@@ -412,9 +466,13 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
 
                 #endregion
+                CanvasHitTestVisible = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
+
 
             });
             PictureStyleCommand = new RelayCommand(() =>
@@ -429,9 +487,12 @@ namespace Photo.ViewModels
                 RotateVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
 
                 #endregion
+                CanvasHitTestVisible = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
 
             });
             BrightnessContrastCommand = new RelayCommand(() =>
@@ -447,9 +508,12 @@ namespace Photo.ViewModels
                 RotateVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
 
                 #endregion
+                CanvasHitTestVisible = false;
                 UpdateDrawingStatus(null);
+                AddTextStatus.IsAddText = false;
 
             });
             DrawingToolCommand = new RelayCommand(() =>
@@ -465,11 +529,36 @@ namespace Photo.ViewModels
                 RotateVisibility = Visibility.Collapsed;
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
-
+                AddTextVisibility = Visibility.Collapsed;
+                CanvasHitTestVisible = true;
                 #endregion
                 UpdateDrawingStatus(DrawingToolCommand);
+                AddTextStatus.IsAddText = false;
 
             });
+          
+            AddTextCommand = new RelayCommand(() =>
+            {
+                #region Visible
+                AddTextVisibility = Visibility.Visible;
+
+
+                #endregion
+
+                #region Collapsed
+                FlipVisibility = Visibility.Collapsed;
+                CropVisibility = Visibility.Collapsed;
+                RotateVisibility = Visibility.Collapsed;
+                PictureStyleVisibility = Visibility.Collapsed;
+                BrightnessContrastVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
+
+                #endregion
+                CanvasHitTestVisible = true;
+                UpdateDrawingStatus(null);
+
+            });
+            //AddNewTextCommand = new RelayCommand(OpenGridTextBlock);
             #region CropLevelCommand(s)
             CropLevel1Command = new RelayCommand(CropImageLevel1);
             CropLevel2Command = new RelayCommand(CropImageLevel2);
@@ -562,7 +651,8 @@ namespace Photo.ViewModels
         public ICommand ChangeLanguageCommand { get; }
         
         public ICommand ChangeStyleCommand { get; }
-
+        public ICommand AddTextCommand { get; }
+        public ICommand AddNewTextCommand { get; }
         #endregion
 
         #region Method(s)
@@ -701,6 +791,7 @@ namespace Photo.ViewModels
             Mat cropped = new Mat(Image, roi);
 
             Image = cropped;
+            originalImage = Image.Clone();
         }
         public void CropImageLevel1()
         {
@@ -723,30 +814,35 @@ namespace Photo.ViewModels
             Mat rotatedClockwise = new Mat();
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Clockwise);
             Image = rotatedClockwise;
+            originalImage = Image.Clone();
         }
         public void RotateLevel2()
         {
             Mat rotatedClockwise = new Mat();
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Counterclockwise);
             Image = rotatedClockwise;
+            originalImage = Image.Clone();
         }
         public void FlipLevel1()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.X);
             Image = dst;
+            originalImage = Image.Clone();
         }
         public void FlipLevel2()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.Y);
             Image = dst;
+            originalImage = Image.Clone();
         }
         public void FlipLevel3()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.XY);
             Image = dst;
+            originalImage = Image.Clone();
         }
         public void PictureStyle(string filePath)
         {
@@ -789,6 +885,7 @@ namespace Photo.ViewModels
                 }
             }
             Image = imageWithBorder;
+            originalImage = Image.Clone();
         }
         public void PictureStyleLevel1()
         {
@@ -838,6 +935,7 @@ namespace Photo.ViewModels
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
+                        originalImage = Image.Clone();
                 return;
             } else
             {
@@ -846,25 +944,22 @@ namespace Photo.ViewModels
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
+                originalImage = Image.Clone();
                 flag = true;
             }
         }
         public static Mat AdjustBrightnessContrast(Mat image, float brightnessValue, float contrastValue)
         {
-            // Chuyển đổi giá trị độ sáng và tương phản
-            float brightness = brightnessValue / 100.0f * 255; // Chuyển đổi thành giá trị pixel
-            float contrast = contrastValue / 100.0f; // Tính hệ số nhân
-
-            // Tạo một Mat mới để chứa kết quả
+        
+            float brightness = brightnessValue / 100.0f * 255; 
+            float contrast = contrastValue / 100.0f;
             Mat adjustedImage = new Mat();
-
-            // Áp dụng điều chỉnh độ sáng và tương phản
             image.ConvertTo(adjustedImage, MatType.CV_8UC3, contrast, brightness);
 
             return adjustedImage;
         }
 
-        public async void OnBrightnessContrastChanged(object sender, PropertyChangedEventArgs e)
+        public void OnBrightnessContrastChanged(object sender, PropertyChangedEventArgs e)
         {
             float brightness = SelectedBrightnessContrast.Brightness;
             float contrast = SelectedBrightnessContrast.Contrast;
@@ -889,42 +984,12 @@ namespace Photo.ViewModels
             }
         }
 
-        //public void SelectPencilTool()
-        //{
-        //    DrawingStatus.IsEraser = false; // Không phải Tẩy
-        //    //CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
-        //    CurrentBrush = new SolidColorBrush(SelectedColor.Value); //SelectedColor có Name: string và Value: Scalar
-        //    StrokeThickness = 2; // Nét mỏng
-        //}
-
-        //public void SelectBrushTool()
-        //{
-        //    DrawingStatus.IsEraser = false; 
-        //    CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black); // Màu đen
-        //    StrokeThickness = 5; // Nét dày
-        //}
-
-        //public void SelectEraserTool()
-        //{
-        //    DrawingStatus.IsEraser = true; 
-        //    CurrentBrush = new SolidColorBrush(Microsoft.UI.Colors.White); // Màu trắng để xóa
-        //    StrokeThickness = 10; // Nét to
-        //}
-        //private void DrawLineOnMat(Point start, Point end)
-        //{
-
-        //    Mat newImage = Image.Clone();
-        //    var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : new Scalar(0, 0, 0);
-        //    var thickness = (int)StrokeThickness; 
-        //    Cv2.Line(newImage,new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
-        //    Image = newImage;
-        //    SaveAndClearDrawing();
-        //}
+     
         public void SelectPencilTool()
         {
             DrawingStatus.IsEraser = false;
             CurrentColor =SelectedColor.Value; 
-            StrokeThickness = 2; // Nét mỏng
+            StrokeThickness = 2; 
             
 
         }
@@ -932,8 +997,8 @@ namespace Photo.ViewModels
         public void SelectBrushTool()
         {
             DrawingStatus.IsEraser = false;
-            CurrentColor = SelectedColor.Value; // Màu đen
-            StrokeThickness = 5; // Nét dày
+            CurrentColor = SelectedColor.Value; 
+            StrokeThickness = 5; 
 
         }
 
@@ -941,7 +1006,7 @@ namespace Photo.ViewModels
         {
             DrawingStatus.IsEraser = true;
             CurrentColor = new Scalar(255, 255, 255); // Màu trắng
-            StrokeThickness = 10; // Nét to
+            StrokeThickness = 10; 
         }
 
         private void DrawLineOnMat(Point start, Point end)
@@ -951,9 +1016,10 @@ namespace Photo.ViewModels
             var thickness = (int)StrokeThickness;
             Cv2.Line(newImage, new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
             Image = newImage;
+            originalImage = Image.Clone();
             SaveAndClearDrawing();
         }
-
+       
         public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
 
         private Brush _currentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
@@ -967,7 +1033,6 @@ namespace Photo.ViewModels
             }
         }
 
-        public double StrokeThickness { get; set; } = 2.0;
 
         public void StartDrawing(double x, double y)
         {
@@ -1080,9 +1145,8 @@ namespace Photo.ViewModels
         // Method áp dụng style khi thay đổi
         private void ChangeStyle()
         {
-            
         
-                if(App.MainWindow.Content is Microsoft.UI.Xaml.FrameworkElement rootElement)
+            if(App.MainWindow.Content is Microsoft.UI.Xaml.FrameworkElement rootElement)
 {                   if (rootElement.RequestedTheme == ElementTheme.Dark)
                     {
                     rootElement.RequestedTheme = ElementTheme.Light;
@@ -1093,7 +1157,7 @@ namespace Photo.ViewModels
                         rootElement.RequestedTheme = ElementTheme.Dark;
 
                     }
-                }
+            }
 
 
 
@@ -1101,10 +1165,85 @@ namespace Photo.ViewModels
         public void SaveColor(Windows.UI.Color pickedColor)
         {
             // Convert Windows.UI.Color (ARGB) to OpenCV Scalar (BGR)
-            SelectedColor.Value = new Scalar(pickedColor.B, pickedColor.G, pickedColor.R); // BGR format
-            SelectedColor.Name = $"RGB({pickedColor.R},{pickedColor.G},{pickedColor.B})"; // Display RGB format for readability
+            SelectedColor.Value = new Scalar(pickedColor.B, pickedColor.G, pickedColor.R); 
+            SelectedColor.Name = $"RGB({pickedColor.R},{pickedColor.G},{pickedColor.B})";
                                                                                           // CurrentColor = SelectedColor.Value; // Uncomment if you want to store the selected color in a variable
             OnSelectedColorChanged();
+        }
+
+    
+        public void OpenGridTextBlock(string text, string font, int  size)
+        {
+            
+           
+            AddTextStatus.IsAddText = true;
+            AddTextStatus.isDragging = false;
+            AddTextStatus.FontSize = size;
+            AddTextStatus.FontFamily = font;
+            AddTextStatus.Text = text;
+            AddTextStatus.Color = SelectedColor.Value;
+
+         
+        }
+        public void AddTextToMat(Point position, string text, string font, int size)
+        {
+            // Kiểm tra text hợp lệ
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Debug.WriteLine("Text is empty or null. Skipping operation.");
+                return;
+            }
+
+            // Tạo bản sao của ảnh hiện tại
+            Mat newImage = Image.Clone();
+
+            // Xác định màu chữ
+            var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : CurrentColor;
+
+            // Tính toán độ dày nét chữ (thickness) dựa trên kích thước chữ
+            var thickness = Math.Max(1, size / 10);
+
+            // Tính toán tỷ lệ font (fontScale) từ kích thước chữ
+            var fontScale = size / 30.0 ;
+
+            // Xác định font chữ dựa trên tên font
+            HersheyFonts hersheyFont = font switch
+            {
+                "Simplex" => HersheyFonts.HersheySimplex,
+                "Plain" => HersheyFonts.HersheyPlain,
+                "Duplex" => HersheyFonts.HersheyDuplex,
+                "Complex" => HersheyFonts.HersheyComplex,
+                "Triplex" => HersheyFonts.HersheyTriplex,
+                "ComplexSmall" => HersheyFonts.HersheyComplexSmall,
+                "ScriptSimplex" => HersheyFonts.HersheyScriptSimplex,
+                "ScriptComplex" => HersheyFonts.HersheyScriptComplex,
+                _ => HersheyFonts.HersheySimplex
+            };
+
+            // Vẽ văn bản lên ảnh
+            Cv2.PutText(
+                newImage,  // Ảnh gốc
+                text,      // Nội dung text
+                position,  // Vị trí text
+                hersheyFont, // Loại font
+                fontScale, // Tỷ lệ chữ
+                color,     // Màu chữ
+                thickness  // Độ dày nét chữ
+            );
+
+            // Cập nhật lại ảnh trong ViewModel
+            Image = newImage;
+            originalImage = Image.Clone();
+            // Cập nhật trạng thái thêm text
+            AddTextStatus.IsAddText = false;
+
+            Debug.WriteLine($"Text added: '{text}' at position {position}, size {size}, font {font}");
+        }
+
+        public void AddTextCancel()
+        {
+            
+            AddTextStatus.IsAddText = false;
         }
 
         #endregion
@@ -1120,16 +1259,21 @@ namespace Photo.ViewModels
         private Visibility flipVisibility;
         private Visibility pictureStyleVisibility;
         private Visibility drawingToolVisibility;
+        private Visibility addTextVisibility;
         private ObservableCollection<ColorItem> colorCode;
         private ColorItem frameSelectedColor;
         private ColorItem selectedColor;
         private int borderThickness; 
         private Mat matTemp;
         private bool flag = false;
+        private bool canvasHitTestVisible;
         private BrightnessContrast brightnessContrast;
         private Drawing drawingStatus;
         private static Microsoft.Windows.ApplicationModel.Resources.ResourceLoader resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
         private bool _isDarkMode ;
+        private bool isDragging = true;
+        private AddText addTextStatus;
+        public double StrokeThickness { get; set; } = 2.0;
 
         #endregion
     }
