@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -28,6 +30,10 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI;
 using WinRT.Interop;
+using Color = System.Drawing.Color;
+using Point = OpenCvSharp.Point;
+using Brush = Microsoft.UI.Xaml.Media.Brush;
+
 
 namespace Photo.ViewModels
 {
@@ -44,6 +50,16 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(Image));
             }
         }
+        public Mat OriginalImage
+        {
+            get => originalImage;
+            set
+            {
+                originalImage = value;
+                OnPropertyChanged(nameof(OriginalImage));
+            }
+        }
+
         public Visibility CropVisibility
         {
             get => cropVisibility;
@@ -224,7 +240,25 @@ namespace Photo.ViewModels
                 OnPropertyChanged(nameof(AddTextStatus));
             }
         }
+        public int Span
+        {
+            get => span;
+            set
+            {
+                span = value;
+                OnPropertyChanged(nameof(Span));
+            }
+        }
 
+        public Visibility OriginVisibility
+        {
+            get => originVisibility;
+            set
+            {
+                originVisibility = value;
+                OnPropertyChanged(nameof(OriginVisibility));
+            }
+        }
         #endregion
 
         #region Constructor(s)
@@ -232,6 +266,7 @@ namespace Photo.ViewModels
         {
             #region Initialize
             BorderThickness = 1;
+            Span = 2;
             IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
             //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
             FrameSelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
@@ -390,6 +425,7 @@ namespace Photo.ViewModels
             AddTextStatus = new AddText() { IsAddText = false, IsDragging = false };
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
             OperationVisibility = Visibility.Collapsed;
+            OriginVisibility = Visibility.Collapsed;
             CropVisibility = Visibility.Collapsed;
             RotateVisibility = Visibility.Collapsed;
             FlipVisibility = Visibility.Collapsed;
@@ -397,7 +433,6 @@ namespace Photo.ViewModels
             BrightnessContrastVisibility = Visibility.Collapsed;
             DrawingToolVisibility = Visibility.Collapsed;
             AddTextVisibility = Visibility.Collapsed;
-
             #endregion
 
             #region CommonCommand(s)
@@ -406,15 +441,22 @@ namespace Photo.ViewModels
             ChangeLanguageCommand = new RelayCommand<string>(SetAppLanguage);
             ReloadCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+                OriginVisibility = Visibility.Collapsed;
+
                 Image = new Mat(ImagePath);
                 flag = false;
                 UpdateDrawingStatus(null);
                 AddTextStatus.IsAddText = false;
-
-
             });
             CropCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 CropVisibility = Visibility.Visible;
                 #endregion
@@ -426,6 +468,7 @@ namespace Photo.ViewModels
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = false;
@@ -435,6 +478,10 @@ namespace Photo.ViewModels
             });
             RotateCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 RotateVisibility = Visibility.Visible;
                 #endregion
@@ -446,6 +493,7 @@ namespace Photo.ViewModels
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = false;
@@ -456,6 +504,10 @@ namespace Photo.ViewModels
             });
             FlipCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 FlipVisibility = Visibility.Visible;
                 #endregion
@@ -467,6 +519,7 @@ namespace Photo.ViewModels
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = false;
@@ -477,6 +530,10 @@ namespace Photo.ViewModels
             });
             PictureStyleCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 PictureStyleVisibility = Visibility.Visible;
                 #endregion
@@ -488,6 +545,7 @@ namespace Photo.ViewModels
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = false;
@@ -497,6 +555,10 @@ namespace Photo.ViewModels
             });
             BrightnessContrastCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 BrightnessContrastVisibility = Visibility.Visible;
 
@@ -509,6 +571,7 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = false;
@@ -516,8 +579,31 @@ namespace Photo.ViewModels
                 AddTextStatus.IsAddText = false;
 
             });
+            CompareToOriginCommand = new RelayCommand(() =>
+            {
+                #region Common
+                Span = 1;
+                #endregion
+
+                #region Visible
+                OriginVisibility = Visibility.Visible;
+                #endregion
+
+                #region Collapsed
+                FlipVisibility = Visibility.Collapsed;
+                CropVisibility = Visibility.Collapsed;
+                RotateVisibility = Visibility.Collapsed;
+                PictureStyleVisibility = Visibility.Collapsed;
+                DrawingToolVisibility = Visibility.Collapsed;
+                AddTextVisibility = Visibility.Collapsed;
+                #endregion
+            });
             DrawingToolCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 DrawingToolVisibility = Visibility.Visible;
 
@@ -530,15 +616,19 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 AddTextVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
                 CanvasHitTestVisible = true;
                 #endregion
                 UpdateDrawingStatus(DrawingToolCommand);
                 AddTextStatus.IsAddText = false;
 
             });
-          
             AddTextCommand = new RelayCommand(() =>
             {
+                #region Common
+                Span = 2;
+                #endregion
+
                 #region Visible
                 AddTextVisibility = Visibility.Visible;
 
@@ -552,12 +642,14 @@ namespace Photo.ViewModels
                 PictureStyleVisibility = Visibility.Collapsed;
                 BrightnessContrastVisibility = Visibility.Collapsed;
                 DrawingToolVisibility = Visibility.Collapsed;
+                OriginVisibility = Visibility.Collapsed;
 
                 #endregion
                 CanvasHitTestVisible = true;
                 UpdateDrawingStatus(null);
 
             });
+
             //AddNewTextCommand = new RelayCommand(OpenGridTextBlock);
             #region CropLevelCommand(s)
             CropLevel1Command = new RelayCommand(CropImageLevel1);
@@ -586,8 +678,6 @@ namespace Photo.ViewModels
             StyleLevel6Command = new RelayCommand(PictureStyleLevel6);
             StyleLevel7Command = new RelayCommand(PictureStyleLevel7);
             StyleLevel8Command = new RelayCommand(PictureStyleLevel8);
-            StyleLevel9Command = new RelayCommand(PictureStyleLevel9);
-            StyleLevel10Command = new RelayCommand(PictureStyleLevel10);
 
             SetBorderCommand = new RelayCommand(SetBorder);
             #endregion
@@ -618,6 +708,7 @@ namespace Photo.ViewModels
         public ICommand FlipCommand { get; }
         public ICommand BrightnessContrastCommand { get; }
         public ICommand PictureStyleCommand { get; }
+        public ICommand CompareToOriginCommand { get; }
 
         public ICommand CropLevel1Command { get; }
         public ICommand CropLevel2Command { get; }
@@ -639,8 +730,6 @@ namespace Photo.ViewModels
         public ICommand StyleLevel6Command { get; }
         public ICommand StyleLevel7Command { get; }
         public ICommand StyleLevel8Command { get; }
-        public ICommand StyleLevel9Command { get; }
-        public ICommand StyleLevel10Command { get; }
 
         public ICommand SetBorderCommand { get; }
 
@@ -681,6 +770,7 @@ namespace Photo.ViewModels
                 if (file != null)
                 {
                     Image = new Mat(file.Path);
+                    OriginalImage = new Mat(file.Path);
 
                     string assetsPath = @"D:\Assets";
                     if (!Directory.Exists(assetsPath))
@@ -844,89 +934,198 @@ namespace Photo.ViewModels
             Image = dst;
             originalImage = Image.Clone();
         }
-        public void PictureStyle(string filePath)
+        public enum BorderStyle
         {
-            Mat borderPattern = Cv2.ImRead(filePath);
+            Solid,
+            CornerWrap,
+            DoubleBorder,
+            CornerFrame,
+            Zigzag,
+            Round,
+            Dashed,
+            Dotted,
+        }
 
-            if (borderPattern.Empty())
+        public void PictureStyle(BorderStyle borderStyle)
+        {
+            int imageWidth = Image.Width;
+            int imageHeight = Image.Height;
+            int borderThickness = Math.Max(imageWidth / 30, 5);
+
+            // Tạo Bitmap từ Mat gốc
+            Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(Image);
+
+            using (Graphics g = Graphics.FromImage(result))
             {
-                return;
-            }
+                // Thiết lập chất lượng cao
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-            int borderThickness = 10;
-
-            int newWidth = Image.Width + 2 * borderThickness;
-            int newHeight = Image.Height + 2 * borderThickness;
-
-            Mat imageWithBorder = new Mat(newHeight, newWidth, Image.Type());
-            imageWithBorder.SetTo(new Scalar(255, 255, 255));
-
-            for (int y = 0; y < newHeight; y++)
-            {
-                for (int x = 0; x < newWidth; x++)
+                switch (borderStyle)
                 {
-                    if (y < borderThickness || y >= newHeight - borderThickness ||
-                        x < borderThickness || x >= newWidth - borderThickness)
-                    {
-                        int patternY = y % borderPattern.Rows;
-                        int patternX = x % borderPattern.Cols;
+                    case BorderStyle.Solid:
+                        using (Pen pen = new Pen(Color.Green, borderThickness))
+                        {
+                            g.DrawRectangle(pen, 0, 0, imageWidth - 1, imageHeight - 1);
+                        }
+                        break;
 
-                        Vec3b borderPixel = borderPattern.Get<Vec3b>(patternY, patternX);
-                        imageWithBorder.Set(y, x, borderPixel);
-                    }
-                    else
-                    {
-                        int originalY = y - borderThickness;
-                        int originalX = x - borderThickness;
+                    case BorderStyle.CornerWrap:
+                        using (Pen pen = new Pen(Color.Yellow, borderThickness))
+                        {
+                            g.DrawArc(pen, 0, 0, borderThickness * 3, borderThickness * 3, 180, 90); // Góc trên trái
+                            g.DrawArc(pen, imageWidth - borderThickness * 3, 0, borderThickness * 3, borderThickness * 3, 270, 90); // Góc trên phải
+                            g.DrawArc(pen, 0, imageHeight - borderThickness * 3, borderThickness * 3, borderThickness * 3, 90, 90); // Góc dưới trái
+                            g.DrawArc(pen, imageWidth - borderThickness * 3, imageHeight - borderThickness * 3, borderThickness * 3, borderThickness * 3, 0, 90); // Góc dưới phải
+                            g.DrawLine(pen, 0, 0, imageWidth, 0); // Cạnh trên
+                            g.DrawLine(pen, 0, 0, 0, imageHeight); // Cạnh trái
+                            g.DrawLine(pen, imageWidth, 0, imageWidth, imageHeight); // Cạnh phải
+                            g.DrawLine(pen, 0, imageHeight, imageWidth, imageHeight); // Cạnh dưới
+                        }
+                        break;
 
-                        Vec3b imagePixel = Image.Get<Vec3b>(originalY, originalX);
-                        imageWithBorder.Set(y, x, imagePixel);
-                    }
+                    case BorderStyle.DoubleBorder:
+                        using (Pen penOuter = new Pen(Color.Black, borderThickness * 1.5f))
+                        using (Pen penMiddle = new Pen(Color.White, borderThickness))
+                        using (Pen penInner = new Pen(Color.Gray, borderThickness / 2))
+                        {
+                            g.DrawRectangle(penOuter, 0, 0, imageWidth - 1, imageHeight - 1);
+                            g.DrawRectangle(penMiddle, 0, 0, imageWidth - 1, imageHeight - 1);
+                            g.DrawRectangle(penInner, 0, 0, imageWidth - 1, imageHeight - 1);
+                        }
+                        break;
+
+                    case BorderStyle.CornerFrame:
+                        using (Pen pen = new Pen(Color.Blue, borderThickness))
+                        {
+                            g.DrawLine(pen, 0, 0, borderThickness * 3, 0); // Cạnh trên trái
+                            g.DrawLine(pen, 0, 0, 0, borderThickness * 3); // Cạnh trái trên
+
+                            g.DrawLine(pen, imageWidth - borderThickness * 3, 0, imageWidth, 0); // Cạnh trên phải
+                            g.DrawLine(pen, imageWidth, 0, imageWidth, borderThickness * 3); // Cạnh phải trên
+
+                            g.DrawLine(pen, 0, imageHeight - borderThickness * 3, 0, imageHeight); // Cạnh trái dưới
+                            g.DrawLine(pen, 0, imageHeight, borderThickness * 3, imageHeight); // Cạnh dưới trái
+
+                            g.DrawLine(pen, imageWidth - borderThickness * 3, imageHeight, imageWidth, imageHeight); // Cạnh dưới phải
+                            g.DrawLine(pen, imageWidth, imageHeight - borderThickness * 3, imageWidth, imageHeight); // Cạnh phải dưới
+                        }
+                        break;
+
+                    case BorderStyle.Zigzag:
+                        using (Pen pen = new Pen(Color.Orange, borderThickness))
+                        {
+                            // Vẽ zigzag cho viền trên
+                            for (int i = 0; i < imageWidth; i += 10)
+                            {
+                                g.DrawLine(pen, i, 0, i + 5, 5);
+                                g.DrawLine(pen, i + 5, 5, i + 10, 0);
+                            }
+
+                            // Vẽ zigzag cho viền dưới
+                            for (int i = 0; i < imageWidth; i += 10)
+                            {
+                                g.DrawLine(pen, i, imageHeight - 1, i + 5, imageHeight - 6);
+                                g.DrawLine(pen, i + 5, imageHeight - 6, i + 10, imageHeight - 1);
+                            }
+
+                            // Vẽ zigzag cho viền trái
+                            for (int i = 0; i < imageHeight; i += 10)
+                            {
+                                g.DrawLine(pen, 0, i, 5, i + 5);
+                                g.DrawLine(pen, 5, i + 5, 0, i + 10);
+                            }
+
+                            // Vẽ zigzag cho viền phải
+                            for (int i = 0; i < imageHeight; i += 10)
+                            {
+                                g.DrawLine(pen, imageWidth - 1, i, imageWidth - 6, i + 5);
+                                g.DrawLine(pen, imageWidth - 6, i + 5, imageWidth - 1, i + 10);
+                            }
+                        }
+                        break;
+
+                    case BorderStyle.Round:
+                        using (Pen pen = new Pen(Color.IndianRed, borderThickness))
+                        {
+                            int circleSize = borderThickness * 2;
+
+                            g.DrawEllipse(pen, 0, 0, circleSize, circleSize); // Vòng tròn góc trên trái
+                            g.DrawEllipse(pen, imageWidth - circleSize, 0, circleSize, circleSize); // Vòng tròn góc trên phải
+                            g.DrawEllipse(pen, 0, imageHeight - circleSize, circleSize, circleSize); // Vòng tròn góc dưới trái
+                            g.DrawEllipse(pen, imageWidth - circleSize, imageHeight - circleSize, circleSize, circleSize); // Vòng tròn góc dưới phải
+                            g.DrawLine(pen, 0, 0, imageWidth, 0); // Cạnh trên
+                            g.DrawLine(pen, 0, 0, 0, imageHeight); // Cạnh trái
+                            g.DrawLine(pen, imageWidth, 0, imageWidth, imageHeight); // Cạnh phải
+                            g.DrawLine(pen, 0, imageHeight, imageWidth, imageHeight); // Cạnh dưới
+                        }
+                        break;
+
+                    case BorderStyle.Dashed:
+                        using (Pen pen = new Pen(Color.Purple, borderThickness) { DashStyle = DashStyle.Dash })
+                        {
+                            g.DrawRectangle(pen, 0, 0, imageWidth - 1, imageHeight - 1);
+                        }
+                        break;
+
+                    case BorderStyle.Dotted:
+                        using (Pen pen = new Pen(Color.HotPink, borderThickness) { DashStyle = DashStyle.Dot })
+                        {
+                            g.DrawRectangle(pen, 0, 0, imageWidth - 1, imageHeight - 1);
+                        }
+                        break;
+
+                    default:
+                        break;
                 }
             }
-            Image = imageWithBorder;
-            originalImage = Image.Clone();
+
+            // Cập nhật ảnh kết quả
+            Image = OpenCvSharp.Extensions.BitmapConverter.ToMat(result);
         }
+
+        // Hàm sử dụng các kiểu viền
         public void PictureStyleLevel1()
         {
-            PictureStyle("D:\\Assets\\Boder\\border1.png");
+            PictureStyle(BorderStyle.Solid);
         }
+
         public void PictureStyleLevel2()
         {
-            PictureStyle("D:\\Assets\\Boder\\border2.png");
+            PictureStyle(BorderStyle.CornerWrap);
         }
+
         public void PictureStyleLevel3()
         {
-            PictureStyle("D:\\Assets\\Boder\\border3.png");
+            PictureStyle(BorderStyle.DoubleBorder);
         }
+
         public void PictureStyleLevel4()
         {
-            PictureStyle("D:\\Assets\\Boder\\border4.png");
+            PictureStyle(BorderStyle.CornerFrame);
         }
+
         public void PictureStyleLevel5()
         {
-            PictureStyle("D:\\Assets\\Boder\\border5.png");
+            PictureStyle(BorderStyle.Zigzag);
         }
+
         public void PictureStyleLevel6()
         {
-            PictureStyle("D:\\Assets\\Boder\\border6.png");
+            PictureStyle(BorderStyle.Round);
         }
+
         public void PictureStyleLevel7()
         {
-            PictureStyle("D:\\Assets\\Boder\\border7.png");
+            PictureStyle(BorderStyle.Dashed);
         }
+
         public void PictureStyleLevel8()
         {
-            PictureStyle("D:\\Assets\\Boder\\border8.png");
+            PictureStyle(BorderStyle.Dotted);
         }
-        public void PictureStyleLevel9()
-        {
-            PictureStyle("D:\\Assets\\Boder\\border9.png");
-        }
-        public void PictureStyleLevel10()
-        {
-            PictureStyle("D:\\Assets\\Boder\\border10.png");
-        }
+
         public void SetBorder()
         {
             if (flag == true)
@@ -1260,10 +1459,11 @@ namespace Photo.ViewModels
         private Visibility pictureStyleVisibility;
         private Visibility drawingToolVisibility;
         private Visibility addTextVisibility;
+        private Visibility originVisibility;
         private ObservableCollection<ColorItem> colorCode;
         private ColorItem frameSelectedColor;
         private ColorItem selectedColor;
-        private int borderThickness; 
+        private int borderThickness;
         private Mat matTemp;
         private bool flag = false;
         private bool canvasHitTestVisible;
@@ -1274,6 +1474,7 @@ namespace Photo.ViewModels
         private bool isDragging = true;
         private AddText addTextStatus;
         public double StrokeThickness { get; set; } = 2.0;
+        private int span;
 
         #endregion
     }

@@ -92,127 +92,150 @@
         <Button Content="Add Text"
                 Command="{Binding AddTextCommand}"
                 HorizontalAlignment="Stretch" />
+        <Button Content="Compare To Origin"
+                Command="{Binding CompareToOriginCommand}" 
+                HorizontalAlignment="Stretch" />
         <Button x:Uid="ReloadImageButton"
                 Command="{Binding ReloadCommand}"
                 HorizontalAlignment="Stretch" />
     </StackPanel>
 </Grid>
 
-
-        <Grid Grid.Column="2"
-              Grid.Row="1">
+        <Grid Grid.Column="2" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <ScrollViewer x:Name="scrollImageTarget"
-              HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Auto"
-              ZoomMode="Enabled"
-              MaxZoomFactor="5"
-              MinZoomFactor="1"
-              PointerWheelChanged="scrollImageTarget_PointerWheelChanged">
-                <Grid x:Name="DrawingArea" RenderTransformOrigin="0.5,0.5">
-                    <Grid.RenderTransform>
-                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1" />
-                    </Grid.RenderTransform>
-                    <Image x:Name="mainImage"
-                       Source="{Binding Image, Converter={StaticResource MatToBitmapSourceConverter}}"
-                       Margin="5"
-                       PointerMoved="mainImage_PointerMoved"
-                        >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- TextBlock cho hình ảnh đã chỉnh sửa -->
+                <TextBlock Text="Edited Image"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Visibility="{Binding OriginVisibility}"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="5"
+                           Grid.Column="0"
+                           Canvas.ZIndex="1"/>
+
+                 <!-- TextBlock cho hình ảnh gốc -->
+                 <TextBlock Text="Original Image"  
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Visibility="{Binding OriginVisibility}"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Margin="5"
+                            Grid.Column="1"
+                            Canvas.ZIndex="1"/>
+                <!-- ScrollViewer cho hình ảnh đã chỉnh sửa -->
+                <ScrollViewer x:Name="scrollImageTarget"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              ZoomMode="Enabled"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="{Binding Span}"
+                              MaxZoomFactor="5"
+                              MinZoomFactor="1"            
+                              PointerWheelChanged="scrollImageTarget_PointerWheelChanged">
+                    <Grid x:Name="DrawingArea" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1" />
+                        </Grid.RenderTransform>
+                        <Image x:Name="mainImage"
+                               Source="{Binding Image, Converter={StaticResource MatToBitmapSourceConverter}}"
+                               Margin="5"
+                               PointerMoved="mainImage_PointerMoved">
+                            <Image.RenderTransform>
+                                <ScaleTransform x:Name="imageScaleTransform" ScaleX="1" ScaleY="1" />
+                            </Image.RenderTransform>
+                        </Image>
+                        <Canvas x:Name="DrawingCanvas"
+                                Background="Transparent"
+                                PointerPressed="Canvas_PointerPressed"
+                                PointerMoved="Canvas_PointerMoved"
+                                PointerReleased="Canvas_PointerReleased"
+                                IsHitTestVisible="{Binding CanvasHitTestVisible}">
+                            <Grid x:Name="DraggableGrid" Width="Auto" Height="100" 
+                                  PointerPressed="OnGridPointerPressed"
+                                  PointerMoved="OnGridPointerMoved"
+                                  PointerReleased="OnGridPointerReleased"
+                                  Canvas.Left="100" 
+                                  Canvas.Top="100"
+                                  Visibility="{Binding AddTextStatus.IsAddText}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- TextBlock -->
+                                <TextBlock x:Name="DraggableGridTextBlock"
+                                           Text="{Binding AddTextStatus.Text}"
+                                           Foreground="{Binding AddTextStatus.Color, Converter={StaticResource ScalarToBrushConverter}}"
+                                           FontSize="{Binding AddTextStatus.FontSize}"
+                                           FontFamily="{Binding AddTextStatus.FontFamily, Converter={StaticResource HersheyFontConverter}}"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" />
+
+                                <!-- Buttons -->
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                                    <Button Content="Cancel" Click="CancelButton_Click"/>
+                                    <Button Content="OK" Click="OKButton_Click" />
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Các phần tử vẽ được hiển thị ở Canvas -->
+                            <ItemsControl ItemsSource="{Binding DrawingElements}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Text}" 
+                                                   FontSize="{Binding FontSize}"
+                                                   Canvas.Left="100" Canvas.Top="100"
+                                                   PointerPressed="TextBlock_PointerPressed"
+                                                   PointerMoved="TextBlock_PointerMoved"
+                                                   PointerReleased="TextBlock_PointerReleased" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Canvas>
+                    </Grid>
+                </ScrollViewer>
+                <!-- ScrollViewer cho hình ảnh gốc -->
+                <ScrollViewer x:Name="scrollImageOrigin"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              ZoomMode="Enabled"
+                              Grid.Column="1"
+                              BorderBrush="Gray"
+                              BorderThickness="1 0 0 0"
+                              Visibility="{Binding OriginVisibility}"
+                              MaxZoomFactor="5"
+                              MinZoomFactor="1"
+                              PointerWheelChanged="scrollImageOrigin_PointerWheelChanged">
+                    <Image x:Name="mainImageOrigin"
+                           Source="{Binding OriginalImage, Converter={StaticResource MatToBitmapSourceConverter}}"
+                           Margin="5"
+                           PointerMoved="mainImageOrigin_PointerMoved"
+                           RenderTransformOrigin="0.5,0.5">
                         <Image.RenderTransform>
-                            <ScaleTransform x:Name="imageScaleTransform" ScaleX="1" ScaleY="1" />
+                            <ScaleTransform x:Name="scaleTransformOrigin" ScaleX="1" ScaleY="1" />
                         </Image.RenderTransform>
                     </Image>
-                    <Canvas x:Name="DrawingCanvas"
-                        Background="Transparent"
-                        PointerPressed="Canvas_PointerPressed"
-                        PointerMoved="Canvas_PointerMoved"
-                        PointerReleased="Canvas_PointerReleased"
-                        IsHitTestVisible="{Binding CanvasHitTestVisible}">
-                        <Grid x:Name="DraggableGrid" Width="Auto" Height="100" 
-                              PointerPressed=" OnGridPointerPressed"
-                            PointerMoved="OnGridPointerMoved"
-                            PointerReleased="OnGridPointerReleased"
-                            Canvas.Left="100" 
-                            Canvas.Top="100"
-                              Visibility="{Binding AddTextStatus.IsAddText}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                </ScrollViewer>
+            </Grid>
 
-                            <!-- TextBlock -->
-                            <TextBlock 
-                                x:Name="DraggableGridTextBlock"
-                                Text="{Binding AddTextStatus.Text}"
-                                Foreground="{Binding AddTextStatus.Color,  Converter={StaticResource ScalarToBrushConverter}}"
-                                FontSize="{Binding AddTextStatus.FontSize}"
-                                FontFamily="{Binding AddTextStatus.FontFamily, Converter={StaticResource HersheyFontConverter}}"
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center" 
-                                
-                               />
-
-                            <!-- Buttons -->
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                                <Button Content="Cancel" Click="CancelButton_Click"/>
-                                <Button Content="OK" Click="OKButton_Click" />
-                            </StackPanel>
-                        </Grid>
-                        <!--
-                        <ItemsControl ItemsSource="{Binding TextElements}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                          
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    
-                                    <Grid x:Name ="TextBlockGrid" Canvas.Left="200" Canvas.Top="300"
-                                          PointerPressed="TextBlock_PointerPressed"
-                                            PointerMoved="TextBlock_PointerMoved"
-                                            PointerReleased="TextBlock_PointerReleased"
-                                          >
-                                        <TextBlock Text="{Binding Text}"  Foreground="Black"
-                                                   FontSize="{Binding FontSize}"
-                                               />
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button Content="OK"/>
-                                            <Button Content="Cancel"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>-->
-                        
-                        <ItemsControl ItemsSource="{Binding DrawingElements}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    
-                                    <TextBlock Text="{Binding Text}" 
-                                               FontSize="{Binding FontSize}"
-                                   Canvas.Left="100" Canvas.Top="100"
-                                   PointerPressed="TextBlock_PointerPressed"
-                                   PointerMoved="TextBlock_PointerMoved"
-                                   PointerReleased="TextBlock_PointerReleased" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                    </Canvas>
-
-                </Grid>
-            </ScrollViewer>
-            
+            <!-- StackPanel hiển thị tọa độ X và Y -->
             <StackPanel Grid.Row="1"
                         Orientation="Horizontal"
                         BorderBrush="Gray"
@@ -220,6 +243,7 @@
                 <TextBlock x:Name="XPo" />
                 <TextBlock x:Name="YPo" />
             </StackPanel>
+
         </Grid>
 
         <Grid Grid.Column="2"
@@ -227,22 +251,30 @@
               BorderBrush="Gray"
               BorderThickness="0 0 1 1">
             <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
                         Visibility="{Binding CropVisibility}">
                 <Button x:Uid="16_9Button"
-                        Command="{Binding CropLevel1Command}" />
+                        Command="{Binding CropLevel1Command}"
+                        Margin="5,0"/>
                 <Button x:Uid="4_3Button"
-                        Command="{Binding CropLevel2Command}" />
+                        Command="{Binding CropLevel2Command}"
+                        Margin="5,0"/>
                 <Button x:Uid="3_4Button"
-                        Command="{Binding CropLevel3Command}" />
+                        Command="{Binding CropLevel3Command}"
+                        Margin="5,0"/>
                 <Button x:Uid="1_1Button"
-                        Command="{Binding CropLevel4Command}" />
+                        Command="{Binding CropLevel4Command}"
+                        Margin="5,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
                         Visibility="{Binding RotateVisibility}">
                 <Button x:Uid="RotateClockwise90Button"
-                        Command="{Binding RotateLevel1Command}" />
+                        Command="{Binding RotateLevel1Command}"
+                        Margin="5,0"/>
                 <Button x:Uid="RotateCounterClockwise90Button"
-                        Command="{Binding RotateLevel2Command}" />
+                        Command="{Binding RotateLevel2Command}" 
+                        Margin="5,0"/>
             </StackPanel>
             <StackPanel  Visibility="{Binding BrightnessContrastVisibility}" Margin="6">
                 <TextBlock x:Uid="BrightnessText" Margin="0,10,0,0"/>
@@ -253,14 +285,19 @@
                         Value="{Binding SelectedBrightnessContrast.Contrast, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
                         Visibility="{Binding FlipVisibility}">
                 <Button x:Uid="FlipHorizontalButton"
-                        Command="{Binding FlipLevel1Command}" />
+                        Command="{Binding FlipLevel1Command}" 
+                        Margin="5,0"/>
                 <Button x:Uid="FlipVerticalButton"
-                        Command="{Binding FlipLevel2Command}" />
+                        Command="{Binding FlipLevel2Command}" 
+                        Margin="5,0"/>
                 <Button x:Uid="FlipHorizontalVerticalButton"
-                        Command="{Binding FlipLevel3Command}" />
+                        Command="{Binding FlipLevel3Command}" 
+                        Margin="5,0"/>
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center"
                         Visibility="{Binding DrawingToolVisibility}">
@@ -288,35 +325,31 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding PictureStyleVisibility}">
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Style1"
-                            Command="{Binding StyleLevel1Command}" />
-                        <Button Content="Style2"
-                            Command="{Binding StyleLevel2Command}" />
-                        <Button Content="Style3"
-                            Command="{Binding StyleLevel3Command}" />
-                        <Button Content="Style4"
-                            Command="{Binding StyleLevel4Command}" />
-                        <Button Content="Style5"
-                            Command="{Binding StyleLevel5Command}" />
+                <Button Content="Style1"
+                        Command="{Binding StyleLevel1Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style2"
+                        Command="{Binding StyleLevel2Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style3"
+                        Command="{Binding StyleLevel3Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style4"
+                        Command="{Binding StyleLevel4Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style5"
+                        Command="{Binding StyleLevel5Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style6"
+                        Command="{Binding StyleLevel6Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style7"
+                        Command="{Binding StyleLevel7Command}" 
+                        Margin="3,0"/>
+                <Button Content="Style8"
+                        Command="{Binding StyleLevel8Command}" 
+                        Margin="3,0"/>
 
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Style6"
-                            Command="{Binding StyleLevel6Command}" />
-                        <Button Content="Style7"
-                            Command="{Binding StyleLevel7Command}" />
-                        <Button Content="Style8"
-                            Command="{Binding StyleLevel8Command}" />
-                        <Button Content="Style9"
-                            Command="{Binding StyleLevel9Command}" />
-                        <Button Content="Style10"
-                            Command="{Binding StyleLevel10Command}" />
-                    </StackPanel>
-                </StackPanel>
-                
-              
                 <Border BorderBrush="Gray"
                         BorderThickness="1" />
                 <Grid Width="600">
