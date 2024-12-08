@@ -35,27 +35,31 @@
             <StackPanel Orientation="Horizontal">
 
                 <Button x:Uid="ImportButton"
-            Command="{Binding ImportImageCommand}" />
+                        Command="{Binding ImportImageCommand}" 
+                        CornerRadius="0"/>
                 <Button x:Uid="ExportButton"
-            Command="{Binding ExportImageCommand}"/>
-                <DropDownButton x:Uid="LanguageButton">
+                        Command="{Binding ExportImageCommand}"
+                        CornerRadius="0"/>
+                <DropDownButton x:Uid="LanguageButton" CornerRadius="0">
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
                             <MenuFlyoutItem x:Uid="EnglishItem"
                                             Command="{Binding ChangeLanguageCommand}"
-                                            CommandParameter="en-US"/>
+                                            CommandParameter="en-US"
+                                            CornerRadius="0"/>
                             <MenuFlyoutItem x:Uid="VietnameseItem"
                                             Command="{Binding ChangeLanguageCommand}"
-                                            CommandParameter="vi-VN"/>
+                                            CommandParameter="vi-VN"
+                                            CornerRadius="0"/>
                         </MenuFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
                 <Button x:Uid="ToggleTheme"
-            Command="{Binding ChangeStyleCommand}" />
+                        Command="{Binding ChangeStyleCommand}" 
+                        CornerRadius="0"/>
                
             </StackPanel>
         </Grid>
-        
         
         <Grid Grid.Column="0"
               Grid.Row="1"
@@ -68,36 +72,45 @@
         <Grid Grid.Column="1"
       Grid.Row="1"
       Grid.RowSpan="2"
-      BorderBrush="Gray"
+      BorderBrush="Black"
       BorderThickness="0 1 1 1">
     <StackPanel Visibility="{Binding OperationVisibility}">
         <Button x:Uid="CropButton"
                 Command="{Binding CropCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch"
+                CornerRadius="0"/>
         <Button x:Uid="RotateButton"
                 Command="{Binding RotateCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
         <Button x:Uid="FlipButton"
                 Command="{Binding FlipCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
         <Button x:Uid="PictureStyleButton"
                 Command="{Binding PictureStyleCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
         <Button x:Uid="BrightnessAndContrastButton"
                 Command="{Binding BrightnessContrastCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
         <Button x:Uid="DrawingToolsButton"
                 Command="{Binding DrawingToolCommand}"
-                HorizontalAlignment="Stretch" />
-        <Button Content="Add Text"
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
+        <Button x:Uid="AddTextButton"
                 Command="{Binding AddTextCommand}"
-                HorizontalAlignment="Stretch" />
-        <Button Content="Compare To Origin"
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
+        <Button x:Uid="CompareToOriginButton"
                 Command="{Binding CompareToOriginCommand}" 
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch" 
+                CornerRadius="0"/>
         <Button x:Uid="ReloadImageButton"
                 Command="{Binding ReloadCommand}"
-                HorizontalAlignment="Stretch" />
+                HorizontalAlignment="Stretch"
+                CornerRadius="0"/>
     </StackPanel>
 </Grid>
 
@@ -113,7 +126,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- TextBlock cho hình ảnh đã chỉnh sửa -->
-                <TextBlock Text="Edited Image"
+                <TextBlock x:Uid="EditedImage"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
                            Visibility="{Binding OriginVisibility}"
@@ -124,7 +137,7 @@
                            Canvas.ZIndex="1"/>
 
                  <!-- TextBlock cho hình ảnh gốc -->
-                 <TextBlock Text="Original Image"  
+                <TextBlock x:Uid="OriginalImage"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             Visibility="{Binding OriginVisibility}"
@@ -184,7 +197,7 @@
 
                                 <!-- Buttons -->
                                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                                    <Button Content="Cancel" Click="CancelButton_Click"/>
+                                    <Button x:Uid="CancelButton" Click="CancelButton_Click"/>
                                     <Button Content="OK" Click="OKButton_Click" />
                                 </StackPanel>
                             </Grid>
@@ -301,21 +314,21 @@
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center"
                         Visibility="{Binding DrawingToolVisibility}">
-                <Button  Width="120" Height="40" Command="{Binding PencilCommand}">
+                <Button  Width="120" Height="40" Command="{Binding PencilCommand}" Margin="5,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="✏️" FontSize="16" Margin="0,0,5,0"/>
                         <TextBlock x:Uid="PencilText" FontSize="16"/>
                     </StackPanel>
                 </Button>
 
-                <Button Width="120" Height="40" Command="{Binding BrushCommand}">
+                <Button Width="120" Height="40" Command="{Binding BrushCommand}" Margin="5,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🖌️" FontSize="16" Margin="0,0,5,0"/>
                         <TextBlock  x:Uid="BrushText" FontSize="16"/>
                     </StackPanel>
                 </Button>
 
-                <Button Width="120" Height="40" Command="{Binding EraserCommand}">
+                <Button Width="120" Height="40" Command="{Binding EraserCommand}" Margin="5,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🧽" FontSize="16" Margin="0,0,5,0"/>
                         <TextBlock  x:Uid="ErasorText" FontSize="16"/>
@@ -364,7 +377,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0"
                                Grid.Row="0"
-                               Text="Enter color:"
+                               x:Uid="EnterColorTextBlock"
                                VerticalAlignment="Center"
                                HorizontalTextAlignment="Center" />
                     <ComboBox Grid.Column="0"
@@ -377,7 +390,7 @@
                               SelectedItem="{Binding FrameSelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="0"
-                               Text="Enter Border Thickness:"
+                               x:Uid="EnterBorderThicknessTextBlock"
                                VerticalAlignment="Center"
                                HorizontalTextAlignment="Center" />
                     <TextBox Grid.Column="1"
@@ -387,10 +400,11 @@
                     <Button Grid.Column="2"
                             Grid.Row="0"
                             Grid.RowSpan="2"
-                            Content="Set"
+                            x:Uid="SetButton"
                             Command="{Binding SetBorderCommand}"
                             VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Center" />
+                            HorizontalContentAlignment="Center" 
+                            CornerRadius="0"/>
                 </Grid>
             </StackPanel>
 
@@ -415,7 +429,7 @@
                         <!-- TextBox -->
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Font: " />
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Font: "/>
                     <ComboBox Grid.Column="1" x:Name="FontSelector">
                         <ComboBoxItem Content="Simplex"/>
                         <ComboBoxItem Content="Plain"/>
@@ -428,7 +442,7 @@
                     </ComboBox>
 
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="Size:" Margin="10,0,0,0" />
-                    <TextBox Grid.Column="3" x:Name="SizeInput" Width="100" PlaceholderText="Nhập kích thước..." InputScope="Number" />
+                    <TextBox Grid.Column="3" x:Name="SizeInput" Width="100"  InputScope="Number" />
                 </Grid>
 
                 <!-- Phần nhập văn bản -->
@@ -439,9 +453,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Nhập văn bản:" />
-                    <TextBox Grid.Column="1" x:Name="TextInput" PlaceholderText="Nhập văn bản..." />
-                    <Button Grid.Column="2" x:Name="AddTextButton" Click="AddNewTextBlock" Content="Thêm vào" Margin="10,0,0,0" />
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Uid="EnterTextTextBlock" />
+                    <TextBox Grid.Column="1" x:Name="TextInput" PlaceholderText="Text" />
+                    <Button Grid.Column="2" x:Name="AddTextButton" Click="AddNewTextBlock" x:Uid="AddButton" Margin="10,0,0,0" CornerRadius="0" />
                 </Grid>
 
                 <!-- Canvas hoặc nội dung khác -->
@@ -458,7 +472,7 @@
             <StackPanel Orientation="Vertical">
               
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>Color:  </TextBlock>
+                    <TextBlock x:Uid="ColorTextBlock"></TextBlock>
                     <Ellipse 
                         Width="16" 
                         Height="16" 
@@ -484,7 +498,7 @@
 
 
                 </StackPanel>
-                <Button Click="OnShowColorPickerClicked">Color Picker</Button>
+                <Button Click="OnShowColorPickerClicked" x:Uid="ColorPickerButton">Color Picker</Button>
             </StackPanel>
                
         </Grid>

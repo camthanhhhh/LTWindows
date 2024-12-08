@@ -70,6 +70,16 @@ namespace Photo.ViewModels
             }
         }
 
+        public Mat OriginalImageFixed2
+        {
+            get => originalImageFixed2;
+            set
+            {
+                originalImageFixed2 = value;
+                OnPropertyChanged(nameof(OriginalImageFixed2));
+            }
+        }
+
         public Visibility CropVisibility
         {
             get => cropVisibility;
@@ -277,12 +287,12 @@ namespace Photo.ViewModels
             #region Initialize
             BorderThickness = 1;
             Span = 2;
-            IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
+            //IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
             //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
             FrameSelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             SelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             IsDragging = true;
-            
+            //CurrentBrush = new SolidColorBrush(Color.Black);
             ColorCode = new ObservableCollection<ColorItem>
             {
                 new ColorItem { Name = "AliceBlue", Value = Scalar.AliceBlue },
@@ -430,7 +440,7 @@ namespace Photo.ViewModels
             SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0, Contrast = 100 };
             //SelectedColor = ColorCode.FirstOrDefault();
 
-            DrawingCanvas = new Canvas();
+            //DrawingCanvas = new Canvas();
             DrawingStatus = new Drawing() { Status = false,IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 }; 
             AddTextStatus = new AddText() { IsAddText = false, IsDragging = false };
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
@@ -459,6 +469,7 @@ namespace Photo.ViewModels
                 Image = new Mat(ImagePath);
                 OriginalImage = new Mat(ImagePath);
                 OriginalImageFixed = new Mat(ImagePath);
+                OriginalImageFixed2 = new Mat(ImagePath);
                 flag = false;
                 UpdateDrawingStatus(null);
                 AddTextStatus.IsAddText = false;
@@ -705,7 +716,7 @@ namespace Photo.ViewModels
             ChangeStyleCommand = new RelayCommand(ChangeStyle);
 
             // Kiểm tra trạng thái theme hiện tại (Dark hay Light)
-            IsDarkMode = Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            //IsDarkMode = Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark;
 
             #endregion
         }
@@ -761,7 +772,6 @@ namespace Photo.ViewModels
         {
             
                 CurrentColor = SelectedColor.Value;
-            //CurrentBrush = SelectedColor.Value;
              
         }
         public async Task ImportImageAsync()
@@ -784,6 +794,7 @@ namespace Photo.ViewModels
                     Image = new Mat(file.Path);
                     OriginalImage = new Mat(file.Path);
                     OriginalImageFixed = new Mat(file.Path);
+                    OriginalImageFixed2 = new Mat(file.Path);
 
                     string assetsPath = @"D:\Assets";
                     if (!Directory.Exists(assetsPath))
@@ -812,6 +823,7 @@ namespace Photo.ViewModels
                     };
                     await dialog.ShowAsync();
                     originalImageFixed = Image.Clone();
+                    originalImageFixed2 = Image.Clone();
                 }
             }
             catch (Exception ex)
@@ -895,6 +907,7 @@ namespace Photo.ViewModels
 
             Image = cropped;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public void CropImageLevel1()
         {
@@ -918,6 +931,7 @@ namespace Photo.ViewModels
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Clockwise);
             Image = rotatedClockwise;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public void RotateLevel2()
         {
@@ -925,6 +939,7 @@ namespace Photo.ViewModels
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Counterclockwise);
             Image = rotatedClockwise;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public void FlipLevel1()
         {
@@ -932,6 +947,7 @@ namespace Photo.ViewModels
             Cv2.Flip(Image, dst, FlipMode.X);
             Image = dst;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public void FlipLevel2()
         {
@@ -939,6 +955,7 @@ namespace Photo.ViewModels
             Cv2.Flip(Image, dst, FlipMode.Y);
             Image = dst;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public void FlipLevel3()
         {
@@ -946,6 +963,7 @@ namespace Photo.ViewModels
             Cv2.Flip(Image, dst, FlipMode.XY);
             Image = dst;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
         }
         public enum BorderStyle
         {
@@ -961,14 +979,14 @@ namespace Photo.ViewModels
         public void LoadImage(Mat image)
         {
             Image = image.Clone();
-            OriginalImageFixed = image.Clone(); 
+            OriginalImageFixed2 = image.Clone(); 
         }
 
         public void PictureStyle(BorderStyle borderStyle)
         {
-            if (OriginalImageFixed != null)
+            if (OriginalImageFixed2 != null)
             {
-                Image = OriginalImageFixed.Clone();
+                Image = OriginalImageFixed2.Clone();
             }
 
             int imageWidth = Image.Width;
@@ -1106,6 +1124,7 @@ namespace Photo.ViewModels
 
             // Cập nhật ảnh kết quả
             Image = OpenCvSharp.Extensions.BitmapConverter.ToMat(result);
+            OriginalImageFixed = image.Clone();
         }
 
         // Hàm sử dụng các kiểu viền
@@ -1158,6 +1177,7 @@ namespace Photo.ViewModels
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
                 originalImageFixed = Image.Clone();
+                originalImageFixed2 = Image.Clone();
                 return;
             } else
             {
@@ -1167,6 +1187,7 @@ namespace Photo.ViewModels
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
                 originalImageFixed = Image.Clone();
+                originalImageFixed2 = Image.Clone();
                 flag = true;
             }
         }
@@ -1192,6 +1213,7 @@ namespace Photo.ViewModels
             Mat adjustedImage = AdjustBrightnessContrast(originalImageFixed, brightness, contrast);
             // Display in Image control
             Image = adjustedImage;
+            originalImageFixed2 = Image.Clone();
         }
         #region DrawingTools
 
@@ -1207,7 +1229,6 @@ namespace Photo.ViewModels
             }
         }
 
-     
         public void SelectPencilTool()
         {
             DrawingStatus.IsEraser = false;
@@ -1232,7 +1253,7 @@ namespace Photo.ViewModels
             StrokeThickness = 10; 
         }
 
-        private void DrawLineOnMat(Point start, Point end)
+        public void DrawLineOnMat(Point start, Point end)
         {
             Mat newImage = Image.Clone();
             var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : CurrentColor;
@@ -1240,18 +1261,17 @@ namespace Photo.ViewModels
             Cv2.Line(newImage, new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
             Image = newImage;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
             SaveAndClearDrawing();
         }
        
-        public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
 
-        private Brush _currentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
         public Brush CurrentBrush
         {
-            get => _currentBrush;
+            get => currentBrush;
             set
             {
-                _currentBrush = value;
+                currentBrush = value;
                 OnPropertyChanged(nameof(CurrentBrush));
             }
         }
@@ -1279,7 +1299,7 @@ namespace Photo.ViewModels
                     Y1 = startPoint.Y,
                     X2 = endPoint.X,
                     Y2 = endPoint.Y,
-                    Stroke = DrawingStatus.IsEraser ? new SolidColorBrush(Microsoft.UI.Colors.White) : CurrentBrush,
+                    //Stroke = DrawingStatus.IsEraser ? new SolidColorBrush(Microsoft.UI.Colors.White) : CurrentBrush,
                     StrokeThickness = StrokeThickness
                 };
 
@@ -1457,10 +1477,10 @@ namespace Photo.ViewModels
             // Cập nhật lại ảnh trong ViewModel
             Image = newImage;
             originalImageFixed = Image.Clone();
+            originalImageFixed2 = Image.Clone();
             // Cập nhật trạng thái thêm text
             AddTextStatus.IsAddText = false;
 
-            Debug.WriteLine($"Text added: '{text}' at position {position}, size {size}, font {font}");
         }
 
         public void AddTextCancel()
@@ -1472,9 +1492,13 @@ namespace Photo.ViewModels
         #endregion
 
         #region Private(s)
+        public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
+
+        private Brush currentBrush ;
         private Mat image;
         private Mat originalImage;
         private Mat originalImageFixed;
+        private Mat originalImageFixed2;
         private Canvas drawingCanvas;
         private Visibility brightnessContrastVisibility;
         private Visibility cropVisibility;

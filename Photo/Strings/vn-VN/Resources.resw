@@ -216,4 +216,40 @@
   <data name="ToggleTheme.Content" xml:space="preserve">
     <value>Chuyển đổi chủ đề</value>
   </data>
+  <data name="EditedImage.Text" xml:space="preserve">
+    <value>Ảnh đã chỉnh sửa</value>
+  </data>
+  <data name="OriginalImage.Text" xml:space="preserve">
+    <value>Ảnh gốc</value>
+  </data>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="EnterColorTextBlock.Text" xml:space="preserve">
+    <value>Chọn màu: </value>
+  </data>
+  <data name="EnterBorderThicknessTextBlock.Text" xml:space="preserve">
+    <value>Nhập độ dày: </value>
+  </data>
+  <data name="SetButton.Content" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="EnterTextTextBlock.Text" xml:space="preserve">
+    <value>Nhập văn bản: </value>
+  </data>
+  <data name="AddButton.Content" xml:space="preserve">
+    <value>Thêm vào</value>
+  </data>
+  <data name="ColorTextBlock.Text" xml:space="preserve">
+    <value>Màu: </value>
+  </data>
+  <data name="ColorPickerButton.Content" xml:space="preserve">
+    <value>Chọn màu:</value>
+  </data>
+  <data name="AddTextButton.Content" xml:space="preserve">
+    <value>Thêm văn bản</value>
+  </data>
+  <data name="CompareToOriginButton.Content" xml:space="preserve">
+    <value>So sánh ảnh gốc</value>
+  </data>
 </root>
