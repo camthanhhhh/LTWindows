@@ -267,12 +267,12 @@ namespace Photo.ViewModels
             #region Initialize
             BorderThickness = 1;
             Span = 2;
-            IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
+            //IsDarkMode = (Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark);
             //Microsoft.UI.Xaml.Application.Current.RequestedTheme = ApplicationTheme.Dark;
             FrameSelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             SelectedColor = new ColorItem() { Name = "Black", Value = Scalar.Black };
             IsDragging = true;
-            
+            //CurrentBrush = new SolidColorBrush(Color.Black);
             ColorCode = new ObservableCollection<ColorItem>
             {
                 new ColorItem { Name = "AliceBlue", Value = Scalar.AliceBlue },
@@ -420,7 +420,7 @@ namespace Photo.ViewModels
             SelectedBrightnessContrast = new BrightnessContrast() { Brightness = 0, Contrast = 100 };
             //SelectedColor = ColorCode.FirstOrDefault();
 
-            DrawingCanvas = new Canvas();
+            //DrawingCanvas = new Canvas();
             DrawingStatus = new Drawing() { Status = false,IsDrawing = false, IsEraser = false, LastX = 0, LastY = 0 }; 
             AddTextStatus = new AddText() { IsAddText = false, IsDragging = false };
             SelectedBrightnessContrast.PropertyChanged += OnBrightnessContrastChanged;
@@ -693,7 +693,7 @@ namespace Photo.ViewModels
             ChangeStyleCommand = new RelayCommand(ChangeStyle);
 
             // Kiểm tra trạng thái theme hiện tại (Dark hay Light)
-            IsDarkMode = Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            //IsDarkMode = Microsoft.UI.Xaml.Application.Current.RequestedTheme == ApplicationTheme.Dark;
 
             #endregion
         }
@@ -749,7 +749,6 @@ namespace Photo.ViewModels
         {
             
                 CurrentColor = SelectedColor.Value;
-            //CurrentBrush = SelectedColor.Value;
              
         }
         public async Task ImportImageAsync()
@@ -1208,7 +1207,7 @@ namespace Photo.ViewModels
             StrokeThickness = 10; 
         }
 
-        private void DrawLineOnMat(Point start, Point end)
+        public void DrawLineOnMat(Point start, Point end)
         {
             Mat newImage = Image.Clone();
             var color = DrawingStatus.IsEraser ? new Scalar(255, 255, 255) : CurrentColor;
@@ -1219,15 +1218,13 @@ namespace Photo.ViewModels
             SaveAndClearDrawing();
         }
        
-        public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
 
-        private Brush _currentBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
         public Brush CurrentBrush
         {
-            get => _currentBrush;
+            get => currentBrush;
             set
             {
-                _currentBrush = value;
+                currentBrush = value;
                 OnPropertyChanged(nameof(CurrentBrush));
             }
         }
@@ -1255,7 +1252,7 @@ namespace Photo.ViewModels
                     Y1 = startPoint.Y,
                     X2 = endPoint.X,
                     Y2 = endPoint.Y,
-                    Stroke = DrawingStatus.IsEraser ? new SolidColorBrush(Microsoft.UI.Colors.White) : CurrentBrush,
+                    //Stroke = DrawingStatus.IsEraser ? new SolidColorBrush(Microsoft.UI.Colors.White) : CurrentBrush,
                     StrokeThickness = StrokeThickness
                 };
 
@@ -1436,7 +1433,6 @@ namespace Photo.ViewModels
             // Cập nhật trạng thái thêm text
             AddTextStatus.IsAddText = false;
 
-            Debug.WriteLine($"Text added: '{text}' at position {position}, size {size}, font {font}");
         }
 
         public void AddTextCancel()
@@ -1448,6 +1444,9 @@ namespace Photo.ViewModels
         #endregion
 
         #region Private(s)
+        public ObservableCollection<Microsoft.UI.Xaml.UIElement> DrawingElements { get; set; } = new ObservableCollection<Microsoft.UI.Xaml.UIElement>();
+
+        private Brush currentBrush ;
         private Mat image;
         private Mat originalImage;
         private Canvas drawingCanvas;
