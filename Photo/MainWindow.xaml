@@ -84,15 +84,17 @@
                 Command="{Binding PictureStyleCommand}"
                 HorizontalAlignment="Stretch" />
         <Button x:Uid="BrightnessAndContrastButton"
+                FontSize="9"
                 Command="{Binding BrightnessContrastCommand}"
                 HorizontalAlignment="Stretch" />
         <Button x:Uid="DrawingToolsButton"
                 Command="{Binding DrawingToolCommand}"
                 HorizontalAlignment="Stretch" />
-        <Button Content="Add Text"
+        <Button x:Uid="AddTextButton"
                 Command="{Binding AddTextCommand}"
                 HorizontalAlignment="Stretch" />
-        <Button Content="Compare To Origin"
+        <Button x:Uid="CompareToOriginButton"
+                
                 Command="{Binding CompareToOriginCommand}" 
                 HorizontalAlignment="Stretch" />
         <Button x:Uid="ReloadImageButton"
@@ -113,7 +115,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- TextBlock cho hình ảnh đã chỉnh sửa -->
-                <TextBlock Text="Edited Image"
+                <TextBlock x:Uid="EditedImage"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
                            Visibility="{Binding OriginVisibility}"
@@ -124,7 +126,7 @@
                            Canvas.ZIndex="1"/>
 
                  <!-- TextBlock cho hình ảnh gốc -->
-                 <TextBlock Text="Original Image"  
+                <TextBlock x:Uid="OriginalImage"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             Visibility="{Binding OriginVisibility}"
@@ -184,7 +186,7 @@
 
                                 <!-- Buttons -->
                                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                                    <Button Content="Cancel" Click="CancelButton_Click"/>
+                                    <Button x:Uid="CancelButton" Click="CancelButton_Click"/>
                                     <Button Content="OK" Click="OKButton_Click" />
                                 </StackPanel>
                             </Grid>
@@ -364,7 +366,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0"
                                Grid.Row="0"
-                               Text="Enter color:"
+                               x:Uid="EnterColorTextBlock"
                                VerticalAlignment="Center"
                                HorizontalTextAlignment="Center" />
                     <ComboBox Grid.Column="0"
@@ -377,7 +379,7 @@
                               SelectedItem="{Binding FrameSelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="0"
-                               Text="Enter Border Thickness:"
+                               x:Uid="EnterBorderThicknessTextBlock"
                                VerticalAlignment="Center"
                                HorizontalTextAlignment="Center" />
                     <TextBox Grid.Column="1"
@@ -387,7 +389,7 @@
                     <Button Grid.Column="2"
                             Grid.Row="0"
                             Grid.RowSpan="2"
-                            Content="Set"
+                            x:Uid="SetButton"
                             Command="{Binding SetBorderCommand}"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center" />
@@ -428,7 +430,7 @@
                     </ComboBox>
 
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="Size:" Margin="10,0,0,0" />
-                    <TextBox Grid.Column="3" x:Name="SizeInput" Width="100" PlaceholderText="Nhập kích thước..." InputScope="Number" />
+                    <TextBox Grid.Column="3" x:Name="SizeInput" Width="100"  InputScope="Number" />
                 </Grid>
 
                 <!-- Phần nhập văn bản -->
@@ -439,9 +441,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Nhập văn bản:" />
-                    <TextBox Grid.Column="1" x:Name="TextInput" PlaceholderText="Nhập văn bản..." />
-                    <Button Grid.Column="2" x:Name="AddTextButton" Click="AddNewTextBlock" Content="Thêm vào" Margin="10,0,0,0" />
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Uid="EnterTextTextBlock" />
+                    <TextBox Grid.Column="1" x:Name="TextInput" PlaceholderText="Text" />
+                    <Button Grid.Column="2" x:Name="AddTextButton" Click="AddNewTextBlock" x:Uid="AddButton" Margin="10,0,0,0" />
                 </Grid>
 
                 <!-- Canvas hoặc nội dung khác -->
@@ -458,7 +460,7 @@
             <StackPanel Orientation="Vertical">
               
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>Color:  </TextBlock>
+                    <TextBlock x:Uid="ColorTextBlock"></TextBlock>
                     <Ellipse 
                         Width="16" 
                         Height="16" 
@@ -484,7 +486,7 @@
 
 
                 </StackPanel>
-                <Button Click="OnShowColorPickerClicked">Color Picker</Button>
+                <Button Click="OnShowColorPickerClicked" x:Uid="ColorPickerButton">Color Picker</Button>
             </StackPanel>
                
         </Grid>

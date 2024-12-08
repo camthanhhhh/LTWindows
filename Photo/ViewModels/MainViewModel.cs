@@ -965,10 +965,10 @@ namespace Photo.ViewModels
 
         public void PictureStyle(BorderStyle borderStyle)
         {
-            if (OriginalImageFixed != null)
-            {
-                Image = OriginalImageFixed.Clone();
-            }
+            //if (OriginalImageFixed != null)
+            //{
+            //    Image = OriginalImageFixed.Clone();
+            //}
 
             int imageWidth = Image.Width;
             int imageHeight = Image.Height;
@@ -1105,6 +1105,8 @@ namespace Photo.ViewModels
 
             // Cập nhật ảnh kết quả
             Image = OpenCvSharp.Extensions.BitmapConverter.ToMat(result);
+            OriginalImageFixed = image.Clone();
+
         }
 
         // Hàm sử dụng các kiểu viền

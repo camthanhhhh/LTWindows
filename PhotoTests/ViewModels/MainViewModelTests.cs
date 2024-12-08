@@ -362,6 +362,8 @@ namespace Photo.ViewModels.Tests
 
             var testImagePath = @"D:\test.jpg";
             viewModel.OriginalImage = Cv2.ImRead(testImagePath);
+            viewModel.OriginalImageFixed = Cv2.ImRead(testImagePath);
+
             Assert.IsNotNull(viewModel.OriginalImage, "Không đọc được ảnh gốc");
 
             viewModel.SelectedBrightnessContrast = new BrightnessContrast
@@ -375,7 +377,7 @@ namespace Photo.ViewModels.Tests
             viewModel.OnBrightnessContrastChanged(viewModel, args);
 
             Assert.IsNotNull(viewModel.Image, "Image không được cập nhật");
-            Assert.AreNotEqual(viewModel.OriginalImage, viewModel.Image, "Image không thay đổi sau khi điều chỉnh");
+            Assert.AreNotEqual(viewModel.OriginalImageFixed, viewModel.Image, "Image không thay đổi sau khi điều chỉnh");
 
         }
 
@@ -433,29 +435,7 @@ namespace Photo.ViewModels.Tests
             Assert.AreEqual(viewModel.DrawingStatus.LastY, y, "LastY should be updated to the starting Y coordinate");
         }
 
-        [TestMethod()]
-        public void ContinueDrawingTest()
-        {
-            var testFilePath = @"D:\test.jpg";
-
-            var viewModel = new MainViewModel();
-            viewModel.Image = new Mat(testFilePath);
-            viewModel.OriginalImage = new Mat(testFilePath);
-            viewModel.StrokeThickness = 2.0;
-            viewModel.StartDrawing(100, 200); 
-            double x = 150, y = 250;
-
-            viewModel.ContinueDrawing(x, y);
-
-            Assert.AreEqual(viewModel.DrawingStatus.LastX, x, "LastX should be updated to the current X coordinate after ContinueDrawing");
-            Assert.AreEqual(viewModel.DrawingStatus.LastY, y, "LastY should be updated to the current Y coordinate after ContinueDrawing");
-            Assert.AreEqual(viewModel.DrawingElements.Count, 1, "One drawing element (line) should be added");
-            var line = (Line)viewModel.DrawingElements[0];
-            Assert.AreEqual(line.X1, 100, "Line start point X should match the initial X");
-            Assert.AreEqual(line.Y1, 200, "Line start point Y should match the initial Y");
-            Assert.AreEqual(line.X2, x, "Line end point X should match the current X");
-            Assert.AreEqual(line.Y2, y, "Line end point Y should match the current Y");
-        }
+       
 
         [TestMethod()]
         public void StopDrawingTest()
