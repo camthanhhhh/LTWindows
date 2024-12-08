@@ -124,7 +124,7 @@
     <value>Rotate</value>
   </data>
   <data name="FlipButton.Content" xml:space="preserve">
-    <value>Rotate</value>
+    <value>Flip</value>
   </data>
   <data name="PictureStyleButton.Content" xml:space="preserve">
     <value>Picture Style</value>

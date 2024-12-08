@@ -60,6 +60,16 @@ namespace Photo.ViewModels
             }
         }
 
+        public Mat OriginalImageFixed
+        {
+            get => originalImageFixed;
+            set
+            {
+                originalImageFixed = value;
+                OnPropertyChanged(nameof(OriginalImageFixed));
+            }
+        }
+
         public Visibility CropVisibility
         {
             get => cropVisibility;
@@ -447,6 +457,8 @@ namespace Photo.ViewModels
                 OriginVisibility = Visibility.Collapsed;
 
                 Image = new Mat(ImagePath);
+                OriginalImage = new Mat(ImagePath);
+                OriginalImageFixed = new Mat(ImagePath);
                 flag = false;
                 UpdateDrawingStatus(null);
                 AddTextStatus.IsAddText = false;
@@ -771,6 +783,7 @@ namespace Photo.ViewModels
                 {
                     Image = new Mat(file.Path);
                     OriginalImage = new Mat(file.Path);
+                    OriginalImageFixed = new Mat(file.Path);
 
                     string assetsPath = @"D:\Assets";
                     if (!Directory.Exists(assetsPath))
@@ -798,7 +811,7 @@ namespace Photo.ViewModels
                         XamlRoot = App.MainWindow.Content.XamlRoot
                     };
                     await dialog.ShowAsync();
-                    originalImage = Image.Clone();
+                    originalImageFixed = Image.Clone();
                 }
             }
             catch (Exception ex)
@@ -881,7 +894,7 @@ namespace Photo.ViewModels
             Mat cropped = new Mat(Image, roi);
 
             Image = cropped;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public void CropImageLevel1()
         {
@@ -904,35 +917,35 @@ namespace Photo.ViewModels
             Mat rotatedClockwise = new Mat();
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Clockwise);
             Image = rotatedClockwise;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public void RotateLevel2()
         {
             Mat rotatedClockwise = new Mat();
             Cv2.Rotate(Image, rotatedClockwise, RotateFlags.Rotate90Counterclockwise);
             Image = rotatedClockwise;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public void FlipLevel1()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.X);
             Image = dst;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public void FlipLevel2()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.Y);
             Image = dst;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public void FlipLevel3()
         {
             Mat dst = new Mat();
             Cv2.Flip(Image, dst, FlipMode.XY);
             Image = dst;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
         }
         public enum BorderStyle
         {
@@ -945,9 +958,19 @@ namespace Photo.ViewModels
             Dashed,
             Dotted,
         }
+        public void LoadImage(Mat image)
+        {
+            Image = image.Clone();
+            OriginalImageFixed = image.Clone(); 
+        }
 
         public void PictureStyle(BorderStyle borderStyle)
         {
+            if (OriginalImageFixed != null)
+            {
+                Image = OriginalImageFixed.Clone();
+            }
+
             int imageWidth = Image.Width;
             int imageHeight = Image.Height;
             int borderThickness = Math.Max(imageWidth / 30, 5);
@@ -1134,7 +1157,7 @@ namespace Photo.ViewModels
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
-                        originalImage = Image.Clone();
+                originalImageFixed = Image.Clone();
                 return;
             } else
             {
@@ -1143,10 +1166,11 @@ namespace Photo.ViewModels
                 Cv2.CopyMakeBorder(matTemp, imageWithBorder, BorderThickness, BorderThickness,
                     BorderThickness, BorderThickness, BorderTypes.Constant, FrameSelectedColor.Value);
                 Image = imageWithBorder;
-                originalImage = Image.Clone();
+                originalImageFixed = Image.Clone();
                 flag = true;
             }
         }
+
         public static Mat AdjustBrightnessContrast(Mat image, float brightnessValue, float contrastValue)
         {
         
@@ -1164,12 +1188,12 @@ namespace Photo.ViewModels
             float contrast = SelectedBrightnessContrast.Contrast;
 
             // Adjust brightness and contrast
-            Mat adjustedImage = AdjustBrightnessContrast(originalImage, brightness, contrast);
+            Mat imageWith = new Mat();
+            Mat adjustedImage = AdjustBrightnessContrast(originalImageFixed, brightness, contrast);
             // Display in Image control
             Image = adjustedImage;
         }
         #region DrawingTools
-
 
 
         private Scalar _currentColor = new Scalar(0, 0, 0); // Màu đen mặc định
@@ -1215,7 +1239,7 @@ namespace Photo.ViewModels
             var thickness = (int)StrokeThickness;
             Cv2.Line(newImage, new OpenCvSharp.Point(start.X, start.Y), new OpenCvSharp.Point(end.X, end.Y), color, thickness);
             Image = newImage;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
             SaveAndClearDrawing();
         }
        
@@ -1432,7 +1456,7 @@ namespace Photo.ViewModels
 
             // Cập nhật lại ảnh trong ViewModel
             Image = newImage;
-            originalImage = Image.Clone();
+            originalImageFixed = Image.Clone();
             // Cập nhật trạng thái thêm text
             AddTextStatus.IsAddText = false;
 
@@ -1450,6 +1474,7 @@ namespace Photo.ViewModels
         #region Private(s)
         private Mat image;
         private Mat originalImage;
+        private Mat originalImageFixed;
         private Canvas drawingCanvas;
         private Visibility brightnessContrastVisibility;
         private Visibility cropVisibility;
